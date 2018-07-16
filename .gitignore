@@ -16,7 +16,10 @@
 .env.test.local
 .env.production.local
 
+# WebStorm files
 .idea/
+
+# /mock-up
 
 npm-debug.log*
 yarn-debug.log*

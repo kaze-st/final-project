@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 
-class SingInForm extends Component {
+class SignInForm extends Component {
 
     render() {
         return (<form>
@@ -31,4 +31,4 @@ class SingInForm extends Component {
     }
 }
 
-export default SingInForm;
+export default SignInForm;

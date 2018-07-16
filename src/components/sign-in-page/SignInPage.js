@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import SingInForm from "./SingInForm";
+import SignInForm from "./SignInForm";
 import logo from "../../img/logo.png";
 class SignInPage extends Component {
 
@@ -15,14 +15,13 @@ class SignInPage extends Component {
                 </div>
 
                 <div id="content">
-
                     <div className="row">
                         <div className="container-fluid">
 
                             <div className="line"></div>
 
                             <div className="container justify-content-between">
-                                <SingInForm/>
+                                <SignInForm/>
                             </div>
                         </div>
                     </div>

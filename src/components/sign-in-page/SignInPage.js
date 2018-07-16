@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import SignInForm from "./SignInForm";
 import logo from "../../img/logo.png";
+
 class SignInPage extends Component {
 
     render() {
@@ -21,7 +22,7 @@ class SignInPage extends Component {
                             <div className="line"></div>
 
                             <div className="container justify-content-between">
-                                <SignInForm/>
+                                <SingInForm handleSignIn={this.props.handleSignIn} handleSignUp={this.props.handleSignUp}/>
                             </div>
                         </div>
                     </div>

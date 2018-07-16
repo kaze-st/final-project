@@ -2,31 +2,95 @@ import React, {Component} from 'react';
 
 class SignInForm extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            'email': undefined,
+            'password': undefined,
+            'handle': undefined,
+            'avatar': '' //default to blank value;
+        }
+    }
+
+    handleInputChange(event) {
+        let field = event.target.name; //which input
+        let value = event.target.value; //what value
+
+        let changes = {}; //object to hold changes
+        changes[field] = value; //change this field
+        this.setState(changes); //update state
+    }
+
+    //handle signUp button
+    signUpChange(event) {
+        console.log("sign up called");
+        event.preventDefault(); //don't submit
+        let avatar = this.state.avatar || 'img/no-user-pic.png'; //default to local pic
+        this.props.handleSignUp(this.state.email, this.state.password, this.state.handle, avatar);
+    }
+
+    //handle signIn button
+    signInChange(event) {
+        console.log("sign in called");
+        event.preventDefault(); //don't submit
+        this.props.handleSignIn(this.state.email, this.state.password);
+    }
+
     render() {
         return (<form>
             <div className="form-group">
                 <label htmlFor="exampleInputEmail1">Email address</label>
-                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
-                       placeholder="Enter email" />
-                    <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
+                <input  className="form-control"
+                        id="email"
+                        type="email"
+                        name="email"
+                        aria-describedby="emailHelp"
+                       placeholder="Enter email" onChange={(event) => {
+                    this.handleInputChange(event)
+                }}/>
+                <small id="emailHelp" className="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
             <div className="form-group">
                 <label htmlFor="exampleInputPassword1">Password</label>
-                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Password"/>
+                <input className="form-control"
+                       id="password"
+                       type="password"
+                       name="password"
+                       onChange={(event) => {
+                           this.handleInputChange(event)
+                       }}/>
             </div>
 
             <div className="form-group">
                 <label htmlFor="exampleInputPassword1">Username</label>
-                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Username"/>
+                <input className="form-control"
+                       id="handle"
+                       name="handle"
+                       onChange={(event) => {
+                           this.handleInputChange(event)
+                       }}/>
             </div>
 
             <div className="form-group">
                 <label htmlFor="exampleInputPassword1">Avatar</label>
-                <input type="password" className="form-control" id="exampleInputPassword1" placeholder="Avatar"/>
+                <input className="form-control"
+                       id="avatar"
+                       name="avatar"
+                       placeholder="http://www.example.com/my-picture.jpg"
+                       onChange={(event) => {
+                    this.handleInputChange(event)
+                }}/>
             </div>
 
-            <button type="submit" style={{marginRight: '10px'}} className="btn btn-success">Sign in</button>
-            <button type="submit" className="btn btn-success">Sign Up</button>
+            <button type="submit" style={{marginRight: '10px'}} className="btn btn-success" onClick={(event) => {
+                this.signInChange(event)
+            }}>Sign in
+            </button>
+            <button type="submit" className="btn btn-success" onClick={(event) => {
+                this.signUpChange(event)
+            }}>Sign Up
+            </button>
         </form>);
     }
 }

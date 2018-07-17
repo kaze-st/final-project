@@ -38,7 +38,8 @@ class SignInForm extends Component {
     }
 
     render() {
-        return (<form>
+        return (
+        <form>
             <div className="form-group">
                 <label htmlFor="exampleInputEmail1">Email address</label>
                 <input  className="form-control"

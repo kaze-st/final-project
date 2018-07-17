@@ -59,19 +59,16 @@ class App extends Component {
             }
         ).then(
             () => {
-                this.setState({newUser: true});
                 let currUID = firebase.auth().currentUser.uid;
                 let usersRef = firebase.database().ref('users').child(currUID);
                 let newUserObj = {};
                 newUserObj.email = email;
-                newUserObj.password = password;
                 newUserObj.handle = handle;
                 newUserObj.avatar = avatar;
                 console.log(usersRef);
                 return usersRef.set(newUserObj);
-
             }
-        ).catch((err) => {
+        ).then(() => this.setState({newUser: true})).catch((err) => {
             this.setState({ errorMessage: err.message });
         });
 
@@ -119,7 +116,7 @@ class App extends Component {
                                     <Route exact path="/" component={HomePage} />
                                     <Route path="/home" component={HomePage} />
                                     <Route path="/trade" component={TradePage} />
-                                    <Route path={"/profile/:uid"} render={(routerProps) => { 
+                                    <Route exact path={"/profile/:uid"} render={(routerProps) => { 
                                         return <ProfilePage {...routerProps} 
                                                             currentUser={this.state.user} 
                                                             toggleNewUser={() => this.toggleNewUser()}/> }} />
@@ -127,6 +124,10 @@ class App extends Component {
                                         return <ChatPage {...routerProps} currentUser={this.state.user} />
                                     }
                                     } />
+                                    <Route path="/profile/:uid/edit" render={(routerProps) => { 
+                                                return <ProfileForm {...routerProps}
+                                                                    toggleNewUser={() => this.toggleNewUser()}/> }} />
+                                            
                                     <Redirect to="/" />
                                 </Switch>
                             }

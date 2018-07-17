@@ -1,7 +1,13 @@
 import React, {Component} from 'react';
+import { NavLink } from 'react-router-dom';
+
 import firebase from 'firebase/app';
 
-
+/**
+ * props:
+ * uid- uid of editing user
+ * toggleNewUser- callback to declare user profile filled out
+ */
 class ProfileForm extends Component {
     
     constructor(props) {
@@ -23,10 +29,12 @@ class ProfileForm extends Component {
         e.preventDefault();
 
         // reference to my current profile
-        let currentUserRef = firebase.database().ref('users').child(this.props.uid);
-        console.log("user: " + currentUserRef);
-        console.log("state: " + this.state);
+        let currentUserRef = firebase.database().ref('users').child(this.props.match.params.uid);
+        console.log(this.state);
         currentUserRef.update(this.state);
+
+        // log profile as completed
+        this.props.toggleNewUser();
     }
     
     render() {
@@ -54,7 +62,7 @@ class ProfileForm extends Component {
                                 <div className="form-group">
                                     <label for="personal information">Personal Bio</label>
                                     <textarea className="form-control" 
-                                                id="bio" 
+                                                name="bio" 
                                                 rows="3" 
                                                 onChange={(e) => this.handleInputChange(e)}></textarea>
                                 </div>
@@ -99,7 +107,11 @@ class ProfileForm extends Component {
                         </div>
                         <button type="button" 
                                 className="btn btn-outline-info" 
-                                onClick={(e) => this.updateUserProfile(e)}>Submit Changes</button>
+                                onClick={(e) => this.updateUserProfile(e)}>
+                                <NavLink exact to={"/profile/" + this.props.match.params.uid}>
+                                Submit Changes
+                                </NavLink>
+                        </button>
                     </div>
                 </div>
                 <div className="line"></div>

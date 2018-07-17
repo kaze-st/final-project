@@ -13,6 +13,7 @@ import NavBar from "./components/NavBar";
 import firebase from 'firebase/app';
 //logo
 import logo from './img/logo.png'
+import ProfileForm from './components/profile/ProfileForm';
 
 
 class App extends Component {
@@ -44,7 +45,7 @@ class App extends Component {
 
         firebase.auth().signInWithEmailAndPassword(email, password).catch(
             (err) => {
-                this.setState({ errorMessage: err.message });
+                this.setState({ errorMessage: err.message});
             }
         );
     }
@@ -58,6 +59,7 @@ class App extends Component {
             }
         ).then(
             () => {
+                this.setState({newUser: true});
                 let currUID = firebase.auth().currentUser.uid;
                 let usersRef = firebase.database().ref('users').child(currUID);
                 let newUserObj = {};
@@ -73,6 +75,10 @@ class App extends Component {
             this.setState({ errorMessage: err.message });
         });
 
+    }
+
+    toggleNewUser() {
+        this.setState({newUser: false});
     }
 
     handleSignOut() {
@@ -98,23 +104,32 @@ class App extends Component {
         } else { // else
             content =
                 <div className="wrapper">
-                    <NavBar handle={this.state.user.displayName} logout={() => this.handleSignOut()} />
+                    <NavBar uid={this.state.user.uid} logout={() => this.handleSignOut()} />
                     <main>
                         <div id="content">
                             <div id="logo" className="d-flex justify-content-between">
                                 <img src={logo} alt="logo" />
                             </div>
-                            <Switch>
-                                <Route exact path="/" component={HomePage} />
-                                <Route path="/home" component={HomePage} />
-                                <Route path="/trade" component={TradePage} />
-                                <Route path={"/profile/:name"} render={(routerProps) => { return <ProfilePage {...routerProps} currentUser={this.state.user} /> }} />
-                                <Route path="/chat" render={(routerProps) => {
-                                    return <ChatPage {...routerProps} currentUser={this.state.user} />
-                                }
-                                } />
-                                <Redirect to="/" />
-                            </Switch>
+                            {this.state.newUser ? 
+                                // new user logs info into profile
+                                <ProfileForm uid={this.state.user.uid} toggleNewUser={() => this.toggleNewUser()}/> 
+                                :
+                                // returning user lands on home page
+                                <Switch>
+                                    <Route exact path="/" component={HomePage} />
+                                    <Route path="/home" component={HomePage} />
+                                    <Route path="/trade" component={TradePage} />
+                                    <Route path={"/profile/:uid"} render={(routerProps) => { 
+                                        return <ProfilePage {...routerProps} 
+                                                            currentUser={this.state.user} 
+                                                            toggleNewUser={() => this.toggleNewUser()}/> }} />
+                                    <Route path="/chat" render={(routerProps) => {
+                                        return <ChatPage {...routerProps} currentUser={this.state.user} />
+                                    }
+                                    } />
+                                    <Redirect to="/" />
+                                </Switch>
+                            }
                             {/* footer */}
                             <footer class="container text-center">
                                 <small>API from

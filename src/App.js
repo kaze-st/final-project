@@ -5,7 +5,7 @@ import SignInPage from "./components/sign-in-page/SignInPage";
 import HomePage from "./components/home-page/HomePage";
 import ProfilePage from "./components/profile/ProfilePage";
 import TradePage from "./components/trade/TradePage";
-import ChatPage from "./components/chat/ChatPage";
+import ChatPage from "./components/group-chat/ChatPage";
 import NavBar from "./components/NavBar";
 import firebase from 'firebase/app';
 
@@ -49,6 +49,18 @@ class App extends Component {
         firebase.auth().createUserWithEmailAndPassword(email, password).then(
             () => {
                 return firebase.auth().currentUser.updateProfile({displayName: handle, photoURL: avatar})
+            }
+        ).then(
+            () => {
+                let usersRef = firebase.database().ref('users');
+                let newUserObj = {};
+                newUserObj.email = email;
+                newUserObj.password = password;
+                newUserObj.handle = handle;
+                newUserObj.avatar = avatar;
+                return usersRef.push(newUserObj);
+
+
             }
         ).catch((err) => {
             this.setState({errorMessage: err.message});

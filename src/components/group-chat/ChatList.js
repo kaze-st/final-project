@@ -55,7 +55,7 @@ class ChatItem extends Component {
                 </div>
         } else {
             messageType = <div className="incoming_msg">
-                <div className="incoming_msg_img"><img src={this.props.currentUser.photoURL} alt="sunil"/></div>
+                <div className="incoming_msg_img"><img src={this.props.message.userPhoto} alt="sunil"/></div>
                 <div className="received_msg">
                     <div className="received_withd_msg">
                         <p>{this.props.message.text}</p>

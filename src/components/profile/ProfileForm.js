@@ -1,0 +1,123 @@
+import React, {Component} from 'react';
+import firebase from 'firebase/app';
+
+
+class ProfileForm extends Component {
+    
+    constructor(props) {
+        super(props);
+
+        // reference to my current profile
+        console.log(this.props.currentHandle);
+        let usersRef = firebase.database().ref().child('users');
+        let currentProfile = usersRef[this.props.currentHandle];
+        console.log(currentProfile);
+
+        this.state = {
+            email: undefined,
+            password: undefined,
+            handle: undefined,
+            avatar: '',
+            bio: '',
+            tradeOffer: '',
+            name: undefined,
+            contribution: 0,
+        }
+    }
+
+    handleInputChange(event) {
+        let field = event.target.name; //which input
+        let value = event.target.value; //what value
+
+        let changes = {}; //object to hold changes
+        changes[field] = value; //change this field
+        this.setState(changes); //update state
+    }
+
+    updateUserProfile(e) {
+        e.preventDefault();
+
+        let currentProfileRef = firebase.database().ref().child('users');
+        currentProfileRef.set(this.state.userProfile);
+    }
+    
+    render() {
+        return (
+            <div id="content">
+                {/* <!-- profile image --> */}
+                <div id="profile" className="container-fluid">
+                    <div className="row">
+                        <div className="col-6">
+                            {/* <!-- start avatar and bio --> */}
+                            <form>
+                                <div className="im-g">
+                                    <img src={this.state.userProfile.photoURL} 
+                                        alt="profile picture" />
+                                </div>
+                                <div className="col-md-6 form-group">
+                                    <label for="firstname">Profile Picture URL</label>
+                                    <input onChange={(e) => this.handleInputChange(e)} 
+                                            type="text" 
+                                            name="photo"
+                                            className="form-control" 
+                                            placeholder="Url here" 
+                                            aria-label="fill in profile picture URL" />
+                                </div>
+                                <div className="form-group">
+                                    <label for="personal information">Personal Bio</label>
+                                    <textarea className="form-control" 
+                                                id="bio" 
+                                                rows="3" 
+                                                onChange={(e) => this.handleInputChange(e)}></textarea>
+                                </div>
+                            </form>
+                            {/* <!-- end avatar and bio --> */}
+                        </div>
+
+                        <div className="col-6">
+                            <div className="first-line agileits">
+                                {/* <!-- name --> */}
+                                <div className="col-md-6 form-group">
+                                    <label for="name">Full Name</label>
+                                    <input onChange={(e) => this.handleInputChange(e)} 
+                                            type="text" 
+                                            name="name"
+                                            className="form-control" 
+                                            placeholder="Full name" 
+                                            aria-label="fill in name" />
+                                </div>
+                                {/* <!-- monel pool contribution --> */}
+                                <label for="Remaining">Set weekly money pool contribution</label>
+                                <div className="input-group">
+                                    <div className="input-group-append">
+                                        <span className="input-group-text">$10.00 &le; </span>
+                                    </div>
+                                    <input onChange={(e) => this.handleInputChange(e)} 
+                                            type="text" 
+                                            name="contribution"
+                                            className="form-control" 
+                                            aria-label="Dollar amount (with dot and two decimal places)" />
+                                </div>
+                                {/* <!-- trading --> */}
+                                <div className="form-group">
+                                    <label for="goods/services">Goods / Services to Trade</label>
+                                    <textarea onChange={(e) => this.handleInputChange(e)} 
+                                            name="tradeOffer"
+                                            className="form-control" 
+                                            id="trading" 
+                                            rows="3"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" 
+                                className="btn btn-outline-info" 
+                                onClick={(e) => this.updateUserProfile(e)}>Submit Changes</button>
+                    </div>
+                </div>
+                <div className="line"></div>
+            </div>
+        );
+    }
+}
+
+export default ProfileForm;

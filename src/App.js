@@ -1,13 +1,19 @@
 import React, {Component} from 'react';
 import './App.css';
-import {Route, Switch, Link, Redirect, NavLink} from 'react-router-dom';
+//routing
+import {Route, Switch, Redirect} from 'react-router-dom';
+//home made components
 import SignInPage from "./components/sign-in-page/SignInPage";
 import HomePage from "./components/home-page/HomePage";
 import ProfilePage from "./components/profile/ProfilePage";
 import TradePage from "./components/trade/TradePage";
 import ChatPage from "./components/chat/ChatPage";
 import NavBar from "./components/NavBar";
+//database
 import firebase from 'firebase/app';
+//logo
+import logo from './img/logo.png'
+
 
 class App extends Component {
     constructor(props) {
@@ -78,18 +84,30 @@ class App extends Component {
             </div>;
         } else { // else
             content = <div className="wrapper">
+            <main>
+                <div id="logo" className="d-flex justify-content-between">
+                    <img src={logo} alt="logo"/>
+                </div>
                 <NavBar handle={this.state.user.displayName} logout={() => this.handleSignOut()}/>
                 <Switch>
                     <Route exact path="/" component={HomePage}/>
                     <Route path="/home" component={HomePage}/>
                     <Route path="/trade" component={TradePage}/>
-                    <Route path={"/profile/" + this.state.user.displayName} component={ProfilePage}/>
+                    <Route path={"/profile/:name"} render={(routerProps) => { return <ProfilePage {...routerProps} currentHandle={this.state.user.displayName}/>}} />
                     <Route path="/chat" render={(routerProps) => {
                         return <ChatPage {...routerProps} currentUser={this.state.user}/>
                     }
                     }/>
                     <Redirect to="/"/>
                 </Switch>
+            </main>
+            {/* footer */}
+            <footer class="container text-center">
+                <small>API from
+                    <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html">amazon api</a>
+                </small>
+                <small>&copy; 2018 Alissa Adornato &amp; Emily Ding &amp; Hao Chen &amp; William Fu</small>
+            </footer>
             </div>;
         }
 

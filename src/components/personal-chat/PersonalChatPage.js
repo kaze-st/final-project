@@ -1,15 +1,22 @@
 import React, {Component} from 'react';
-import logo from '../../img/logo.png'
-import ChatBox from "./ChatBox";
-import ChatList from "./ChatList";
 
-export default class PersonalChatPage extends Component{
-    constructor(props){
+import PersonalContactList from "./PersonalContactList";
+import PersonalChatBox from "./PersonalChatBox";
+import PersonalChatList from "./PersonalChatList";
+
+export default class PersonalChatPage extends Component {
+    constructor(props) {
         super(props);
         this.state = {}
     }
 
-    render(){
+    render() {
 
+        return <div className="messaging">
+            <PersonalContactList/>
+            {/*<PersonalChatList currentUser={this.props.currentUser}/>*/}
+            {/*<PersonalChatBox currentUser={this.props.currentUser}/>*/}
+        </div>
     }
+
 }

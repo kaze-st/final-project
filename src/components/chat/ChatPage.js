@@ -6,7 +6,7 @@ class ChatPage extends Component {
         return (
         <main>
             <div id="logo" class="d-flex justify-content-between">
-                <img src="../../src/img/logo.png" alt="logo" />
+                <img src="./../img/logo.png" alt="logo" />
             </div>
             <div id="content">
                 <div class="row">

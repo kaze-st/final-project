@@ -18,50 +18,6 @@
 
 <body>
     <div class="wrapper">
-        <!-- Sidebar  -->
-        <nav id="sidebar">
-            <div class="sidebar-header">
-                <h3>weFund</h3>
-                <strong>WF</strong>
-            </div>
-
-            <ul class="list-unstyled components">
-                <li class="active">
-                    <a href="#">
-                        <i class="fas fa-home"></i>
-                        Home
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-briefcase"></i>
-                        About
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-image"></i>
-                        Profile
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <i class="fas fa-paper-plane"></i>
-                        Group Message
-                    </a>
-                </li>
-            </ul>
-
-            <ul class="list-unstyled">
-                <li>
-                    <a href="#" class="profile">Profile</a>
-                </li>
-                <li>
-                    <a href="#" class="logOut">Log Out</a>
-                </li>
-            </ul>
-        </nav>
-
         <main>
             <div id="logo" class="d-flex justify-content-between">
                 <img src="../img/logo.png" alt="logo">
@@ -77,26 +33,13 @@
                             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                             <i class="fas fa-align-justify"></i>
                         </button>
-
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="nav navbar-nav ml-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Item</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Fund</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">People</a>
-                                </li>
-                            </ul>
-                        </div>
                     </div>
                 </nav>
                 <!-- profile image -->
                 <div id="profile" class="container-fluid">
                     <div class="row">
                         <div class="col-6">
+                            <!-- start avatar and bio -->
                             <form>
                                 <div class="im-g">
                                     <img src="/img/profile.png" alt="">
@@ -109,6 +52,7 @@
                                     <textarea class="form-control" id="bio" rows="3"></textarea>
                                 </div>
                             </form>
+                            <!-- end avatar and bio -->
                         </div>
 
                         <div class="col-6">
@@ -124,89 +68,38 @@
                                         <input type="text" class="form-control" placeholder="Last name" aria-label="fill in last name">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <label for="goods/services">Goods / Services to Trade</label>
+                                    <textarea class="form-control" id="trading" rows="3"></textarea>
+                                </div>
                             </div>
                             <!-- end name -->
 
-                            <!-- start email phone -->
-                            <div class="first-line agileits">
-                                <div class="span6 main-row">
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input class="form-control" type="email" placeholder="Email" id="email" aria-label="fill in your email">
-                                    </div>
-                                </div>
-                                <div class="span6 main-row">
-                                    <div class="form-group">
-                                        <label for="email">Phone Number</label>
-                                        <input class="form-control" type="text" placeholder="Phone (XXX)-XXX-XXXX" id="phone" aria-label="fill in your phone">
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="span6 main-row">
-                                <div class="form-group">
-                                    <label for="gender">Gender</label>
-                                    <select class="form-control" id="gender">
-                                        <option value="none" selected disabled="">Gender</option>
-                                        <option value="male">Male</option>
-                                        <option value="female"> Female</option>
-                                        <option value="other"> Other</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <!-- start city & zipcode-->
-                            <div class="first-line agileits">
-                                <div class="row">
-                                    <div class="col-md-6 form-group">
-                                        <label for="city">City</label>
-                                        <input type="text" class="form-control" placeholder="City" aria-label="fill in city">
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label for="zipcode">Zipcode</label>
-                                        <input type="text" class="form-control" placeholder="Zipcode 980000" aria-label="fill in zipcode">
-                                    </div>
-                                </div>
-                            </div>
-                            <!-- end city & zip code -->
-
-                            <!-- start address -->
-                            <div class="main-row">
-                                <div class="form-group">
-                                    <label for="Address">Address</label>
-                                    <input class="form-control" type="text" id="address" placeholder="Address" aria-label="fill in your address">
-                                </div>
-                            </div>
-                            <!-- end address -->
                         </div>
                     </div>
 
                     <div class="row jumbotron">
                             <div class="col-6">
                                 <div class="row">
-                                <label for="Item">Item</label>
-                                <select class="form-control" id="itemOption">
-                                        <option value="none" selected disabled="">Item Option</option>
-                                        <option value="opt1">Rideo</option>
-                                        <option value="opt2"> Washer machine</option>
-                                        <option value="opt3"> Disher machine</option>
-                                    </select>
-                                    </div>
-                                    <div class="row">
+                                <div class="form-group">
+                                        <label for="email">Money Contribution</label>
+                                        <input class="form-control" type="money" placeholder=">= $10" id="money" aria-label="fill in your desired contribution">
+                                </div>
+                            </div>
+                                <div class="row">
                                     <a role="button" type="button" class="btn">Add</a>
-                                        </div>
+                                </div>
                             </div>
                             <div class="col-6">
-                                <div class="row">
-                                <label for="default money">Remaining</label>
-                                <input type="text" class="form-control" placeholder="Default Money: $10.00" aria-label="refill the balance">
-                                </div>
-                                <div class="row">
-                                <label for="Remaining">Add default Money</label>
-                                <div class="input-group">                                    
-                                        <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+                                
+                                <label for="Remaining">Set weekly contribution</label>
+                                <div class="input-group">    
+                                        
                                         <div class="input-group-append">
-                                          <span class="input-group-text">$</span>
-                                          <span class="input-group-text">0.00</span>
-                                        </div>
+                                            <span class="input-group-text">$10.00 &le; </span>
+                                        </div>                                
+                                        <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+                                        
                                       </div>
                                     </div>
                             </div>

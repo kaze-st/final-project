@@ -53,6 +53,7 @@ class App extends Component {
         ).catch((err) => {
             this.setState({errorMessage: err.message});
         });
+        
     }
 
     handleSignOut() {
@@ -65,6 +66,7 @@ class App extends Component {
     }
 
     render() {
+        console.log(this.state.user);
         let content = null;
 
         if (!this.state.user) { // If user is not logged in
@@ -76,12 +78,12 @@ class App extends Component {
             </div>;
         } else { // else
             content = <div className="wrapper">
-                <NavBar handle={this.state.user.displayName} logout={() => this.onAuthStateChanged()}/>
+                <NavBar handle={this.state.user.displayName} logout={() => this.handleSignOut()}/>
                 <Switch>
-                    <Route exact path="/" render={SignInPage}/>
+                    <Route exact path="/" component={HomePage}/>
                     <Route path="/home" component={HomePage}/>
                     <Route path="/trade" component={TradePage}/>
-                    <Route path="/profile/:name" component={ProfilePage}/>
+                    <Route path={"/profile/" + this.state.user.displayName} component={ProfilePage}/>
                     <Route path="/chat" component={ChatPage}/>
                     <Redirect to="/"/>
                 </Switch>

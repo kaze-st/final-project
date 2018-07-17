@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="en">
 
 <head>
@@ -7,7 +8,6 @@
     <meta name="description" content="A fund pooling app for low income group">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>weFund | Homepage</title>
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css" integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt"
@@ -24,7 +24,6 @@
                 <h3>weFund</h3>
                 <strong>WF</strong>
             </div>
-
             <ul class="list-unstyled components">
                 <li class="active">
                     <a href="#">
@@ -51,7 +50,6 @@
                     </a>
                 </li>
             </ul>
-
             <ul class="list-unstyled">
                 <li>
                     <a href="#" class="profile">Profile</a>
@@ -61,206 +59,69 @@
                 </li>
             </ul>
         </nav>
-
-        <main>
-            <div id="logo" class="d-flex justify-content-between">
-                <img src="../img/logo.png" alt="logo">
-            </div>
-            <div id="content">
-                <nav class="navbar navbar-expand-lg navbar-light justify-content-between">
-                    <div class="container-fluid">
-
-                        <button type="button" id="sidebarCollapse" class="btn">
-                            <i class="fas fa-align-justify"></i>
-                        </button>
-                        <button class="btn btn-dark d-inline-block d-lg-none ml-auto" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                            <i class="fas fa-align-justify"></i>
-                        </button>
-
-                        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                            <ul class="nav navbar-nav ml-auto">
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Item</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Fund</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">People</a>
-                                </li>
-                            </ul>
+        <main class="w-100">
+            <div class="row mx-auto">
+                <div class="col mx-auto">
+                    <h2>Item</h2>
+                    <form class="form-inline">
+                        <div id="selector">
+                            <select class="form-control m-1" id="itemOption">
+                                <option value="none" selected disabled="">Item Option</option>
+                                <option value="opt1">Radio</option>
+                                <option value="opt2">Washer machine</option>
+                                <option value="opt3">Disher machine</option>
+                            </select>
+                            <input type="number" id="itemAmout"
+                            placeholder="Min: 1, max: 999"
+                            min="1" max="999" />
+                            <button type="button" class="btn btn-info m-1 float-right">Add</button>
                         </div>
-                    </div>
-                </nav>
-
-                <!-- add the item card -->
-                <div class="container">                       
-                            <div class="row form-group">
-                                    <label for="Item"><h2>Item</h2></label>
-                                    <select class="form-control" id="itemOption">
-                                        <option value="none" selected disabled="">Item Option</option>
-                                        <option value="opt1">Rideo</option>
-                                        <option value="opt2"> Washer machine</option>
-                                        <option value="opt3"> Disher machine</option>
-                                    </select>
+                    </form>
+                    <button type="button" class="btn btn-success btn-block"><h3>Commit TRADE</h3></button>
+                </div>
+                <div class="col mx-auto">
+                    <div id="myItems">
+                        <h2>My Items</h2>
+                        <div id="myItemViewer" class="bg-white p-1 border border-dark rounded">
+                            <div class="card my-1">
+                                <div class="card-body">
+                                    <h5 class="card-title d-inline align-middle">ITEM NAME </h5>
+                                    <p class="card-text d-inline align-middle">x9999</p>
+                                    <a href="#" class="btn btn-danger d-inline float-right">X</a>
                                 </div>
-                                <div class="row form-group">
-                                    <a role="button" type="button" class="btn">Add</a>
-                                </div>
-                        
-                    </div>
-                    <div class="container">
-                    <div class="row">
-                            <div class="panel-heading">
-                                    <h3 class="panel-title"></h3>
-                                </div>
-                        <form class="form-inline my-2 my-lg-0">
-                            <input class="form-control mr-sm-2" type="search" placeholder="Search Item" aria-label="Search">
-                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                        </form>
-                        </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-                                <table id="tableReport" class="table table-hover table-striped ">
-                                    <tbody>
-                                        <tr class="media" id="carga_30" data-id="30">
-                                            <td class="media-left">
-                                                <h2>01</h2>
-                                            </td>
-                                            <td class="media-body">
-                                                    <h4 class="media-heading font-yellow text-bold hidden-xs">Product Name</h4>
-                                                    <span>
-                                                        <strong>Status:</strong>
-                                                        <span class="label label-info">Sold</span>
-                                                    </span>
-                                                </td>
-                                                <td><button type="button" id="add-button" class="btn btn-primary">Add</button></td>
-                                        </tr>
-                                        <tr class="media" id="carga_20" data-id="20">
-                                            <td class="media-left">
-                                                <h2>02</h2>
-                                            </td>
-                                            <td class="media-body">
-                                                    <h4 class="media-heading font-yellow text-bold hidden-xs">Product Name</h4>
-                                                    <span>
-                                                        <strong>Status:</strong>
-                                                        <span class="label label-info">Sold</span>
-                                                    </span>
-                                                </td>
-                                                <td><button type="button" id="add-button" class="btn btn-primary">Add</button></td>
-                                        </tr>
-                                        <tr class="media" id="carga_10" data-id="10">
-                                            <td class="media-left">
-                                                <h2>03</h2>
-                                            </td>
-                                            <td class="media-body">
-                                                <h4 class="media-heading font-yellow text-bold hidden-xs">Product Name</h4>
-                                                
-                                                <span>
-                                                    <strong>Status:</strong>
-                                                    <span class="label label-info">Sold</span>
-                                                </span>
-                                            </td>
-                                            <td><button type="button" id="add-button" class="btn btn-primary">Add</button></td>
-                                        </tr>
-                                    </tbody>
-                                </table>
                             </div>
-                        </div>
-                        
-                        <div class="row">
-                            <div class="col-sm-12 col-md-10 col-md-offset-1">
-                                <table class="table table-hover">
-                                    <thead>
-                                        <tr>
-                                            <th>Product</th>
-                                            <th>Quantity</th>
-                                            <th> </th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="col-sm-8 col-md-6">
-                                                <div class="media">
-                                                    <a class="thumbnail pull-left" href="#">
-                                                        <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png"> </a>
-                                                    <div class="media-body">
-                                                        <h4 class="media-heading">
-                                                            <a href="#">Product name</a>
-                                                        </h4>
-                                                        <p>
-                                                            <strong>Description:</strong> wwwwwwwwwwwwwwwwwwwwwwwwww</p>
-                                                    </div>
-                                                </div>
-                                            </td>
-                                            <td class="col-sm-1 col-md-1" style="text-align: center">
-                                                <input type="email" class="form-control" id="exampleInputEmail1" value="1">
-                                            </td>        
-                                            <td class="col-sm-1 col-md-1">
-                                                <button type="button" class="btn btn-danger">
-                                                    <span class="glyphicon glyphicon-remove"></span> Remove
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        <thead>
-                                                <tr>
-                                                    <th>Your Item</th>
-                                                    <th>Quantity</th>
-                                                    <th> </th>
-                                                </tr>
-                                            </thead>
-                                            <tr>
-                                                    <td class="col-sm-8 col-md-6">
-                                                        <div class="media">
-                                                            <a class="thumbnail pull-left" href="#">
-                                                                <img class="media-object" src="http://icons.iconarchive.com/icons/custom-icon-design/flatastic-2/72/product-icon.png"> </a>
-                                                            <div class="media-body">
-                                                                <h4 class="media-heading">
-                                                                    <a href="#">Product name</a>
-                                                                </h4>
-                                                                <p>
-                                                                    <strong>Description:</strong> wwwwwwwwwwwwwwwwwwwwwwwwww</p>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                    <td class="col-sm-1 col-md-1" style="text-align: center">
-                                                        <input type="email" class="form-control" id="exampleInputEmail1" value="1">
-                                                    </td>        
-                                                    <td class="col-sm-1 col-md-1">
-                                                        <button type="button" class="btn btn-danger">
-                                                            <span class="glyphicon glyphicon-remove"></span> Remove
-                                                        </button>
-                                                    </td>
-                                                </tr>
-                                        <tr>
-                                            <td>   </td>
-                                            <td> </td>
-                                            <td>
-                                                <button type="button" class="btn btn-success">
-                                                    Confirm to Trade
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                            <div class="card my-1">
+                                <div class="card-body">
+                                    <h5 class="card-title d-inline align-middle">ITEM NAME </h5>
+                                    <p class="card-text d-inline align-middle">x9999</p>
+                                    <a href="#" class="btn btn-danger d-inline float-right">X</a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="line"></div>
-
-                    <footer class="container text-center">
-                        <small>API from
-                            <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html">amazon api</a>
-                        </small>
-                        <small>&copy; 2018 Alissa Adornato &amp; Emily Ding &amp; Hao Chen &amp; William Fu</small>
-                    </footer>
+                    <div id="theirItems">
+                        <h2>Their Items</h2>
+                        <div id="theirItemViewer" class="bg-white p-1 border border-dark rounded">
+                            <div class="card my-1">
+                                <div class="card-body">
+                                    <h5 class="card-title d-inline align-middle">ITEM NAME </h5>
+                                    <p class="card-text d-inline align-middle">x9999</p>
+                                    <a href="#" class="btn btn-danger d-inline float-right">X</a>
+                                </div>
+                            </div>
+                            <div class="card my-1">
+                                <div class="card-body">
+                                    <h5 class="card-title d-inline align-middle">ITEM NAME </h5>
+                                    <p class="card-text d-inline align-middle">x9999</p>
+                                    <a href="#" class="btn btn-danger d-inline float-right">X</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+        </main>
     </div>
-    </main>
-
     <!-- jQuery CDN - Slim version (=without AJAX) -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
@@ -270,9 +131,7 @@
     <!-- Bootstrap JS -->
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js" integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
         crossorigin="anonymous"></script>
-
     <script type="text/javascript" src="../mock-up-js/mock-up.js"></script>
-
 </body>
 
 </html>

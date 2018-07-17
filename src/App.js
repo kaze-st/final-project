@@ -53,7 +53,7 @@ class App extends Component {
         ).catch((err) => {
             this.setState({errorMessage: err.message});
         });
-        
+
     }
 
     handleSignOut() {
@@ -72,8 +72,8 @@ class App extends Component {
         if (!this.state.user) { // If user is not logged in
             content = <div className="wrapper">
                 <SignInPage
-                    handleSignIn={(e,p) => this.handleSignIn(e,p)}
-                    handleSignUp={(e,p,h,a) => this.handleSignUp(e,p,h,a)}
+                    handleSignIn={(e, p) => this.handleSignIn(e, p)}
+                    handleSignUp={(e, p, h, a) => this.handleSignUp(e, p, h, a)}
                 />
             </div>;
         } else { // else
@@ -84,7 +84,10 @@ class App extends Component {
                     <Route path="/home" component={HomePage}/>
                     <Route path="/trade" component={TradePage}/>
                     <Route path={"/profile/" + this.state.user.displayName} component={ProfilePage}/>
-                    <Route path="/chat" component={ChatPage}/>
+                    <Route path="/chat" render={(routerProps) => {
+                        return <ChatPage {...routerProps} currentUser={this.state.user}/>
+                    }
+                    }/>
                     <Redirect to="/"/>
                 </Switch>
             </div>;
@@ -99,7 +102,7 @@ class App extends Component {
         return (
             <div>
                 {this.state.errorMessage &&
-                    <p className="alert alert-danger">{this.state.errorMessage}</p>
+                <p className="alert alert-danger">{this.state.errorMessage}</p>
                 }
                 {content}
             </div>

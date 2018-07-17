@@ -10,41 +10,41 @@ class NavBar extends Component {
     render() {
         return (
             <nav id="sidebar">
-            <div className="sidebar-header">
+            <div class="sidebar-header">
                 <h3>weFund</h3>
                 <strong>WF</strong>
             </div>
 
-            <ul className="list-unstyled components">
-                <li className="active">
-                    <NavLink to="/home">
-                        <i className="fas fa-home"></i>
+            <ul class="list-unstyled components">
+                <li class="active">
+                    <NavLink to="/home" activeClassName="sidebar.active">
+                        <i class="fas fa-home"></i>
                         Home
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to={"/profile/" + this.props.handle}>
-                        <i className="fas fa-image"></i>
+                    <NavLink to={"/profile/" + this.props.handle} activeClassName="sidebar.active">
+                        <i class="fas fa-image"></i>
                         My Profile
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/trade">
-                        <i className="fas fa-paper-plane"></i>
+                    <NavLink to="/trade" activeClassName="sidebar.active">
+                        <i class="fas fa-paper-plane"></i>
                         Trade [gimmie an icon for this]
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/chat">
-                        <i className="fas fa-paper-plane"></i>
+                    <NavLink to="/chat" activeClassName="sidebar.active">
+                        <i class="fas fa-paper-plane"></i>
                         Group Chat
                     </NavLink>
                 </li>
             </ul>
 
-            <ul className="list-unstyled">
+            <ul class="list-unstyled">
                 <li>
-                    <a onClick={this.props.logout} className="logOut">Log Out</a>
+                    <a onClick={this.props.logout} class="logOut">Log Out</a>
                 </li>
             </ul>
         </nav>

@@ -1,4 +1,4 @@
-#INFO343 final-project
+##INFO343 final-project
 For the final project, we need to creat an app based on the Firebase and React.
 
 This app is meant to facilitate community-building by giving users the infrastructure to both combine resources and barter for goods and services. Someone with only a few dollars of disposable income per week might need to save up for months to afford new shoes or to fix a broken appliance, but if many people pool their resources, they can take turns buying what they need. We plan for this app to be usable by low income communities around the world, not just in the United States.

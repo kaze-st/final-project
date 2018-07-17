@@ -44,12 +44,12 @@
                                 <div class="im-g">
                                     <img src="/img/profile.png" alt="">
                                 </div>
-                                <div>
+                                <div class="form-group">
                                     <button type="button" class="btn btn-outline-info">Change Profile Image</button>
                                 </div>
                                 <div class="form-group">
                                     <label for="personal information">Personal Bio</label>
-                                    <textarea class="form-control" id="bio" rows="3"></textarea>
+                                    <textarea class="form-control" id="bio" rows="3" placeholder="Introduce yourself"></textarea>
                                 </div>
                             </form>
                             <!-- end avatar and bio -->
@@ -82,10 +82,114 @@
                                     <textarea class="form-control" id="trading" rows="3"></textarea>
                                 </div>
                             </div>
+                            <!-- start city & zipcode-->
+                            <div class="first-line agileits">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <label for="city">City</label>
+                                        <input type="text" class="form-control" placeholder="City" aria-label="fill in city">
+                                    </div>
+                                    <div class="col-md-6 form-group">
+                                        <label for="zipcode">Zipcode</label>
+                                        <input type="text" class="form-control" placeholder="Zipcode 980000" aria-label="fill in zipcode">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- end city & zip code -->
+
+                            <!-- start address -->
+                            <div class="main-row">
+                                <div class="form-group">
+                                    <label for="Address">Address</label>
+                                    <input class="form-control" type="text" id="address" placeholder="Address" aria-label="fill in your address">
+                                </div>
+                            </div>
+                            <!-- end address -->
+                        </div>
+                    </div>
+
+                    <!-- People Group -->
+                    <div class="row jumbotron">
+                        <div class="col-6">
+                                <div class="row form-group">
+                                    <label for="createGroup">Your Group (No more 5 groups):</label>
+                                    <form role="form">
+                                            <div id="groupNames" class="form-group">
+
+                                              <div class="input-group">
+                                                <div class="input-group-prepend">
+                                                  
+                                                  <label class="input-group-text">1.</label>
+                                                </div>
+                                                <input type="text" id="task-input" class="form-control" aria-label="fill in group name" placeholder="Add a group name with your item name">
+                                                <div class="input-group-append">
+                                                  <button type="button" class="btn btn-danger"><span class="fas fa-times" aria-label="remove"></span></button>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <button type="button" id="add-button" class="btn btn-primary">Add a group</button>
+                                          </form>
+                                          </div>
+                                          <div class="row form-group">
+        
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                    <div class="row form-group">
+                                            <label for="existedGroup">Exist Group</label>
+                                            <select multiple class="form-control" id="existedGroup">
+                                              <option>1. Alice's TV set</option>
+                                              <option>2. Bob's bicycle</option>
+                                              <option>3. Emily's XBOX set</option>
+                                              <option>4. Gary's sofa set</option>
+                                              <option>5. Mary's backpack</option>
+                                            </select>
+                                          </div>
+                                    <div class="row form-group">
+                                        <a role="button" type="button" class="btn">Join In</a>
+                                    </div>
+                                </div>
+
+                            </div>                 
+
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="row form-group">
+                                <label for="Item">Item</label>
+                                <select class="form-control" id="itemOption">
+                                    <option value="none" selected disabled="">Item Option</option>
+                                    <option value="opt1">Rideo</option>
+                                    <option value="opt2"> Washer machine</option>
+                                    <option value="opt3"> Disher machine</option>
+                                </select>
+                            </div>
+                            <div class="row form-group">
+                                <a role="button" type="button" class="btn">Add</a>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="row form-group">
+                                <label for="default money">Remaining</label>
+                                <input type="text" class="form-control" placeholder="Default Money: $10.00" aria-label="refill the balance">
+                            </div>
+                            <div class="row form-group">
+                                <label for="Remaining">Add default Money</label>
+                                <div class="input-group">
+                                        
+                                    <input type="text" class="form-control" placeholder="$00.00" aria-label="Dollar amount (with dot and two decimal places)">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text">$</span>
+                                        <span class="input-group-text">0.00</span>
+                                        <a role="button" type="button" class="btn">Add</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="line"></div>
+            </div>
+        </div>
+            <div class="line"></div>
 
 
                 <footer class="container text-center">

@@ -8,6 +8,7 @@ import TradePage from "./components/trade/TradePage";
 import ChatPage from "./components/group-chat/ChatPage";
 import NavBar from "./components/NavBar";
 import firebase from 'firebase/app';
+import PersonalChatPage from "./components/personal-chat/PersonalChatPage";
 
 class App extends Component {
     constructor(props) {
@@ -98,8 +99,10 @@ class App extends Component {
                     <Route path={"/profile/" + this.state.user.displayName} component={ProfilePage}/>
                     <Route path="/chat" render={(routerProps) => {
                         return <ChatPage {...routerProps} currentUser={this.state.user}/>
-                    }
-                    }/>
+                    }}/>
+                    <Route path="/personal-chat" render={(routerProps) => {
+                        return <PersonalChatPage {...routerProps} currentUser={this.state.user}/>
+                    }}/>
                     <Redirect to="/"/>
                 </Switch>
             </div>;

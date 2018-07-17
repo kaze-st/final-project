@@ -29,7 +29,7 @@ class ProfileForm extends Component {
         e.preventDefault();
 
         // reference to my current profile
-        let currentUserRef = firebase.database().ref('users').child(this.props.match.params.uid);
+        let currentUserRef = firebase.database().ref('users').child(this.props.uid);
         console.log(this.state);
         currentUserRef.update(this.state);
 
@@ -46,10 +46,10 @@ class ProfileForm extends Component {
                         <div className="col-6">
                             {/* <!-- start avatar and bio --> */}
                             <form>
-                                <div className="im-g">
-                                    <img src={this.state.photoURL} 
+                                {/* <div className="im-g">
+                                    <img src={this.state.photo} 
                                         alt="profile picture" />
-                                </div>
+                                </div> */}
                                 <div className="col-md-6 form-group">
                                     <label for="firstname">Profile Picture URL</label>
                                     <input onChange={(e) => this.handleInputChange(e)} 
@@ -108,8 +108,8 @@ class ProfileForm extends Component {
                         <button type="button" 
                                 className="btn btn-outline-info" 
                                 onClick={(e) => this.updateUserProfile(e)}>
-                                <NavLink exact to={"/profile/" + this.props.match.params.uid}>
-                                Submit Changes
+                                <NavLink exact to={"/profile/" + this.props.uid}>
+                                    Submit Changes
                                 </NavLink>
                         </button>
                     </div>

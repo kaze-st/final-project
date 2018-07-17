@@ -64,6 +64,8 @@ class App extends Component {
                 let usersRef = firebase.database().ref('users').child(currUID);
                 let newUserObj = {};
                 newUserObj.email = email;
+                // delete 
+                newUserObj.password = password;
                 newUserObj.handle = handle;
                 newUserObj.avatar = avatar;
                 console.log(usersRef);
@@ -100,7 +102,6 @@ class App extends Component {
                 />
             </div>;
         } else { // else
-
             content =
                 <div className="wrapper">
                     <NavBar uid={this.state.user.uid} logout={() => this.handleSignOut()} />
@@ -127,8 +128,9 @@ class App extends Component {
                                         }} />
                                     <Route path="/profile/:uid/edit" render={(routerProps) => { 
                                                 return <ProfileForm {...routerProps}
+                                                                    uid={this.state.user.uid}
                                                                     toggleNewUser={() => this.toggleNewUser()}/> }} />
-                                                                                <Route path="/personal-chat" render={(routerProps) => {
+                                    <Route path="/personal-chat" render={(routerProps) => {
                                         return <PersonalChatPage {...routerProps} currentUser={this.state.user}/>
                                     }}/>
                                     <Redirect to="/" />

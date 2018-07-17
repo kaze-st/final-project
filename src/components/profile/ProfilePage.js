@@ -42,12 +42,14 @@ class ProfilePage extends Component {
         //     button = 
         // }
 
+        console.log(this.state.userProfileData);
+
         return (
             <div className="profile">
                 <div id="profile" className="container-fluid">
                     <div className="row">
                         <div className="col-6 im-g">
-                            <img src={this.state.userProfileData.photoURL} alt="profile picture" />
+                            <img src={this.state.userProfileData.avatar} alt="profile picture" />
                         </div>
                         <div className="col-6">
                             <h2>Bio:</h2>

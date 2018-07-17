@@ -3,7 +3,7 @@ import {NavLink} from 'react-router-dom';
 
 /**
  * props:
- * handle- currently signed in user
+ * uid- currently signed in user
  * logout- logout function for this user
  */
 class NavBar extends Component {
@@ -23,7 +23,7 @@ class NavBar extends Component {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to={"/profile/" + this.props.handle} activeClassName="sidebar.active">
+                    <NavLink to={"/profile/" + this.props.uid} activeClassName="sidebar.active">
                         <i class="fas fa-image"></i>
                         My Profile
                     </NavLink>

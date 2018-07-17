@@ -8,6 +8,7 @@ import {BrowserRouter} from 'react-router-dom';
 //Firebase
 import firebase from 'firebase/app';
 import 'firebase/auth';
+import 'firebase/database'
 
 let config = {
     apiKey: "AIzaSyBrOBYTyRs3mEZn1YxaoW6bP12DdJEuDVs",
@@ -17,6 +18,7 @@ let config = {
     storageBucket: "info343-final-project-9febf.appspot.com",
     messagingSenderId: "561421371431"
 };
+
 firebase.initializeApp(config);
 
 let page = <BrowserRouter> 

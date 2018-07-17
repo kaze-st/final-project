@@ -5,7 +5,7 @@ import SignInPage from "./components/sign-in-page/SignInPage";
 import HomePage from "./components/home-page/HomePage";
 import ProfilePage from "./components/profile/ProfilePage";
 import TradePage from "./components/trade/TradePage";
-import ChatPage from "./components/chat/ChatPage";
+import ChatPage from "./components/group-chat/ChatPage";
 import NavBar from "./components/NavBar";
 import firebase from 'firebase/app';
 
@@ -50,9 +50,22 @@ class App extends Component {
             () => {
                 return firebase.auth().currentUser.updateProfile({displayName: handle, photoURL: avatar})
             }
+        ).then(
+            () => {
+                let usersRef = firebase.database().ref('users');
+                let newUserObj = {};
+                newUserObj.email = email;
+                newUserObj.password = password;
+                newUserObj.handle = handle;
+                newUserObj.avatar = avatar;
+                return usersRef.push(newUserObj);
+
+
+            }
         ).catch((err) => {
             this.setState({errorMessage: err.message});
         });
+
     }
 
     handleSignOut() {
@@ -65,24 +78,28 @@ class App extends Component {
     }
 
     render() {
+        console.log(this.state.user);
         let content = null;
 
         if (!this.state.user) { // If user is not logged in
             content = <div className="wrapper">
                 <SignInPage
-                    handleSignIn={(e,p) => this.handleSignIn(e,p)}
-                    handleSignUp={(e,p,h,a) => this.handleSignUp(e,p,h,a)}
+                    handleSignIn={(e, p) => this.handleSignIn(e, p)}
+                    handleSignUp={(e, p, h, a) => this.handleSignUp(e, p, h, a)}
                 />
             </div>;
         } else { // else
             content = <div className="wrapper">
-                <NavBar handle={this.state.user.displayName} logout={() => this.onAuthStateChanged()}/>
+                <NavBar handle={this.state.user.displayName} logout={() => this.handleSignOut()}/>
                 <Switch>
-                    <Route exact path="/" render={SignInPage}/>
+                    <Route exact path="/" component={HomePage}/>
                     <Route path="/home" component={HomePage}/>
                     <Route path="/trade" component={TradePage}/>
-                    <Route path="/profile/:name" component={ProfilePage}/>
-                    <Route path="/chat" component={ChatPage}/>
+                    <Route path={"/profile/" + this.state.user.displayName} component={ProfilePage}/>
+                    <Route path="/chat" render={(routerProps) => {
+                        return <ChatPage {...routerProps} currentUser={this.state.user}/>
+                    }
+                    }/>
                     <Redirect to="/"/>
                 </Switch>
             </div>;
@@ -97,7 +114,7 @@ class App extends Component {
         return (
             <div>
                 {this.state.errorMessage &&
-                    <p className="alert alert-danger">{this.state.errorMessage}</p>
+                <p className="alert alert-danger">{this.state.errorMessage}</p>
                 }
                 {content}
             </div>

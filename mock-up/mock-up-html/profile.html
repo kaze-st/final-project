@@ -96,7 +96,7 @@
                 <!-- profile image -->
                 <div id="profile" class="container-fluid">
                     <div class="row">
-                        <div class="col-6">
+                        <div class="col-sm-6">
                             <form>
                                 <div class="im-g">
                                     <img src="/img/profile.png" alt="">
@@ -104,14 +104,10 @@
                                 <div class="form-group">
                                     <button type="button" class="btn btn-outline-info">Change Profile Image</button>
                                 </div>
-                                <div class="form-group">
-                                    <label for="personal information">Personal Bio</label>
-                                    <textarea class="form-control" id="bio" rows="3" placeholder="Introduce yourself"></textarea>
-                                </div>
                             </form>
                         </div>
 
-                        <div class="col-6">
+                        <div class="col-sm-6">
                             <!-- start name -->
                             <div class="first-line agileits">
                                 <div class="row">
@@ -153,29 +149,11 @@
                                     </select>
                                 </div>
                             </div>
-                            <!-- start city & zipcode-->
-                            <div class="first-line agileits">
-                                <div class="row">
-                                    <div class="col-md-6 form-group">
-                                        <label for="city">City</label>
-                                        <input type="text" class="form-control" placeholder="City" aria-label="fill in city">
-                                    </div>
-                                    <div class="col-md-6 form-group">
-                                        <label for="zipcode">Zipcode</label>
-                                        <input type="text" class="form-control" placeholder="Zipcode 980000" aria-label="fill in zipcode">
-                                    </div>
+                            <div class="form-group">
+                                    <label for="personal information">Personal Bio</label>
+                                    <textarea class="form-control" id="bio" rows="3" placeholder="Introduce yourself"></textarea>
                                 </div>
-                            </div>
-                            <!-- end city & zip code -->
-
-                            <!-- start address -->
-                            <div class="main-row">
-                                <div class="form-group">
-                                    <label for="Address">Address</label>
-                                    <input class="form-control" type="text" id="address" placeholder="Address" aria-label="fill in your address">
-                                </div>
-                            </div>
-                            <!-- end address -->
+                            
                         </div>
                     </div>
 
@@ -200,8 +178,8 @@
                                             </div>
                                             <button type="button" id="add-button" class="btn btn-primary">Add a group</button>
                                           </form>
-                                          </div>
-                                          <div class="row form-group">
+                                        </div>
+                                    <div class="row form-group">
         
                                 </div>
                             </div>
@@ -221,7 +199,76 @@
                                     </div>
                                 </div>
 
-                            </div>                 
+                            </div>    
+                    
+                        <!-- Add an bartering -->
+                            <div class="row">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content" uib-modal-transclude="">
+                                            <div class="modal-header">
+                                                <h4 class="modal-title">Your Bartering Item</h4>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="container-fluid">
+                                                    <div class="row">
+                                                        <div class="col-sm-7">
+                                                            <img src="/img/item.png" alt="item image">
+                                                        </div>
+        
+                                                        <div class="col-sm-5">
+                                                            <button type="button" id="add-button" class="btn btn-primary">Add Item Image</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-7">
+                                                            <label class="input-group">A price for tranding: $00.00</label>
+                                                            <input type="text" id="task-input" class="form-control" aria-label="fill in group name" placeholder="Add an reasonable price">
+                                                        </div>
+                                                        <div class="col-sm-5">
+                                                            <form>
+                                                                <div class="input-group">
+                                                                        <label class="input-group">Quantity:</label>
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
+                                                                            <i class="fas fa-minus"></i>
+                                                                        </button>
+                                                                    </span>
+                                                                    <input type="text" class="form-control">
+                                                                    <span class="input-group-btn">
+                                                                        <button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]">
+                                                                            <i class="fas fa-plus"></i>
+                                                                        </button>
+                                                                    </span>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                            <div class="col-sm-12">
+                                                                    <label class="input-group"><h2>Product Name:</h2></label>
+                                                                    <input type="text" id="task-input" class="form-control" aria-label="fill in group name" placeholder="Add an reasonable price">
+                                                            </div>
+                                                        </div>
+                                                    <div class="row">
+                                                        <div class="col-sm-12">
+                                                            <div>
+                                                                <label for="note" class="form-group">Description:</label>
+                                                                <textarea class="form-control" id="descrp" rows="3" placeholder="Add the description"></textarea>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+        
+                                            <div class="modal-footer">
+                                                <div class="pull-left">
+                                                    <a class="btn btn-primary">Confirm</a>
+                                                    <a class="btn btn-danger" href="">Cancel</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                            </div>
 
                     <div class="row">
                         <div class="col-6">
@@ -285,13 +332,6 @@
 
     <script type="text/javascript" src="../js/mock-up.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function () {
-            $('#sidebarCollapse').on('click', function () {
-                $('#sidebar').toggleClass('active');
-            });
-        });
-    </script>
 </body>
 
 </html>

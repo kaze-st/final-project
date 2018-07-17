@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
 //routing
-import {Route, Switch, Redirect} from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 //home made components
 import SignInPage from "./components/sign-in-page/SignInPage";
 import HomePage from "./components/home-page/HomePage";
@@ -18,7 +18,7 @@ import logo from './img/logo.png'
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {loading: true}
+        this.state = { loading: true }
     }
 
     // Life cycle events
@@ -26,9 +26,9 @@ class App extends Component {
         this.onAuthStateChanged = firebase.auth().onAuthStateChanged(
             (firebaseUser) => {
                 if (firebaseUser) {
-                    this.setState({user: firebaseUser, loading: false});
+                    this.setState({ user: firebaseUser, loading: false });
                 } else {
-                    this.setState({user: null, loading: false});
+                    this.setState({ user: null, loading: false });
                 }
             }
         );
@@ -40,45 +40,46 @@ class App extends Component {
 
     // Handle methods
     handleSignIn(email, password) {
-        this.setState({errorMessage: null});
+        this.setState({ errorMessage: null });
 
         firebase.auth().signInWithEmailAndPassword(email, password).catch(
             (err) => {
-                this.setState({errorMessage: err.message});
+                this.setState({ errorMessage: err.message });
             }
         );
     }
 
     handleSignUp(email, password, handle, avatar) {
         console.log("email: ", email, " password: ", password, " handle: ", handle, " avatar: ", avatar);
-        this.setState({errorMessage: null});
+        this.setState({ errorMessage: null });
         firebase.auth().createUserWithEmailAndPassword(email, password).then(
             () => {
-                return firebase.auth().currentUser.updateProfile({displayName: handle, photoURL: avatar})
+                return firebase.auth().currentUser.updateProfile({ displayName: handle, photoURL: avatar })
             }
         ).then(
             () => {
-                let usersRef = firebase.database().ref('users');
+                let currUID = firebase.auth().currentUser.uid;
+                let usersRef = firebase.database().ref('users').child(currUID);
                 let newUserObj = {};
                 newUserObj.email = email;
                 newUserObj.password = password;
                 newUserObj.handle = handle;
                 newUserObj.avatar = avatar;
-                return usersRef.push(newUserObj);
-
+                console.log(usersRef);
+                return usersRef.set(newUserObj);
 
             }
         ).catch((err) => {
-            this.setState({errorMessage: err.message});
+            this.setState({ errorMessage: err.message });
         });
 
     }
 
     handleSignOut() {
-        this.setState({errorMessage: null});
+        this.setState({ errorMessage: null });
         firebase.auth().signOut().catch(
             (err) => {
-                this.setState({errorMessage: err.message});
+                this.setState({ errorMessage: err.message });
             }
         )
     }
@@ -95,32 +96,37 @@ class App extends Component {
                 />
             </div>;
         } else { // else
-            content = <div className="wrapper">
-            <main>
-                <div id="logo" className="d-flex justify-content-between">
-                    <img src={logo} alt="logo"/>
+            content =
+                <div className="wrapper">
+                    <NavBar handle={this.state.user.displayName} logout={() => this.handleSignOut()} />
+                    <main>
+                        <div id="content">
+                            <div id="logo" className="d-flex justify-content-between">
+                                <img src={logo} alt="logo" />
+                            </div>
+                            <Switch>
+                                <Route exact path="/" component={HomePage} />
+                                <Route path="/home" component={HomePage} />
+                                <Route path="/trade" component={TradePage} />
+                                <Route path={"/profile/:name"} render={(routerProps) => { return <ProfilePage {...routerProps} currentUser={this.state.user} /> }} />
+                                <Route path="/chat" render={(routerProps) => {
+                                    return <ChatPage {...routerProps} currentUser={this.state.user} />
+                                }
+                                } />
+                                <Redirect to="/" />
+                            </Switch>
+                            {/* footer */}
+                            <footer class="container text-center">
+                                <small>API from
+                    <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html"> amazon api</a>
+                                </small>
+                                <small>&copy; 2018 Alissa Adornato &amp; Emily Ding &amp; Hao Chen &amp; William Fu</small>
+                            </footer>
+                        </div>
+
+                    </main>
                 </div>
-                <NavBar handle={this.state.user.displayName} logout={() => this.handleSignOut()}/>
-                <Switch>
-                    <Route exact path="/" component={HomePage}/>
-                    <Route path="/home" component={HomePage}/>
-                    <Route path="/trade" component={TradePage}/>
-                    <Route path={"/profile/:name"} render={(routerProps) => { return <ProfilePage {...routerProps} currentHandle={this.state.user.displayName}/>}} />
-                    <Route path="/chat" render={(routerProps) => {
-                        return <ChatPage {...routerProps} currentUser={this.state.user}/>
-                    }
-                    }/>
-                    <Redirect to="/"/>
-                </Switch>
-            </main>
-            {/* footer */}
-            <footer class="container text-center">
-                <small>API from
-                    <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html">amazon api</a>
-                </small>
-                <small>&copy; 2018 Alissa Adornato &amp; Emily Ding &amp; Hao Chen &amp; William Fu</small>
-            </footer>
-            </div>;
+
         }
 
         if (this.state.loading) {
@@ -132,7 +138,7 @@ class App extends Component {
         return (
             <div>
                 {this.state.errorMessage &&
-                <p className="alert alert-danger">{this.state.errorMessage}</p>
+                    <p className="alert alert-danger">{this.state.errorMessage}</p>
                 }
                 {content}
             </div>

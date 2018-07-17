@@ -4,19 +4,16 @@ import ProfileForm from './ProfileForm';
 
 /**
  * props:
- * currentHandle - uid of the currently logged in user
+ * currentUser - currently logged in user
  */
 class ProfilePage extends Component {
     constructor(props) {
         super(props);
-
-        
-
     }
 
     render() {
         let content = null;
-        if (this.props.currentHandle === this.props.match.params.name) {
+        if (this.props.currentUser.displayName === this.props.match.params.name) {
 
         } else {
 
@@ -24,7 +21,7 @@ class ProfilePage extends Component {
 
         return (
             <div className="profile">
-                {<ProfileForm />}
+                {<ProfileForm uid={this.props.currentUser.uid}/>}
             </div>
         );
     }

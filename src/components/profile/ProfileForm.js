@@ -7,27 +7,12 @@ class ProfileForm extends Component {
     constructor(props) {
         super(props);
 
-        // reference to my current profile
-        console.log(this.props.currentHandle);
-        let usersRef = firebase.database().ref().child('users');
-        let currentProfile = usersRef[this.props.currentHandle];
-        console.log(currentProfile);
-
-        this.state = {
-            email: undefined,
-            password: undefined,
-            handle: undefined,
-            avatar: '',
-            bio: '',
-            tradeOffer: '',
-            name: undefined,
-            contribution: 0,
-        }
+        this.state = {};
     }
 
-    handleInputChange(event) {
-        let field = event.target.name; //which input
-        let value = event.target.value; //what value
+    handleInputChange(e) {
+        let field = e.target.name; //which input
+        let value = e.target.value; //what value
 
         let changes = {}; //object to hold changes
         changes[field] = value; //change this field
@@ -37,8 +22,11 @@ class ProfileForm extends Component {
     updateUserProfile(e) {
         e.preventDefault();
 
-        let currentProfileRef = firebase.database().ref().child('users');
-        currentProfileRef.set(this.state.userProfile);
+        // reference to my current profile
+        let currentUserRef = firebase.database().ref('users').child(this.props.uid);
+        console.log("user: " + currentUserRef);
+        console.log("state: " + this.state);
+        currentUserRef.update(this.state);
     }
     
     render() {
@@ -51,7 +39,7 @@ class ProfileForm extends Component {
                             {/* <!-- start avatar and bio --> */}
                             <form>
                                 <div className="im-g">
-                                    <img src={this.state.userProfile.photoURL} 
+                                    <img src={this.state.photoURL} 
                                         alt="profile picture" />
                                 </div>
                                 <div className="col-md-6 form-group">

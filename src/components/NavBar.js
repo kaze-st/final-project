@@ -17,25 +17,25 @@ class NavBar extends Component {
 
             <ul class="list-unstyled components">
                 <li class="active">
-                    <NavLink to="/home" activeClassName="activeLink">
+                    <NavLink to="/home" activeClassName="sidebar.active">
                         <i class="fas fa-home"></i>
                         Home
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to={"/profile/" + this.props.handle} activeClassName="activeLink">
+                    <NavLink to={"/profile/" + this.props.handle} activeClassName="sidebar.active">
                         <i class="fas fa-image"></i>
                         My Profile
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/trade" activeClassName="activeLink">
+                    <NavLink to="/trade" activeClassName="sidebar.active">
                         <i class="fas fa-paper-plane"></i>
                         Trade [gimmie an icon for this]
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/chat" activeClassName="activeLink">
+                    <NavLink to="/chat" activeClassName="sidebar.active">
                         <i class="fas fa-paper-plane"></i>
                         Group Chat
                     </NavLink>

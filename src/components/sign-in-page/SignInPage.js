@@ -22,7 +22,7 @@ class SignInPage extends Component {
                             <div className="line"></div>
 
                             <div className="container justify-content-between">
-                                <SingInForm handleSignIn={this.props.handleSignIn} handleSignUp={this.props.handleSignUp}/>
+                                <SignInForm handleSignIn={this.props.handleSignIn} handleSignUp={this.props.handleSignUp}/>
                             </div>
                         </div>
                     </div>

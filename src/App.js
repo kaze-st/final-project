@@ -7,7 +7,7 @@ import ProfilePage from "./components/profile/ProfilePage";
 import TradePage from "./components/trade/TradePage";
 import ChatPage from "./components/chat/ChatPage";
 import NavBar from "./components/NavBar";
-import firebase from 'firebase/app'
+import firebase from 'firebase/app';
 
 class App extends Component {
     constructor(props) {
@@ -16,7 +16,6 @@ class App extends Component {
     }
 
     // Life cycle events
-
     componentDidMount() {
         this.onAuthStateChanged = firebase.auth().onAuthStateChanged(
             (firebaseUser) => {
@@ -74,10 +73,10 @@ class App extends Component {
                     handleSignIn={(e,p) => this.handleSignIn(e,p)}
                     handleSignUp={(e,p,h,a) => this.handleSignUp(e,p,h,a)}
                 />
-                </div>
+            </div>;
         } else { // else
             content = <div className="wrapper">
-                <NavBar handle="tim" logout={() => { console.log("out"); }}/>
+                <NavBar handle={this.state.user.displayName} logout={() => this.onAuthStateChanged()}/>
                 <Switch>
                     <Route exact path="/" render={SignInPage}/>
                     <Route path="/home" component={HomePage}/>
@@ -98,7 +97,7 @@ class App extends Component {
         return (
             <div>
                 {this.state.errorMessage &&
-                <p className="alert alert-danger">{this.state.errorMessage}</p>
+                    <p className="alert alert-danger">{this.state.errorMessage}</p>
                 }
                 {content}
             </div>

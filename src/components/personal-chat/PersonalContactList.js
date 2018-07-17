@@ -9,11 +9,15 @@ export default class PersonalContactList extends Component {
 
     componentDidMount() {
         this.userRef = firebase.database().ref('users');
-        this.userRef.once('value').then((snapshot) => {
+        this.userRef.on('value', (snapshot) => {
+
             this.setState({contacts: snapshot.val()});
         })
     }
 
+    componentWillUnmount(){
+        this.userRef.off()
+    }
     render() {
         if (!this.state.contacts) {
             return <div className="inbox_chat">
@@ -25,14 +29,18 @@ export default class PersonalContactList extends Component {
 
         let contactsKey = Object.keys(this.state.contacts);
 
-        contactsKey = contactsKey.map((key) => {
-            let contactObj = this.state.contacts[key];
-            contactObj.id = key;
-            return contactObj;
-        });
+
+        contactsKey = contactsKey.reduce((filtered, option) => {
+            if (option !== this.props.currentUser.uid) {
+                let contactObj = this.state.contacts[option];
+                contactObj.id = option;
+                filtered.push(contactObj);
+            }
+            return filtered;
+        }, []);
 
         contactsKey = contactsKey.map((contact) => {
-            return <PersonalContactItem key={contact.id} contact={contact}/>
+            return <PersonalContactItem key={contact.id} contact={contact} handleContactClick={this.props.handleContactClick}/>
         });
         return <div className="inbox_chat">
             <div className="recent_heading">
@@ -45,7 +53,7 @@ export default class PersonalContactList extends Component {
 
 class PersonalContactItem extends Component {
     render() {
-        return <div className="chat_list active_chat">
+        return <div className="chat_list active_chat" onClick={() => this.props.handleContactClick(this.props.contact)}>
             <div className="chat_people">
                 <div className="chat_img"><img src={this.props.contact.photoURL} alt="sunil"/></div>
                 <div className="chat_ib">

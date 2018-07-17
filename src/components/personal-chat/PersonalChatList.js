@@ -1,6 +1,7 @@
 import {Component} from 'react';
 import React from "react";
 import firebase from 'firebase/app';
+
 export default class PersonalChatList extends Component {
     constructor(props) {
         super(props);
@@ -8,18 +9,56 @@ export default class PersonalChatList extends Component {
     }
 
     componentDidMount() {
-        this.messagesRef = firebase.database().ref('message');
-        this.messagesRef.on('value', (snapshot) => {
+        let converHash = this.props.currentUser.uid < this.props.receiver.id ?
+            (this.props.currentUser.uid + "-" + this.props.receiver.id) :
+            (this.props.receiver.id + "-" + this.props.currentUser.uid);
+
+        this.conversationRef = firebase.database().ref('conversation').child(converHash);
+        this.conversationRef.on('value', (snapshot) => {
             this.setState({messages: snapshot.val()});
-        })
+        });
+
     }
 
     componentWillUnmount() {
-        this.messagesRef.off();
+        console.log("Unmount");
+        this.conversationRef.off();
+    }
+
+    componentDidUpdate(prevProps) {
+        console.log("updated", this.conversationRef);
+
+        let converHash = this.props.currentUser.uid < this.props.receiver.id ?
+            (this.props.currentUser.uid + "-" + this.props.receiver.id) :
+            (this.props.receiver.id + "-" + this.props.currentUser.uid);
+        console.log("Hash in update: ", converHash);
+
+        let oldHash = this.props.currentUser.uid < prevProps.receiver.id ?
+            (this.props.currentUser.uid + "-" + prevProps.receiver.id) :
+            (prevProps.receiver.id + "-" + this.props.currentUser.uid);
+        console.log("Hash in update: ", oldHash);
+
+        if (converHash !== oldHash) {
+            this.conversationRef.off();
+            this.conversationRef = firebase.database().ref('conversation').child(converHash);
+            console.log("New reference: ", this.conversationRef);
+
+            this.conversationRef.on('value', (snapshot) => {
+                console.log("Snapshot value after update :", snapshot.val());
+                this.setState({messages: snapshot.val()});
+            });
+            console.log("");
+            console.log("");
+        }
     }
 
     render() {
-        if (!this.state.messages) return null;
+        if (!this.props.receiver) {
+            return <div className="msg_history">
+                No messages yet!
+            </div>
+        }
+        if (!this.state.messages) return <div className="msg_history"><p>No messages</p></div>;
 
         let messagesItems = [];
         let messageKeys = Object.keys(this.state.messages);

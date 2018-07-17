@@ -6,7 +6,7 @@ class SignInPage extends Component {
 
     render() {
         return (
-            <main>
+            <main className="mx-auto">
                 <div className="container-fluid">
                     <div className="row">
                         <div id="logo" className="d-flex justify-content-between col">

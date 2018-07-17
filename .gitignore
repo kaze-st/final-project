@@ -23,3 +23,13 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+# 
+.package-lock.json
+package-lock.json
+
+# vs folder
+.vs
+.vs/VSWorkspaceState.json
+.vs/final-project/v15/.suo
+.vs/slnx.sqlite

@@ -47,7 +47,7 @@
                 <li>
                     <a href="#">
                         <i class="fas fa-paper-plane"></i>
-                        Contact
+                        Group Message
                     </a>
                 </li>
             </ul>
@@ -171,7 +171,7 @@
                         <small>API from
                             <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html">amazon api</a>
                         </small>
-                        <small>&copy; 2018 Alissa Adornato & Emily Ding & William Fu & Hao Chen</small>
+                        <small>&copy; 2018 Alissa Adornato &amp; Emily Ding &amp; Hao Chen &amp; William Fu</small>
                     </footer>
             </div>
     </div>
@@ -189,7 +189,13 @@
 
     <script type="text/javascript" src="../js/mock-up.js"></script>
 
-
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#sidebarCollapse').on('click', function () {
+                $('#sidebar').toggleClass('active');
+            });
+        });
+    </script>
 </body>
 
 </html>

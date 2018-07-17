@@ -11,9 +11,10 @@ import ChatPage from "./components/group-chat/ChatPage";
 import NavBar from "./components/NavBar";
 //database
 import firebase from 'firebase/app';
-//logo
+import PersonalChatPage from "./components/personal-chat/PersonalChatPage";
 import logo from './img/logo.png'
 import ProfileForm from './components/profile/ProfileForm';
+
 
 
 class App extends Component {
@@ -99,6 +100,7 @@ class App extends Component {
                 />
             </div>;
         } else { // else
+
             content =
                 <div className="wrapper">
                     <NavBar uid={this.state.user.uid} logout={() => this.handleSignOut()} />
@@ -122,12 +124,13 @@ class App extends Component {
                                                             toggleNewUser={() => this.toggleNewUser()}/> }} />
                                     <Route path="/chat" render={(routerProps) => {
                                         return <ChatPage {...routerProps} currentUser={this.state.user} />
-                                    }
-                                    } />
+                                        }} />
                                     <Route path="/profile/:uid/edit" render={(routerProps) => { 
                                                 return <ProfileForm {...routerProps}
                                                                     toggleNewUser={() => this.toggleNewUser()}/> }} />
-                                            
+                                                                                <Route path="/personal-chat" render={(routerProps) => {
+                                        return <PersonalChatPage {...routerProps} currentUser={this.state.user}/>
+                                    }}/>
                                     <Redirect to="/" />
                                 </Switch>
                             }
@@ -142,7 +145,6 @@ class App extends Component {
 
                     </main>
                 </div>
-
         }
 
         if (this.state.loading) {

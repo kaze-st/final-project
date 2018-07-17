@@ -16,6 +16,7 @@
 .env.test.local
 .env.production.local
 
+<<<<<<< HEAD
 # WebStorm files
 .idea/
 
@@ -33,3 +34,10 @@ package-lock.json
 .vs/VSWorkspaceState.json
 .vs/final-project/v15/.suo
 .vs/slnx.sqlite
+=======
+.idea/
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+>>>>>>> 4cd1d3b090e3886f04f300dac2b872c9b7e63f59

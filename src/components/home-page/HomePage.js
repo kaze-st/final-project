@@ -1,29 +1,29 @@
-import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import firebase from 'firebase/app';
 
 
 class HomePage extends Component {
     constructor(props) {
         super(props);
-        this.state = { };
+        this.state = {};
     }
 
     componentDidMount() {
         this.userProfilesRef = firebase.database().ref('users');
         this.userProfilesRef.on('value', (snapshot) => {
             console.log(snapshot.val());
-            
+
             let usersObject = snapshot.val(); //convert snapshot to value
             let usersKeys = Object.keys(usersObject);
             let usersArray = usersKeys.map((key) => { //map array of keys into array of tasks
-            
+
                 let user = usersObject[key]; //access element at that key
                 user.key = key;
                 return user; //the transformed object to store in the array
             });
 
-            this.setState({commitUsers: usersArray});
+            this.setState({ commitUsers: usersArray });
         });
     }
 
@@ -35,10 +35,10 @@ class HomePage extends Component {
 
         if (this.state.commitUsers) {
 
-            let contributions = this.state.commitUsers.map((user)=> {
-                return <CommitmentRow 
-                    name={user.name}   
-                    contribution={user.contribution} 
+            let contributions = this.state.commitUsers.map((user) => {
+                return <CommitmentRow
+                    displayName={user.handle}
+                    contribution={user.contribution}
                     id={user.key}
                     item={user.itemName}
                     key={user.key} />
@@ -54,8 +54,8 @@ class HomePage extends Component {
 
             return (
                 <div className="col-sm" id="pool">
-                <h2>Fund Pool</h2>
-                <div id="total">{"TOTAL: $" + total + "/wk"}</div>
+                    <h2>Fund Pool</h2>
+                    <div id="total">{"TOTAL: $" + total + "/wk"}</div>
                     <table className="table table-striped table-hover">
                         <thead>
                             <tr>
@@ -73,17 +73,22 @@ class HomePage extends Component {
             );
         }
         else {
-            return(<div>Loading... </div>);
+            return (<div>Loading... </div>);
         }
     }
 }
 
 class CommitmentRow extends Component {
-    
+
     render() {
         return (
             <tr>
-                <td className="align-middle"><Link to={"/profile/" + this.props.id}>{this.props.name}</Link></td>
+                <td className="align-middle">
+                    <Link style={Object.assign(
+                        {},
+                        { color: "blue" }
+                    )} to={"/profile/" + this.props.id}>{this.props.displayName}</Link>
+                </td>
                 <td className="align-middle">{this.props.contribution}</td>
                 <td className="align-middle">{this.props.item}</td>
                 <td className="align-middle"><Link to="/personal-chat" className="btn btn-secondary">Message</Link></td>

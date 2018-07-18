@@ -263,6 +263,44 @@ h5.card-title.d-inline.align-middle, h2 {
   margin-top: 1.5rem;
 }
 
+.table-responsive table td a{
+  color: #01A2A6;
+}
+
+.table-responsive table td .btn{
+  color: white;
+}
+
+.btn-primary{
+  background: #01A2A6;
+  border-color: #01A2A6;
+}
+
+.btn-primary:hover{
+  background: #05728f;
+  border-color: rgb(8, 69, 70);
+}
+
+#profile{
+  width: 50%;
+  transition: all 0.3s;
+}
+
+#profile img{
+  display: block;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  border-radius: 10%;
+}
+
+#profile button{
+  margin-top: 3px;
+  width: 100%;
+}
+
+
 /* ---------------------------------------------------
     CHAT MESSAGE
 ----------------------------------------------------- */
@@ -511,6 +549,10 @@ img{ max-width:100%;}
   
   #personalContactContainer, #recentChatsContainer{
     height: 200px;
+  }
+
+  #profile{
+    width: 100%;
   }
 }
 

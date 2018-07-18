@@ -137,7 +137,7 @@ class App extends Component {
                                     <Route exact path="/personal-chat" render={(routerProps) => {
                                         return <PersonalChatPage {...routerProps}
                                                                  currentUser={this.state.user}/> }}/>
-                                    <Route path="/personal-chat/:receiverID" render={(routerProps) => {
+                                    <Route exact path="/personal-chat/:receiverID" render={(routerProps) => {
                                         return <PersonalChatPage {...routerProps}
                                                                  currentUser={this.state.user}/> }}/>
                                     <Redirect to="/" />

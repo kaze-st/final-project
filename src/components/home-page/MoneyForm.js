@@ -70,12 +70,20 @@ export default class MoneyForm extends Component {
         changes[field] = value; //change this field
         this.setState(changes); //update state
     }
-    
-    // should set up a part of the database to record transactions
+
     componentDidMount() {
-        this.fundRef = firebase.database().ref('fundHistory');
-        this.fundRef.child('currFunds')
-        //this.setState({ total:  });
+        this.fundRef = firebase.database().ref('fundHistory').child('availableFunds');
+        this.fundRef.on('value', (snapshot) => {
+            console.log(snapshot.val());
+
+            let availableFunds = snapshot.val(); //convert snapshot to value
+
+            this.setState({ availableFunds: availableFunds });
+        });
+    }
+
+    componentWillUnmount() {
+        this.fundRef.off();
     }
 
     render() {

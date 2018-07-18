@@ -61,22 +61,22 @@ class ProfilePage extends Component {
                 <div id="profile" className="container-fluid">
                     <div className="row">
                         <div className="col-6 im-g">
-                            <img src={this.state.userProfileData.avatar} alt="profile avatar" />
+                            {this.state.userProfileData.avatar && <img src={this.state.userProfileData.avatar} alt="profile avatar" />}
                         </div>
                         <div className="col-6 card">
-                            <h2>Bio:</h2>
-                            <p>{this.state.userProfileData.bio}</p>
+                            {this.state.userProfileData.bio && <div> <h2>Bio:</h2>
+                            <p>{this.state.userProfileData.bio}</p> </div>}
                         </div>
                     </div>
                     <div className="card">
-                        <h3>{"WishList item: " + this.state.userProfileData.itemName}</h3>
-                        <p>{this.state.userProfileData.itemDesc}</p>
+                        {this.state.userProfileData.itemName && <h3>{"WishList item: " + this.state.userProfileData.itemName}</h3>}
+                        {this.state.userProfileData.itemDesc && <p>{this.state.userProfileData.itemDesc}</p>}
                     </div>
                     <div className="row">
                         <div className="col-6 card">
-                            <p>{"Full name: " + this.state.userProfileData.name}</p>
-                            <p>{"Email: " + this.state.userProfileData.email}</p>
-                            <p>{"Handle: " + this.state.userProfileData.handle}</p>
+                            {this.state.userProfileData.name && <p>{"Full name: " + this.state.userProfileData.name}</p>}
+                            {this.state.userProfileData.email && <p>{"Email: " + this.state.userProfileData.email}</p>}
+                            {this.state.userProfileData.handle && <p>{"Handle: " + this.state.userProfileData.handle}</p>}
                         </div>
                         {this.state.userProfileData.tradeOffers && <div className="col-6 card">
                             <h2>Trade Offers:</h2>

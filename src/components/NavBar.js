@@ -42,7 +42,7 @@ class NavBar extends Component {
                 </li>
                 <li>
                     <NavLink to="/personal-chat" activeClassName="sidebar.active">
-                        <i className="fas fa-address-book"></i>
+                        <i className="fas fa-comments"></i>
                         Personal Chat
                     </NavLink>
                 </li>

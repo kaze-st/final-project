@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import SignInForm from "./SignInForm";
 import logo from "../../img/logo.png";
+import SignUpForm from "./SingUpForm";
 
 class SignInPage extends Component {
 
@@ -22,7 +23,13 @@ class SignInPage extends Component {
                             <div className="line"></div>
 
                             <div className="container justify-content-between">
-                                <SignInForm handleSignIn={this.props.handleSignIn} handleSignUp={this.props.handleSignUp}/>
+                                <SignInForm handleSignIn={this.props.handleSignIn}/>
+                            </div>
+
+                            <div className="line"></div>
+
+                            <div className="container justify-content-between">
+                                <SignUpForm handleSignUp={this.props.handleSignUp}/>
                             </div>
                         </div>
                     </div>

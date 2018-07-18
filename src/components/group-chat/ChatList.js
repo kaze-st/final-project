@@ -24,7 +24,6 @@ export default class ChatList extends Component {
     render() {
         if (!this.state.messages) return null;
 
-        let messagesItems = [];
         let messageKeys = Object.keys(this.state.messages);
 
         messageKeys = messageKeys.map((key) => {
@@ -57,14 +56,17 @@ class ChatItem extends Component {
             messageType =
                 <div className="outgoing_msg">
                     <div className="sent_msg">
+                        <h4>You</h4>
                         <p>{this.props.message.text}</p>
                     </div>
                 </div>
         } else {
             messageType = <div className="incoming_msg">
+
                 <div className="incoming_msg_img"><img src={this.props.message.userPhoto} alt="sunil"/></div>
                 <div className="received_msg">
                     <div className="received_withd_msg">
+                        <h4>{this.props.message.userName}</h4>
                         <p>{this.props.message.text}</p>
                     </div>
                 </div>

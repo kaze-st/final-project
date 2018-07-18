@@ -10,6 +10,7 @@ import ProfilePage from "./components/profile/ProfilePage";
 import TradePage from "./components/trade/TradePage";
 import ChatPage from "./components/group-chat/ChatPage";
 import NavBar from "./components/NavBar";
+
 //database
 import firebase from 'firebase/app';
 import PersonalChatPage from "./components/personal-chat/PersonalChatPage";

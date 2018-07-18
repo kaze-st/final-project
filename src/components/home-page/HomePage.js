@@ -34,7 +34,6 @@ class HomePage extends Component {
     render() {
 
         if (this.state.commitUsers) {
-            console.log(this.state.commitUsers);
 
             let contributions = this.state.commitUsers.map((user)=> {
                 return <CommitmentRow 
@@ -82,7 +81,6 @@ class HomePage extends Component {
 class CommitmentRow extends Component {
     
     render() {
-        console.log(this.props);
         return (
             <tr>
                 <td className="align-middle"><Link to={"/profile/" + this.props.id}>{this.props.name}</Link></td>

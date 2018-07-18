@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import {TradeItemList, AddItemForm} from "./TradeOffers";
+import { TradeItemList, AddItemForm } from "./TradeOffers";
 
 import firebase from 'firebase/app';
 
@@ -14,7 +14,7 @@ class ProfileForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {tradeOffers: []};
+        this.state = { tradeOffers: [] };
     }
 
     handleInputChange(e) {
@@ -37,12 +37,12 @@ class ProfileForm extends Component {
         this.props.toggleNewUser();
     }
 
-    handleTradeClick(event, offer){
-        event.preventDefault(); 
-        
+    handleTradeClick(event, offer) {
+        event.preventDefault();
+
         let currOffers = this.state.tradeOffers;
         currOffers.push(offer);
-        this.setState({tradeOffers: currOffers});
+        this.setState({ tradeOffers: currOffers });
     }
 
     render() {
@@ -51,18 +51,21 @@ class ProfileForm extends Component {
                 <div id="profile" className="container-fluid">
 
                     <div className="row">
-                    <h1>Personal Info</h1>
-                        <div className="col-6">
 
+                        <div className="col-sm-4">
+                            <h1>Personal Info</h1>
+
+                        </div>
+                        <div className="col-sm">
                             {/* <!-- start avatar and bio --> */}
-                            
+
                             <form>
-                                
-                                <div className="col-md-6 form-group">
+
+                                <div className="form-group">
                                     <label htmlFor="firstname">Profile Picture URL</label>
                                     <input onChange={(e) => this.handleInputChange(e)}
                                         type="text"
-                                        name="photo"
+                                        name="avatar"
                                         className="form-control"
                                         placeholder="Url here"
                                         aria-label="fill in profile picture URL" />
@@ -77,8 +80,7 @@ class ProfileForm extends Component {
                             </form>
                             {/* <!-- end avatar and bio --> */}
                         </div>
-
-                        <div className="col-6">
+                        <div className="col-sm">
                             <div className="first-line agileits">
                                 {/* <!-- name --> */}
                                 <div className="col-md-6 form-group">
@@ -93,21 +95,23 @@ class ProfileForm extends Component {
                             </div>
                         </div>
                         <div className="line"></div>
-
+                    </div>
+                    <div className="row">
                         {/* item requested */}
-                        <h1>My Item</h1>
-
-                        <div className="row">
+                        <div className="col-sm-4">
+                            <h1>My Item</h1>
+                        </div>
+                        <div classnName="col-sm">
                             <form>
                                 <div className="input-group">
                                     <label className="input-group">Product Name:</label>
-                                    <input 
-                                        type="text" 
+                                    <input
+                                        type="text"
                                         name="itemName"
-                                        className="form-control" 
-                                        aria-label="fill in group name" 
-                                        placeholder="What is it?" 
-                                        onChange={(e) => this.handleInputChange(e)}/>
+                                        className="form-control"
+                                        aria-label="fill in group name"
+                                        placeholder="What is it?"
+                                        onChange={(e) => this.handleInputChange(e)} />
 
                                     <label className="input-group">Asking Price:</label>
                                     <input onChange={(e) => this.handleInputChange(e)}
@@ -117,31 +121,30 @@ class ProfileForm extends Component {
                                         aria-label="Dollar amount (with dot and two decimal places)" />
 
                                     <label className="input-group">Description:</label>
-                                    <textarea 
-                                        className="form-control" 
-                                        name="itemDesc" 
-                                        rows="3" 
+                                    <textarea
+                                        className="form-control"
+                                        name="itemDesc"
+                                        rows="3"
                                         placeholder="What's its condition? Any special terms?"
                                         onChange={(e) => this.handleInputChange(e)}></textarea>
                                 </div>
                             </form>
                         </div>
-
                         <div className="line"></div>
 
                         {/* <!-- trading --> */}
-                        <h1>Trading</h1>
+
                         <div className="row">
-                            
-                            <div className="col-6">
-                                {<TradeItemList items={this.state.tradeOffers}/>}
+                            <div className="col-sm-4">
+                                <h1>Trading</h1>
                             </div>
-                            <div className="col-6">
+                            <div className="col-sm">
+                                {<TradeItemList items={this.state.tradeOffers} />}
+                            </div>
+                            <div className="col-sm">
                                 {<AddItemForm howToAdd={(event, offer) => this.handleTradeClick(event, offer)} />}
                             </div>
-
                         </div>
-
                         <div className="line"></div>
 
                         <button type="button"
@@ -153,7 +156,7 @@ class ProfileForm extends Component {
                         </button>
                     </div>
                 </div>
-            </div>
+            </div >
         );
     }
 }

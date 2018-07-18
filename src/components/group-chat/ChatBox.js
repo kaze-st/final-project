@@ -32,12 +32,18 @@ export default class ChatBox extends Component {
     render() {
         return (<div className="type_msg">
             <div className="input_msg_write">
-                <input   onChange={(event) => this.updatePost(event)} value={this.state.post} type="text" className="write_msg" placeholder="Type a message"/>
-                <button className="msg_send_btn"
-                        type="button"
-                        disabled={this.state.post.length === 0}
-                        onClick={(event) => (this.postMessage(event))}
-                ><i className="fas fa-share-square" aria-hidden="true"></i></button>
+                <form onSubmit={(event) => (this.postMessage(event))}>
+                    <input onChange={(event) => this.updatePost(event)} value={this.state.post}
+                           onSubmit={(event) => (this.postMessage(event))}
+                           type="text"
+                           className="write_msg"
+                           placeholder="Type a message"/>
+                    <button className="msg_send_btn"
+                            type="button"
+                            disabled={this.state.post.length === 0}
+                            onClick={(event) => (this.postMessage(event))}
+                    ><i className="fas fa-share-square" aria-hidden="true"></i></button>
+                </form>
             </div>
         </div>);
     }

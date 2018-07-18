@@ -82,6 +82,7 @@ class ChatItem extends Component {
             messageType =
                 <div className="outgoing_msg">
                     <div className="sent_msg">
+                        <h4>YOU</h4>
                         <p>{this.props.message.text}</p>
                     </div>
                 </div>
@@ -90,6 +91,7 @@ class ChatItem extends Component {
                 <div className="incoming_msg_img"><img src={this.props.message.userPhoto} alt="sunil"/></div>
                 <div className="received_msg">
                     <div className="received_withd_msg">
+                        <h4>USERNAME</h4>
                         <p>{this.props.message.text}</p>
                     </div>
                 </div>

@@ -1,7 +1,7 @@
 import {Component} from 'react';
 import React from "react";
 import firebase from 'firebase/app';
-// import {Link, Element , Events, animateScroll as scroll, scrollSpy, scroller} from 'react-scroll'
+
 
 export default class ChatList extends Component {
     constructor(props) {

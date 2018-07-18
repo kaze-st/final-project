@@ -22,6 +22,7 @@ import ProfileForm from './components/profile/ProfileForm';
 class App extends Component {
     constructor(props) {
         super(props);
+        // implicit states: user
         this.state = { loading: true }
     }
 

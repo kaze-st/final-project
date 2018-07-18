@@ -41,7 +41,7 @@ class NavBar extends Component {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/personal-chat" activeClassName="sidebar.active">
+                    <NavLink to={"/personal-chat/" + this.props.uid} activeClassName="sidebar.active">
                         <i className="fas fa-comments"></i>
                         Personal Chat
                     </NavLink>

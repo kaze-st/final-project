@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink, Link } from 'react-router-dom';
 
 import firebase from 'firebase/app';
 
@@ -38,14 +38,15 @@ class TradePage extends Component {
                         });
                     }
                     else {
+                        console.log(user)
                         user.tradeOffers.forEach((offer) => {
-                            offer.key = user.key;
+                            offer.key = user.id;
+                            offer.id = user.id;
                             offer.ownerName = user.name;
                             otherOffers.push(offer);
                         });
                     }
                 }
-
             });
 
             this.setState({ loading: false, myOffers: myOffers, otherOffers: otherOffers });
@@ -65,6 +66,7 @@ class TradePage extends Component {
         }
 
         let myItemRows = this.state.myOffers.map((offer) => {
+            
             return <div className="card my-1" key={offer.id}>
                 <div className="card-body">
                     <h5 className="card-title d-inline align-middle">{offer.name}</h5>
@@ -74,11 +76,12 @@ class TradePage extends Component {
         });
 
         let theirItemRows = this.state.otherOffers.map((offer) => {
+            console.log(offer.id);
             return <div className="card my-1" key={offer.id}>
                 <div className="card-body">
                     <h5 className="card-title d-inline align-middle">{offer.name}</h5>
                     <p className="card-text d-inline align-middle">{" x " + offer.quantity}</p>
-                    <a href="#" className="btn btn-danger d-inline float-right">Message the offerer</a>
+                    <NavLink to={"/personal-chat/" + offer.id} className="btn btn-danger d-inline float-right">Message the offerer</NavLink>
                 </div>
             </div>
         });

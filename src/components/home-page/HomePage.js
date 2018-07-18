@@ -10,8 +10,6 @@ class HomePage extends Component {
     }
 
     componentDidMount() {
-        
-
         this.userProfilesRef = firebase.database().ref('users');
         this.userProfilesRef.on('value', (snapshot) => {
             console.log(snapshot.val());
@@ -27,7 +25,6 @@ class HomePage extends Component {
 
             this.setState({commitUsers: usersArray});
         });
-        
     }
 
     componentWillUnmount() {

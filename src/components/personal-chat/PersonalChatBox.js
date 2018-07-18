@@ -41,11 +41,10 @@ export default class PersonalChatBox extends Component {
 
     render() {
         if (!this.props.receiver) return null;
-
         return (<div className="type_msg">
             <div className="input_msg_write">
                 <input onChange={(event) => this.updatePost(event)} value={this.state.post} type="text" className="write_msg"
-                       placeholder="Type a message"/>
+                       placeholder={"Type a message to " + this.props.receiver.handle}/>
                 <button className="msg_send_btn"
                         type="button"
                         disabled={this.state.post.length === 0}

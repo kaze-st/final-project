@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { Button } from 'reactstrap';
+import {TradeItemList, AddTradeItemForm} from "./TradeOffers";
 
 import firebase from 'firebase/app';
 
@@ -14,7 +14,7 @@ class ProfileForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {tradeOffers: []};
     }
 
     handleInputChange(e) {
@@ -36,6 +36,14 @@ class ProfileForm extends Component {
 
         // log profile as completed
         this.props.toggleNewUser();
+    }
+
+    handleTradeClick(event, offer){
+        event.preventDefault(); 
+        
+        let currOffers = this.state.tradeOffers;
+        currOffers.push(offer);
+        this.setState({tradeOffers: currOffers});
     }
 
     render() {
@@ -95,22 +103,22 @@ class ProfileForm extends Component {
                                         className="form-control"
                                         aria-label="Dollar amount (with dot and two decimal places)" />
                                 </div>
-                                {/* <!-- trading --> */}
-                                {/* <div className="form-group">
-                                    <label for="goods/services">Goods / Services to Trade</label>
-                                    <textarea onChange={(e) => this.handleInputChange(e)}
-                                        name="tradeOffer"
-                                        className="form-control"
-                                        id="trading"
-                                        rows="3"></textarea>
-                                </div> */}
-                                {/* more trading */}
                             </div>
                         </div>
+                        <div className="line"></div>
+
+                        {/* <!-- trading --> */}
                         <div class="row">
-                            {<TradeItemList />}
-                            {<AddTradeItemForm />}
+                            <div className="col-6">
+                                {<TradeItemList items={this.state.tradeOffers}/>}
+                            </div>
+                            <div className="col-6">
+                                {<AddTradeItemForm howToAdd={(event, offer) => this.handleTradeClick(event, offer)} />}
+                            </div>
                         </div>
+
+                        <div className="line"></div>
+
                         <button type="button"
                             className="btn btn-outline-info"
                             onClick={(e) => this.updateUserProfile(e)}>
@@ -120,86 +128,9 @@ class ProfileForm extends Component {
                         </button>
                     </div>
                 </div>
-                <div className="line"></div>
             </div>
         );
     }
 }
 
 export default ProfileForm;
-
-/**
- * props:
- * items- tradable items 
- */
-class TradeItemList extends Component {
-   
-    render() {
-        let tradeComponents = this.props.items.map((tradable) => {
-            return (
-                <TradeItem title={tradable.title} 
-                            desc={tradable.desc}
-                            quantity={tradable.quantity} />
-            );
-        });
-
-        return (
-            <ol>
-                {tradeComponents}
-            </ol>
-        );
-    }
-}
-
-/**
- * props:
- * title- title of item
- * desc- description of item
- * quantity- how many available
- */
-class TradeItem extends Component {
-    render() {
-        let title = this.props.title;
-        if (this.props.quantity) {
-            title += " x" + this.props.quantity;
-        }
-        return (
-            <li>
-                <h3>{title}</h3>
-                <p>{this.props.desc}</p>
-            </li>
-        );
-    }
-}
-
-class AddTradeItemForm extends Component {
-    handleClick(event){
-        event.preventDefault(); 
-        
-        this.props.howToAdd(this.state.newTask);
-        this.setState({newTask: ''});
-    }
-
-    render() {
-        return (
-        <form>
-            <input 
-                className="form-control mb-3"
-                placeholder="What else do you have to do?"
-                //onChange={(evt) => this.handleChange(evt)}
-            />
-            <div class="input-group">
-                <label class="input-group">Quantity (if applicable):</label>
-                <input type="text" class="form-control" />
-                <label class="input-group"><h2>Product Name:</h2></label>
-                <input type="text" id="task-input" class="form-control" aria-label="fill in group name" placeholder="What is it?" />
-                <label for="descrp" class="form-group">Description:</label>
-                <textarea class="form-control" id="descrp" rows="3" placeholder="Add the description"></textarea>
-            </div>
-            <Button color="primary">
-            Add task to list
-            </Button>
-        </form>
-        );
-    }
-}

@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { Button } from 'reactstrap';
 import { NavLink } from 'react-router-dom';
+import { TradeItemList } from './TradeOffers';
 
 import firebase from 'firebase/app';
 
@@ -21,7 +22,6 @@ class ProfilePage extends Component {
         this.userProfileRef.on('value', (snapshot) => {
             this.setState({userProfileData: snapshot.val()});
         });
-        
     }
 
     componentWillUnmount() {
@@ -38,9 +38,21 @@ class ProfilePage extends Component {
                             Edit Profile
                         </NavLink>
                     </Button>;
-        }// else {
-        //     button = 
-        // }
+        } else {
+             button = (
+                 <div className="row">
+                    <Button color="primary">
+                        <NavLink to={"/personal-chat"}>
+                            {"Chat with " + this.state.userProfileData.handle}
+                        </NavLink>
+                   </Button>
+                    <Button color="primary">
+                        <NavLink to={"/trade"}>
+                            {"Trade with " + this.state.userProfileData.handle}
+                        </NavLink>
+                   </Button>
+                   </div>);
+        }
 
         console.log(this.state.userProfileData);
 
@@ -60,10 +72,10 @@ class ProfilePage extends Component {
                         <div className="col-6">
                             <p>all the other stuff here</p>
                         </div>
-                        <div className="col-6">
-                            <h2>Trade Offer:</h2>
-                            <p>{this.state.userProfileData.tradeOffer}</p>
-                        </div>
+                        {this.state.userProfileData.tradeOffers && <div className="col-6">
+                            <h2>Trade Offers:</h2>
+                            {<TradeItemList items={this.state.userProfileData.tradeOffers}/>}
+                        </div>}
                     </div>
                 </div>
                 {button}

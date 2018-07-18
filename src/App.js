@@ -66,8 +66,10 @@ class App extends Component {
                 newUserObj.email = email;
                 // delete 
                 newUserObj.password = password;
+
                 newUserObj.handle = handle;
                 newUserObj.avatar = avatar;
+                newUserObj.tradeOffers = [];
                 console.log(usersRef);
                 return usersRef.set(newUserObj);
             }
@@ -112,7 +114,9 @@ class App extends Component {
                             </div>
                             {this.state.newUser ? 
                                 // new user logs info into profile
-                                <ProfileForm uid={this.state.user.uid} toggleNewUser={() => this.toggleNewUser()}/> 
+                                <ProfileForm 
+                                    uid={this.state.user.uid} 
+                                    toggleNewUser={() => this.toggleNewUser()} /> 
                                 :
                                 // returning user lands on home page
                                 <Switch>
@@ -124,15 +128,15 @@ class App extends Component {
                                                             currentUser={this.state.user} 
                                                             toggleNewUser={() => this.toggleNewUser()}/> }} />
                                     <Route path="/chat" render={(routerProps) => {
-                                        return <ChatPage {...routerProps} currentUser={this.state.user} />
-                                        }} />
+                                        return <ChatPage {...routerProps} 
+                                                            currentUser={this.state.user} /> }} />
                                     <Route path="/profile/:uid/edit" render={(routerProps) => { 
-                                                return <ProfileForm {...routerProps}
-                                                                    uid={this.state.user.uid}
-                                                                    toggleNewUser={() => this.toggleNewUser()}/> }} />
+                                        return <ProfileForm {...routerProps}
+                                                            uid={this.state.user.uid}
+                                                            toggleNewUser={() => this.toggleNewUser()} /> }} />
                                     <Route path="/personal-chat" render={(routerProps) => {
-                                        return <PersonalChatPage {...routerProps} currentUser={this.state.user}/>
-                                    }}/>
+                                        return <PersonalChatPage {...routerProps} 
+                                                            currentUser={this.state.user}/> }}/>
                                     <Redirect to="/" />
                                 </Switch>
                             }

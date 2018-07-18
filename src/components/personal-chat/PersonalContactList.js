@@ -22,7 +22,7 @@ export default class PersonalContactList extends Component {
         if (!this.state.contacts) {
             return <div className="inbox_chat">
                 <div className="recent_heading">
-                    <h4>Recent</h4>
+                    <h4>Contact list</h4>
                 </div>
             </div>
         }
@@ -44,7 +44,7 @@ export default class PersonalContactList extends Component {
         });
         return <div className="inbox_chat">
             <div className="recent_heading">
-                <h4>Recent</h4>
+                <h4>Contact list</h4>
             </div>
             {contactsKey}
         </div>;
@@ -58,7 +58,6 @@ class PersonalContactItem extends Component {
                 <div className="chat_img"><img src={this.props.contact.photoURL} alt="sunil"/></div>
                 <div className="chat_ib">
                     <h5>{this.props.contact.handle}</h5>
-                    <p>Latest message</p>
                 </div>
             </div>
         </div>;

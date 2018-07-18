@@ -93,6 +93,7 @@ export class AddItemForm extends Component {
                     onChange={(e) => this.handleInputChange(e)}></textarea>
             </div>
             <Button color="primary" onClick={(e) => {
+                    this.state.id = Math.random().toString(36).substring(7);
                     this.props.howToAdd(e, this.state)}}>
                 submit item
             </Button>

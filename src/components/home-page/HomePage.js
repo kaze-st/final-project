@@ -56,13 +56,12 @@ class HomePage extends Component {
                     {<MoneyForm/>}
                 <div className="col-sm overflow-y: auto;" id="pool">
                     <h2>Fund Pool</h2>
-                    <div id="total">{"TOTAL: $" + this.state.total}</div>
                     <div className="table-responsive">
                         <table className="table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Commitment</th>
+                                    <th scope="col">Urgency</th>
                                     <th scope="col">WishList Item</th>
                                     <th scope="col">WishList Cost</th>
                                     <th scope="col">Message</th>
@@ -94,7 +93,7 @@ class CommitmentRow extends Component {
                         { color: "Green" }
                     )} to={"/profile/" + this.props.id}>{this.props.displayName}</Link>
                 </td>
-                <td className="align-middle">{this.props.contribution}</td>
+                <td className="align-middle">{this.props.rank}</td>
                 <td className="align-middle">{this.props.item}</td>
                 <td className="align-middle">{this.props.itemCost}</td>
                 <td className="align-middle"><Link to={"/personal-chat/" + this.props.id} className="btn btn-primary">Message</Link></td>

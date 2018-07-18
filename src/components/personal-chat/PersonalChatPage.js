@@ -12,15 +12,15 @@ export default class PersonalChatPage extends Component {
         this.state = {}
     }
 
-    componentDidMount(){
-        firebase.database().ref('users').limitToFirst(1).once('value', (snap) =>{
-            console.log(snap.val());
-            let firstUser = snap.val();
-            let userKey = Object.keys(snap.val());
-            firstUser = firstUser[userKey[0]];
-            firstUser.id = userKey[0];
-            this.setState({receiver:firstUser})
-        })
+    componentDidMount() {
+
+        console.log(this.props);
+        firebase.database().ref('users').child(this.props.match.params.receiverID).once('value').then(
+            (snapshot) =>{
+                console.log("param", snapshot.val());
+                this.setState({receiver:snapshot.val()});
+            }
+        )
     }
 
     // Receives an user object that represents the receiver
@@ -32,12 +32,19 @@ export default class PersonalChatPage extends Component {
     render() {
         console.log('receiver', this.state.receiver);
         console.log('current user', this.props.currentUser);
-        if (!this.state.receiver) return null;
+
+        // If no receiver just show this!
+        let content = <div> Select a person to talk to!</div>;
+
+        if (this.state.receiver) {
+            content = <div><PersonalChatList currentUser={this.props.currentUser} receiver={this.state.receiver}/>
+                <PersonalChatBox currentUser={this.props.currentUser} receiver={this.state.receiver}/></div>
+        }
         return <div className="messaging">
+
             <PersonalContactList currentUser={this.props.currentUser} handleContactClick={(contactID) => this.handleContactClick(contactID)}/>
             <ActiveConversationList currentUser={this.props.currentUser} handleContactClick={(contactID) => this.handleContactClick(contactID)}/>
-            <PersonalChatList currentUser={this.props.currentUser} receiver={this.state.receiver}/>
-            <PersonalChatBox currentUser={this.props.currentUser} receiver={this.state.receiver}/>
+            {content}
         </div>
     }
 

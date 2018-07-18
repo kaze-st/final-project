@@ -63,6 +63,7 @@ class HomePage extends Component {
                     name={user.name}   
                     contribution={user.contribution} 
                     id={user.key}
+                    item={user.itemName}
                     key={user.key} />
             });
 
@@ -83,7 +84,8 @@ class HomePage extends Component {
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Commitment</th>
-                                <th scope="col"></th>
+                                <th scope="col">WishList Item</th>
+                                <th scope="col">Message</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -104,15 +106,15 @@ class CommitmentRow extends Component {
     render() {
         console.log(this.props)
         return (
-        
             <tr>
                 <Link to={"/profile/" + this.props.id}>
                 <td className="align-middle">{this.props.name}</td>
-                <td className="align-middle">{this.props.contribution}</td>
-                <td className="align-middle"><Link to="/personal-chat" className="btn btn-secondary">Message</Link></td>
                 </Link>
+                <td className="align-middle">{this.props.contribution}</td>
+                <td className="align-middle">{this.props.item}</td>
+                <td className="align-middle"><Link to="/personal-chat" className="btn btn-secondary">Message</Link></td>
+                
             </tr>
-        
         );
     }
 }

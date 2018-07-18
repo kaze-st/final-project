@@ -29,6 +29,7 @@ export default class PersonalChatPage extends Component {
 
     // Receives an user object that represents the receiver
     handleContactClick(receiver) {
+        console.log("CLicked!!!!!");
         console.log("receiver in handleClick", receiver);
         this.setState({receiver});
     }

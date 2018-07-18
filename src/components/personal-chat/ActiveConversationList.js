@@ -128,7 +128,7 @@ class ConversationItem extends Component {
 
         }}>
             <div className="chat_people">
-                <div className="chat_img"><img src={this.state.receptor.photoURL} alt="sunil"/></div>
+                <div className="chat_img"><img src={this.state.receptor.avatar} alt="sunil"/></div>
                 <div className="chat_ib">
                     <h5>{this.state.receptor.handle}</h5>
                     <h4>{this.props.read === "y" ? "(read)": "(unread)"}</h4>

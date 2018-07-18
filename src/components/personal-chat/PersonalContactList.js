@@ -33,7 +33,6 @@ export default class PersonalContactList extends Component {
         contactsKey = contactsKey.reduce((filtered, option) => {
             if (option !== this.props.currentUser.uid) {
                 let contactObj = this.state.contacts[option];
-                contactObj.id = option;
                 filtered.push(contactObj);
             }
             return filtered;
@@ -53,9 +52,10 @@ export default class PersonalContactList extends Component {
 
 class PersonalContactItem extends Component {
     render() {
+        console.log("contact props:" + this.props.contact);
         return <div className="chat_list active_chat" onClick={() => this.props.handleContactClick(this.props.contact)}>
             <div className="chat_people">
-                <div className="chat_img"><img src={this.props.contact.photoURL} alt="sunil"/></div>
+                <div className="chat_img"><img src={this.props.contact.avatar} alt="sunil"/></div>
                 <div className="chat_ib">
                     <h5>{this.props.contact.handle}</h5>
                 </div>

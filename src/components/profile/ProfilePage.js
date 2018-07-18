@@ -29,10 +29,7 @@ class ProfilePage extends Component {
     }
 
     render() {
-        if (!this.state.userProfileData) {
-            return null
-        }
-
+        if (!this.state.userProfileData) { return null }
 
         let button = null;
         if (this.props.currentUser.uid === this.props.match.params.uid) {

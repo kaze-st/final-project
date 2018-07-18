@@ -40,7 +40,7 @@ export default class ChatList extends Component {
 
 
         return (
-            <div className="msg_history" id={"msg_history"}>
+            <div className="msg_history" id={"group_chat"}>
                 {messageKeys}
             </div>);
 

@@ -5,7 +5,7 @@ import PersonalChatBox from "./PersonalChatBox";
 import PersonalChatList from "./PersonalChatList";
 import firebase from 'firebase';
 import ActiveConversationList from "./ActiveConversationList";
-import {Redirect} from 'react-router-dom';
+
 export default class PersonalChatPage extends Component {
     constructor(props) {
         super(props);

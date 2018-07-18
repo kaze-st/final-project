@@ -30,8 +30,8 @@ class NavBar extends Component {
                 </li>
                 <li>
                     <NavLink to="/trade" activeClassName="sidebar.active">
-                        <i className="fas fa-paper-plane"></i>
-                        Trade [gimmie an icon for this]
+                        <i className="fas fa-exchange-alt"></i>
+                        Trade
                     </NavLink>
                 </li>
                 <li>

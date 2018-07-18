@@ -1,5 +1,6 @@
 import React, {Component} from 'react'; //import React Component
 import firebase from 'firebase/app'
+import {Link, Element, Events, animateScroll as scroll, scrollSpy, scroller} from 'react-scroll'
 
 export default class PersonalChatBox extends Component {
     constructor(props) {
@@ -15,6 +16,9 @@ export default class PersonalChatBox extends Component {
     postMessage(event) {
         event.preventDefault(); //don't submit
 
+        scroll.scrollToBottom({
+            containerId: "personal_chat"
+        });
 
         let newMessage = {
             text: this.state.post,
@@ -48,7 +52,12 @@ export default class PersonalChatBox extends Component {
         if (!this.props.receiver) return null;
         return (<div className="type_msg">
             <div className="input_msg_write">
-                <form onSubmit={(event) => (this.postMessage(event))}>
+                <form onSubmit={(event) => {
+                    event.preventDefault();
+                    if (this.state.post.length !== 0) {
+                        this.postMessage(event)
+                    }
+                }}>
 
                     <input onChange={(event) => this.updatePost(event)} value={this.state.post} type="text" className="write_msg"
                            placeholder={"Type a message to " + this.props.receiver.handle}

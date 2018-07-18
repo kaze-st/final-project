@@ -1,6 +1,7 @@
 import {Component} from 'react';
 import React from "react";
 import firebase from 'firebase/app';
+import {Link, Element, Events, animateScroll as scroll, scrollSpy, scroller} from 'react-scroll'
 
 export default class PersonalChatList extends Component {
     constructor(props) {
@@ -15,7 +16,9 @@ export default class PersonalChatList extends Component {
 
         this.conversationRef = firebase.database().ref('conversation').child(converHash);
         this.conversationRef.on('value', (snapshot) => {
-            this.setState({messages: snapshot.val()});
+            this.setState({messages: snapshot.val()}, () =>{scroll.scrollToBottom({
+                containerId: "personal_chat"
+            });});
         });
 
     }
@@ -23,6 +26,8 @@ export default class PersonalChatList extends Component {
     componentWillUnmount() {
         this.conversationRef.off();
     }
+
+
 
     componentDidUpdate(prevProps) {
 
@@ -39,7 +44,9 @@ export default class PersonalChatList extends Component {
             this.conversationRef = firebase.database().ref('conversation').child(converHash);
 
             this.conversationRef.on('value', (snapshot) => {
-                this.setState({messages: snapshot.val()});
+                this.setState({messages: snapshot.val()}, () =>{scroll.scrollToBottom({
+                    containerId: "personal_chat"
+                });});
             });
 
         }
@@ -67,7 +74,7 @@ export default class PersonalChatList extends Component {
             }
         );
 
-        return <div className="msg_history">
+        return <div className="msg_history" id={"personal_chat"}>
             {messageKeys}
         </div>;
     }

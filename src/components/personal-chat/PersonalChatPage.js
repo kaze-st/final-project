@@ -44,7 +44,7 @@ export default class PersonalChatPage extends Component {
         let content = <h2 id="defaultChatText">Select a person to talk to!</h2>;
 
         if (this.state.receiver) {
-            content = <div className="col-sm-8 border border-dark"><h4>Conversation</h4><PersonalChatList currentUser={this.props.currentUser} receiver={this.state.receiver}/>
+            content = <div className="col-sm-8 border border-dark" id="personalChatBox"><h4>Conversation</h4><PersonalChatList currentUser={this.props.currentUser} receiver={this.state.receiver}/>
                 <PersonalChatBox currentUser={this.props.currentUser} receiver={this.state.receiver}/></div>
         }
 

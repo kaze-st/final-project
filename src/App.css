@@ -387,8 +387,15 @@ img{ max-width:100%;}
 .inbox_chat {
   height: 600px;
   background-color: #ebebeb;
-  margin-left: 4px;
+  margin: 2px;
   border-radius: 5px;
+  padding-top: 5px;
+}
+
+#personalChatBox{
+  height: 600px;
+  border-radius: 5px;
+  margin: 2px;
   padding-top: 5px;
 }
 
@@ -482,7 +489,7 @@ img{ max-width:100%;}
   height: 33px;
   position: absolute;
   right: 0;
-  top: 11px;
+  top: 3px;
   width: 33px;
 }
 .messaging { padding: 0 0 50px 0;}

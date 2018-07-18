@@ -59,7 +59,7 @@ export default class ActiveConversationList extends Component {
 
 
         return <div className="inbox_chat col-sm border border-dark">
-            <h4>Recent conversations</h4>
+            <h4>Recent</h4>
             <div id="recentChatsContainer">
                 {conversationKey}
             </div>

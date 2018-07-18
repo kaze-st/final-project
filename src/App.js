@@ -122,7 +122,7 @@ class App extends Component {
                                 <Switch>
                                     <Route exact path="/" component={HomePage} />
                                     <Route path="/home" component={HomePage} />
-                                    <Route path="/trade" component={TradePage} />
+                                    <Route exact path={"/trade/:uid"} component={TradePage} />
                                     <Route exact path={"/profile/:uid"} render={(routerProps) => { 
                                         return <ProfilePage {...routerProps} 
                                                             currentUser={this.state.user} 

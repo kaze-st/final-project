@@ -32,12 +32,13 @@ class TradePage extends Component {
             usersArray.forEach( (user) => {
                 if (user.tradeOffers) {
                    
-                    if (user.key === this.props.match.params.uid) {
+                    if (user.key == this.props.match.params.uid) {
                         user.tradeOffers.forEach( (offer) => {
                             myOffers.push(offer);
                         });
                     }
                     else {
+                        // TODO: not ideal.  it should only showing items from a particular user
                         user.tradeOffers.forEach( (offer) => {
                             offer.key = user.key;
                             offer.ownerName = user.name;
@@ -47,6 +48,8 @@ class TradePage extends Component {
                 }
 
             });
+
+            this.setState({loading: false, myOffers: myOffers, otherOffers: otherOffers});
         });
     }
 
@@ -55,27 +58,31 @@ class TradePage extends Component {
     }
 
     render() {
+
+        if (this.state.loading) {
+            return <div className="text-center">
+                <i className="fa fa-spinner fa-spin fa-3x" aria-label="Connecting..."></i>
+            </div>
+        }
+
+        let myItemRows = this.state.myOffers.map((offer)=> {
+            return <div className="card my-1" key={offer.id}>
+                        <div className="card-body">
+                            <h5 className="card-title d-inline align-middle">{offer.name}</h5>
+                            <p className="card-text d-inline align-middle">{" x "+offer.quantity}</p>
+                            <a href="#" className="btn btn-danger d-inline float-right">X</a>
+                        </div>
+                    </div>
+        });
+
         return (
             <div className="row mx-auto">
            
             <div className="col mx-auto">
             <div id="myItems">
                     <h2>My Items</h2>
-                    <div id="myItemViewer" className="bg-white p-1 border border-dark rounded">
-                        <div className="card my-1">
-                            <div className="card-body">
-                                <h5 className="card-title d-inline align-middle">ITEM NAME </h5>
-                                <p className="card-text d-inline align-middle">x9999</p>
-                                <a href="#" className="btn btn-danger d-inline float-right">X</a>
-                            </div>
-                        </div>
-                        <div className="card my-1">
-                            <div className="card-body">
-                                <h5 className="card-title d-inline align-middle">ITEM NAME </h5>
-                                <p className="card-text d-inline align-middle">x9999</p>
-                                <a href="#" className="btn btn-danger d-inline float-right">X</a>
-                            </div>
-                        </div>
+                    <div id="myItemViewer" className="bg-white p-1 border border-dark rounded">                        
+                        {myItemRows}
                     </div>
                 </div>
                 

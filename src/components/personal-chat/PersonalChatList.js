@@ -48,7 +48,7 @@ export default class PersonalChatList extends Component {
     render() {
         if (!this.props.receiver) {
             return <div className="msg_history">
-                No messages yet!
+                Select a person to talk to!
             </div>
         }
         if (!this.state.messages) return <div className="msg_history"><p>No messages</p></div>;

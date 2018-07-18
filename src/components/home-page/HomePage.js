@@ -53,22 +53,24 @@ class HomePage extends Component {
             }, 0);
 
             return (
-                <div className="col-sm" id="pool">
+                <div className="col-sm overflow-y: auto;" id="pool">
                     <h2>Fund Pool</h2>
                     <div id="total">{"TOTAL: $" + total + "/wk"}</div>
-                    <table className="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Commitment</th>
-                                <th scope="col">WishList Item</th>
-                                <th scope="col">Message</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {contributions}
-                        </tbody>
-                    </table>
+                    <div className="table-responsive">
+                        <table className="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Commitment</th>
+                                    <th scope="col">WishList Item</th>
+                                    <th scope="col">Message</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {contributions}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             );
         }

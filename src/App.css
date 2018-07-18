@@ -169,6 +169,10 @@ span {
   display: none;
 }
 
+#sidebar:hover footer{
+  display: block;
+}
+
 #sidebar ul.components {
   padding: 20px 0;
   border-bottom: 1px solid #47748b;
@@ -218,6 +222,7 @@ ul.list-unstyled a {
   border-radius: 5px;
   margin-bottom: 5px;
 }
+
 
 
 /* ---------------------------------------------------
@@ -300,6 +305,14 @@ h5.card-title.d-inline.align-middle, h2 {
   width: 100%;
 }
 
+footer{
+  width: 80%;
+  display: none;
+  bottom: 0;
+  left: 0;
+}
+
+
 
 /* ---------------------------------------------------
     CHAT MESSAGE
@@ -371,7 +384,20 @@ img{ max-width:100%;}
   margin: 0;
   padding: 18px 16px 10px;
 }
-.inbox_chat { height: 550px;}
+.inbox_chat {
+  height: 600px;
+  background-color: #ebebeb;
+  margin: 2px;
+  border-radius: 5px;
+  padding-top: 5px;
+}
+
+#personalChatBox{
+  height: 600px;
+  border-radius: 5px;
+  margin: 2px;
+  padding-top: 5px;
+}
 
 #personalContactContainer, #recentChatsContainer{
   overflow-y: scroll;
@@ -463,7 +489,7 @@ img{ max-width:100%;}
   height: 33px;
   position: absolute;
   right: 0;
-  top: 11px;
+  top: 3px;
   width: 33px;
 }
 .messaging { padding: 0 0 50px 0;}
@@ -553,6 +579,10 @@ img{ max-width:100%;}
 
   #profile{
     width: 100%;
+  }
+
+  footer{
+    display: block;
   }
 }
 

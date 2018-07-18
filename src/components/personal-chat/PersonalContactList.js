@@ -41,8 +41,8 @@ export default class PersonalContactList extends Component {
         contactsKey = contactsKey.map((contact) => {
             return <PersonalContactItem key={contact.id} contact={contact} handleContactClick={this.props.handleContactClick} />
         });
-        return <div className="inbox_chat col-sm">
-            <h4>Contact list</h4>
+        return <div className="inbox_chat col-sm border border-dark">
+            <h4>Contacts</h4>
             <div id="personalContactContainer">
                 {contactsKey}
             </div>

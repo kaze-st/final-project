@@ -65,7 +65,6 @@ class App extends Component {
                 let newUserObj = {};
                 newUserObj.email = email;
 
-
                 newUserObj.handle = handle;
                 newUserObj.avatar = avatar;
                 newUserObj.id = currUID;

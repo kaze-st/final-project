@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import firebase from 'firebase/app';
 
+const WEEKS = 3;
 
 class HomePage extends Component {
     constructor(props) {
@@ -44,7 +45,7 @@ class HomePage extends Component {
                     key={user.key} />
             });
 
-            let total = this.state.commitUsers.reduce((total, user) => {
+            let rate = this.state.commitUsers.reduce((total, user) => {
                 if (!isNaN(user.contribution)) {
                     return parseFloat(total) + parseFloat(user.contribution);
                 } else {
@@ -55,7 +56,8 @@ class HomePage extends Component {
             return (
                 <div className="col-sm" id="pool">
                     <h2>Fund Pool</h2>
-                    <div id="total">{"TOTAL: $" + total + "/wk"}</div>
+                    <div id="rate">{"RATE: $" + rate + "/wk"}</div>
+                    <div id="total">{"TOTAL: $" + rate * WEEKS}</div>
                     <table className="table table-striped table-hover">
                         <thead>
                             <tr>

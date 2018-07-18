@@ -18,8 +18,6 @@ class TradePage extends Component {
         this.userProfilesRef.on('value', (snapshot) => {
             console.log(snapshot.val());
 
-
-
             let myOffers = [];
             let otherOffers = [];
 
@@ -106,10 +104,6 @@ class TradePage extends Component {
                             {theirItemRows.length === 0 ? <p>No one has goods or services to trade right now. Check back later!</p> : theirItemRows}
                         </div>
                     </div>
-
-                    <button type="button" className="btn btn-success btn-block">
-                        <h3>Commit TRADE</h3>
-                    </button>
                 </div>
             </div>
         );

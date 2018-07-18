@@ -67,6 +67,7 @@ class ProfilePage extends Component {
                                 <p>{this.state.userProfileData.bio}</p> </div>}
                             <div className="col" id="profileWishlist bg-light">
                                 {this.state.userProfileData.itemName && <h3>{"WishList item: " + this.state.userProfileData.itemName}</h3>}
+                                {this.state.userProfileData.itemCost && <h3>{"Asking for $" + this.state.userProfileData.itemCost}</h3>}
                                 {this.state.userProfileData.itemDesc && <p>{this.state.userProfileData.itemDesc}</p>}
                             </div>
 

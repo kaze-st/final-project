@@ -31,7 +31,6 @@ class ProfileForm extends Component {
 
         // reference to my current profile
         let currentUserRef = firebase.database().ref('users').child(this.props.uid);
-        console.log(this.state);
         currentUserRef.update(this.state);
 
         // log profile as completed
@@ -98,7 +97,7 @@ class ProfileForm extends Component {
                                         <span className="input-group-text">$10.00 &le; </span>
                                     </div>
                                     <input onChange={(e) => this.handleInputChange(e)}
-                                        type="text"
+                                        type="number"
                                         name="contribution"
                                         className="form-control"
                                         aria-label="Dollar amount (with dot and two decimal places)" />
@@ -121,6 +120,13 @@ class ProfileForm extends Component {
                                         aria-label="fill in group name" 
                                         placeholder="What is it?" 
                                         onChange={(e) => this.handleInputChange(e)}/>
+
+                                    <label className="input-group">Asking Price:</label>
+                                    <input onChange={(e) => this.handleInputChange(e)}
+                                        type="number"
+                                        name="itemCost"
+                                        className="form-control"
+                                        aria-label="Dollar amount (with dot and two decimal places)" />
 
                                     <label className="input-group">Description:</label>
                                     <textarea 

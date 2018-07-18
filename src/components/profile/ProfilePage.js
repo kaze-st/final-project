@@ -81,8 +81,8 @@ class ProfilePage extends Component {
                             {this.state.userProfileData.avatar && <img src={this.state.userProfileData.avatar} alt="profile avatar" />}
                             <div id="profileInfo">
                                 {this.state.userProfileData.name && <p><strong>Full name: </strong>{this.state.userProfileData.name}</p>}
-                                {this.state.userProfileData.email && <p>{"Email: " + this.state.userProfileData.email}</p>}
-                                {this.state.userProfileData.handle && <p>{"Handle: " + this.state.userProfileData.handle}</p>}
+                                {this.state.userProfileData.email && <p><strong>E-Mail: </strong>{this.state.userProfileData.email}</p>}
+                                {this.state.userProfileData.handle && <p><strong>Handle: </strong>{this.state.userProfileData.handle}</p>}
                             </div>
                         </div>
                     </div>

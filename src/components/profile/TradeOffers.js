@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Button } from 'reactstrap';
 
+
 /**
  * props:
  * items- tradable items 
@@ -51,7 +52,7 @@ export class TradeItem extends Component {
  * props:
  * howToAdd- callback to add item to list
  */
-export class AddTradeItemForm extends Component {
+export class AddItemForm extends Component {
 
     handleInputChange(e) {
         let field = e.target.name; //which input
@@ -93,7 +94,7 @@ export class AddTradeItemForm extends Component {
             </div>
             <Button color="primary" onClick={(e) => {
                     this.props.howToAdd(e, this.state)}}>
-                submit item to trade
+                submit item
             </Button>
         </form>
         );

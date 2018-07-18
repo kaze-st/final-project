@@ -42,8 +42,8 @@ class NavBar extends Component {
                 </li>
                 <li>
                     <NavLink to="/personal-chat" activeClassName="sidebar.active">
-                        <i className="fas fa-paper-plane"></i>
-                        Personal Chat GIMME ICON
+                        <i className="fas fa-address-book"></i>
+                        Personal Chat
                     </NavLink>
                 </li>
             </ul>

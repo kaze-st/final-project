@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import {TradeItemList, AddTradeItemForm} from "./TradeOffers";
+import {TradeItemList, AddItemForm} from "./TradeOffers";
 
 import firebase from 'firebase/app';
 
@@ -106,8 +106,32 @@ class ProfileForm extends Component {
                             </div>
                         </div>
                         <div className="line"></div>
+
                         {/* item requested */}
                         <h1>My Item</h1>
+
+                        <div className="row">
+                            <form>
+                                <div className="input-group">
+                                    <label className="input-group">Product Name:</label>
+                                    <input 
+                                        type="text" 
+                                        name="itemName"
+                                        className="form-control" 
+                                        aria-label="fill in group name" 
+                                        placeholder="What is it?" 
+                                        onChange={(e) => this.handleInputChange(e)}/>
+
+                                    <label className="input-group">Description:</label>
+                                    <textarea 
+                                        className="form-control" 
+                                        name="itemDesc" 
+                                        rows="3" 
+                                        placeholder="What's its condition? Any special terms?"
+                                        onChange={(e) => this.handleInputChange(e)}></textarea>
+                                </div>
+                            </form>
+                        </div>
 
                         <div className="line"></div>
 
@@ -119,8 +143,9 @@ class ProfileForm extends Component {
                                 {<TradeItemList items={this.state.tradeOffers}/>}
                             </div>
                             <div className="col-6">
-                                {<AddTradeItemForm howToAdd={(event, offer) => this.handleTradeClick(event, offer)} />}
+                                {<AddItemForm howToAdd={(event, offer) => this.handleTradeClick(event, offer)} />}
                             </div>
+
                         </div>
 
                         <div className="line"></div>

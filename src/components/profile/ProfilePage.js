@@ -58,37 +58,31 @@ class ProfilePage extends Component {
 
         return (
             <div className="profile">
-                <div id="profile" className="container-fluid">                
-                    <h2>My Profile Page</h2>
+                <div id="profile" className="container-fluid">
+                    <div id="profileHeader">
+                        <h2>My Profile Page</h2>
+                    </div>
+                    {this.state.userProfileData.avatar && <img src={this.state.userProfileData.avatar} alt="profile avatar" id="profileImage" class="img-fluid" />}
+                    <div id="profileInfo">
+                        {this.state.userProfileData.name && <p className="text-center"><strong>Full name: </strong>{this.state.userProfileData.name}</p>}
+                        {this.state.userProfileData.email && <p className="text-center"><strong>E-Mail: </strong>{this.state.userProfileData.email}</p>}
+                        {this.state.userProfileData.handle && <p className="text-center"><strong>Handle: </strong>{this.state.userProfileData.handle}</p>}
+                    </div>
+
+                    {this.state.userProfileData.bio && <div> <h2>Bio:</h2> <p>{this.state.userProfileData.bio}</p> </div>}
+                    {this.state.userProfileData.itemName && <h3>{"WishList item: " + this.state.userProfileData.itemName}</h3>}
+                    {this.state.userProfileData.itemCost && <h3>{"Asking for $" + this.state.userProfileData.itemCost}</h3>}
+                    {this.state.userProfileData.itemDesc && <p>{this.state.userProfileData.itemDesc}</p>}
+
+
+                    {this.state.userProfileData.tradeOffers && <div>
+                        <h2>Trade Offers:</h2>
+                        {<TradeItemList items={this.state.userProfileData.tradeOffers} />}
+                    </div>}
+
                     {button}
-                    <div className="row" id="profileBio">
-                        <div className="col">
-                            {this.state.userProfileData.bio && <div> <h2>Bio:</h2>
-                                <p>{this.state.userProfileData.bio}</p> </div>}
-                            <div className="col" id="profileWishlist bg-light">
-                                {this.state.userProfileData.itemName && <h3>{"WishList item: " + this.state.userProfileData.itemName}</h3>}
-                                {this.state.userProfileData.itemCost && <h3>{"Asking for $" + this.state.userProfileData.itemCost}</h3>}
-                                {this.state.userProfileData.itemDesc && <p>{this.state.userProfileData.itemDesc}</p>}
-                            </div>
 
-                            {this.state.userProfileData.tradeOffers && <div>
-                                <h2>Trade Offers:</h2>
-                                {<TradeItemList items={this.state.userProfileData.tradeOffers} />}
-                            </div>}
-                        </div>
-                        <div className="col" id="profilePicture">
-                            <h3>Profile Picture</h3>
-                            {this.state.userProfileData.avatar && <img src={this.state.userProfileData.avatar} alt="profile avatar" />}
-                            <div id="profileInfo">
-                                {this.state.userProfileData.name && <p className="text-center"><strong>Full name: </strong>{this.state.userProfileData.name}</p>}
-                                {this.state.userProfileData.email && <p className="text-center"><strong>E-Mail: </strong>{this.state.userProfileData.email}</p>}
-                                {this.state.userProfileData.handle && <p className="text-center"><strong>Handle: </strong>{this.state.userProfileData.handle}</p>}
-                            </div>
-                        </div>
-                    </div>
-                    <div className="row">
 
-                    </div>
                 </div>
 
             </div>

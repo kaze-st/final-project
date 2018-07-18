@@ -89,10 +89,7 @@ class CommitmentRow extends Component {
         return (
             <tr>
                 <td className="align-middle">
-                    <Link style={Object.assign(
-                        {},
-                        { color: "Green" }
-                    )} to={"/profile/" + this.props.id}>{this.props.displayName}</Link>
+                    <Link to={"/profile/" + this.props.id}>{this.props.displayName}</Link>
                 </td>
                 <td className="align-middle">{this.props.contribution}</td>
                 <td className="align-middle">{this.props.item}</td>

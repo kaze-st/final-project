@@ -9,6 +9,7 @@ import ActiveConversationList from "./ActiveConversationList";
 export default class PersonalChatPage extends Component {
     constructor(props) {
         super(props);
+
         this.state = {}
     }
 

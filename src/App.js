@@ -10,6 +10,7 @@ import ProfilePage from "./components/profile/ProfilePage";
 import TradePage from "./components/trade/TradePage";
 import ChatPage from "./components/group-chat/ChatPage";
 import NavBar from "./components/NavBar";
+import About from "./components/about/About"
 
 //database
 import firebase from 'firebase/app';
@@ -152,6 +153,7 @@ class App extends Component {
                                         return <PersonalChatPage {...routerProps}
                                                                  currentUser={this.state.user}/>
                                     }}/>
+                                    <Route exact path="/about" component={About}/>
                                     <Redirect to="/"/>
                                 </Switch>
                             }

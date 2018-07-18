@@ -3,6 +3,10 @@ body {
   background: #fafafa;
 }
 
+td, tr{
+  width: 100%;
+}
+
 p {
   font-size: 1.1em;
   font-weight: 300;

@@ -8,8 +8,7 @@ class SignInForm extends Component {
         this.state = {
             'email': undefined,
             'password': undefined,
-            'handle': undefined,
-            'avatar': '' //default to blank value;
+
         }
     }
 
@@ -22,13 +21,7 @@ class SignInForm extends Component {
         this.setState(changes); //update state
     }
 
-    //handle signUp button
-    signUpChange(event) {
-        console.log("sign up called");
-        event.preventDefault(); //don't submit
-        let avatar = this.state.avatar || 'img/no-user-pic.png'; //default to local pic
-        this.props.handleSignUp(this.state.email, this.state.password, this.state.handle, avatar);
-    }
+
 
     //handle signIn button
     signInChange(event) {
@@ -63,35 +56,13 @@ class SignInForm extends Component {
                        }}/>
             </div>
 
-            <div className="form-group">
-                <label htmlFor="exampleInputPassword1">Username</label>
-                <input className="form-control"
-                       id="handle"
-                       name="handle"
-                       onChange={(event) => {
-                           this.handleInputChange(event)
-                       }}/>
-            </div>
 
-            <div className="form-group">
-                <label htmlFor="exampleInputPassword1">Avatar</label>
-                <input className="form-control"
-                       id="avatar"
-                       name="avatar"
-                       placeholder="http://www.example.com/my-picture.jpg"
-                       onChange={(event) => {
-                    this.handleInputChange(event)
-                }}/>
-            </div>
 
             <button type="submit" style={{marginRight: '10px'}} className="btn btn-success" onClick={(event) => {
                 this.signInChange(event)
             }}>Sign in
             </button>
-            <button type="submit" className="btn btn-success" onClick={(event) => {
-                this.signUpChange(event)
-            }}>Sign Up
-            </button>
+
         </form>);
     }
 }

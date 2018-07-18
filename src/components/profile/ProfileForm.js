@@ -1,5 +1,6 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
+import {TradeItemList, AddTradeItemForm} from "./TradeOffers";
 
 import firebase from 'firebase/app';
 
@@ -9,11 +10,11 @@ import firebase from 'firebase/app';
  * toggleNewUser- callback to declare user profile filled out
  */
 class ProfileForm extends Component {
-    
+
     constructor(props) {
         super(props);
 
-        this.state = {};
+        this.state = {tradeOffers: []};
     }
 
     handleInputChange(e) {
@@ -36,35 +37,43 @@ class ProfileForm extends Component {
         // log profile as completed
         this.props.toggleNewUser();
     }
-    
+
+    handleTradeClick(event, offer){
+        event.preventDefault(); 
+        
+        let currOffers = this.state.tradeOffers;
+        currOffers.push(offer);
+        this.setState({tradeOffers: currOffers});
+    }
+
     render() {
         return (
             <div id="content">
-                {/* <!-- profile image --> */}
                 <div id="profile" className="container-fluid">
+
                     <div className="row">
+                    <h1>Personal Info</h1>
                         <div className="col-6">
+
                             {/* <!-- start avatar and bio --> */}
+                            
                             <form>
-                                {/* <div className="im-g">
-                                    <img src={this.state.photo} 
-                                        alt="profile picture" />
-                                </div> */}
+                                
                                 <div className="col-md-6 form-group">
-                                    <label for="firstname">Profile Picture URL</label>
-                                    <input onChange={(e) => this.handleInputChange(e)} 
-                                            type="text" 
-                                            name="photo"
-                                            className="form-control" 
-                                            placeholder="Url here" 
-                                            aria-label="fill in profile picture URL" />
+                                    <label htmlFor="firstname">Profile Picture URL</label>
+                                    <input onChange={(e) => this.handleInputChange(e)}
+                                        type="text"
+                                        name="photo"
+                                        className="form-control"
+                                        placeholder="Url here"
+                                        aria-label="fill in profile picture URL" />
                                 </div>
                                 <div className="form-group">
-                                    <label for="personal information">Personal Bio</label>
-                                    <textarea className="form-control" 
-                                                name="bio" 
-                                                rows="3" 
-                                                onChange={(e) => this.handleInputChange(e)}></textarea>
+                                    <label htmlFor="personal information">Personal Bio</label>
+                                    <textarea className="form-control"
+                                        name="bio"
+                                        rows="3"
+                                        onChange={(e) => this.handleInputChange(e)}></textarea>
                                 </div>
                             </form>
                             {/* <!-- end avatar and bio --> */}
@@ -74,47 +83,57 @@ class ProfileForm extends Component {
                             <div className="first-line agileits">
                                 {/* <!-- name --> */}
                                 <div className="col-md-6 form-group">
-                                    <label for="name">Full Name</label>
-                                    <input onChange={(e) => this.handleInputChange(e)} 
-                                            type="text" 
-                                            name="name"
-                                            className="form-control" 
-                                            placeholder="Full name" 
-                                            aria-label="fill in name" />
+                                    <label htmlFor="name">Full Name</label>
+                                    <input onChange={(e) => this.handleInputChange(e)}
+                                        type="text"
+                                        name="name"
+                                        className="form-control"
+                                        placeholder="Full name"
+                                        aria-label="fill in name" />
                                 </div>
                                 {/* <!-- monel pool contribution --> */}
-                                <label for="Remaining">Set weekly money pool contribution</label>
+                                <label htmlFor="money">Set weekly money pool contribution</label>
                                 <div className="input-group">
                                     <div className="input-group-append">
                                         <span className="input-group-text">$10.00 &le; </span>
                                     </div>
-                                    <input onChange={(e) => this.handleInputChange(e)} 
-                                            type="text" 
-                                            name="contribution"
-                                            className="form-control" 
-                                            aria-label="Dollar amount (with dot and two decimal places)" />
-                                </div>
-                                {/* <!-- trading --> */}
-                                <div className="form-group">
-                                    <label for="goods/services">Goods / Services to Trade</label>
-                                    <textarea onChange={(e) => this.handleInputChange(e)} 
-                                            name="tradeOffer"
-                                            className="form-control" 
-                                            id="trading" 
-                                            rows="3"></textarea>
+                                    <input onChange={(e) => this.handleInputChange(e)}
+                                        type="text"
+                                        name="contribution"
+                                        className="form-control"
+                                        aria-label="Dollar amount (with dot and two decimal places)" />
                                 </div>
                             </div>
                         </div>
-                        <button type="button" 
-                                className="btn btn-outline-info" 
-                                onClick={(e) => this.updateUserProfile(e)}>
-                                <NavLink exact to={"/profile/" + this.props.uid}>
-                                    Submit Changes
-                                </NavLink>
+                        <div className="line"></div>
+                        {/* item requested */}
+                        <h1>My Item</h1>
+
+                        <div className="line"></div>
+
+                        {/* <!-- trading --> */}
+                        <h1>Trading</h1>
+                        <div className="row">
+                            
+                            <div className="col-6">
+                                {<TradeItemList items={this.state.tradeOffers}/>}
+                            </div>
+                            <div className="col-6">
+                                {<AddTradeItemForm howToAdd={(event, offer) => this.handleTradeClick(event, offer)} />}
+                            </div>
+                        </div>
+
+                        <div className="line"></div>
+
+                        <button type="button"
+                            className="btn btn-outline-info"
+                            onClick={(e) => this.updateUserProfile(e)}>
+                            <NavLink exact to={"/profile/" + this.props.uid}>
+                                Submit Changes
+                            </NavLink>
                         </button>
                     </div>
                 </div>
-                <div className="line"></div>
             </div>
         );
     }

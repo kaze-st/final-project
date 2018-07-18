@@ -10,41 +10,47 @@ class NavBar extends Component {
     render() {
         return (
             <nav id="sidebar">
-            <div class="sidebar-header">
+            <div className="sidebar-header">
                 <h3>weFund</h3>
                 <strong>WF</strong>
             </div>
 
-            <ul class="list-unstyled components">
-                <li class="active">
+            <ul className="list-unstyled components">
+                <li className="active">
                     <NavLink to="/home" activeClassName="sidebar.active">
-                        <i class="fas fa-home"></i>
+                        <i className="fas fa-home"></i>
                         Home
                     </NavLink>
                 </li>
                 <li>
                     <NavLink to={"/profile/" + this.props.uid} activeClassName="sidebar.active">
-                        <i class="fas fa-image"></i>
+                        <i className="fas fa-image"></i>
                         My Profile
                     </NavLink>
                 </li>
                 <li>
                     <NavLink to="/trade" activeClassName="sidebar.active">
-                        <i class="fas fa-exchange-alt"></i>
+                        <i className="fas fa-exchange-alt"></i>
                         Trade
                     </NavLink>
                 </li>
                 <li>
                     <NavLink to="/chat" activeClassName="sidebar.active">
-                        <i class="fas fa-paper-plane"></i>
+                        <i className="fas fa-paper-plane"></i>
                         Group Chat
+                    </NavLink>
+                </li>
+                <li>
+                    <NavLink to="/personal-chat" activeClassName="sidebar.active">
+                        <i className="fas fa-paper-plane"></i>
+                        Personal Chat GIMME ICON
                     </NavLink>
                 </li>
             </ul>
 
-            <ul class="list-unstyled">
+            <ul className="list-unstyled">
                 <li>
-                    <a onClick={this.props.logout} class="logOut">Log Out</a>
+                    <a onClick={this.props.logout} className="logOut">Log Out</a>
                 </li>
             </ul>
         </nav>

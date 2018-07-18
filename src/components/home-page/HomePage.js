@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-
 import firebase from 'firebase/app';
 
 
@@ -29,6 +28,7 @@ class HomePage extends Component {
             console.log(snapshot.val());
             
             let contributions = [];
+            let total = 0;
             let usersObject = snapshot.val(); //convert snapshot to value
             let usersKeys = Object.keys(usersObject);
             let usersArray = usersKeys.map((key) => { //map array of keys into array of tasks
@@ -40,12 +40,15 @@ class HomePage extends Component {
 
             usersArray.forEach( (user) => {
                 if (user.contribution) {
+                    if (!isNaN(user.contribution)) {
+                        total += Number(user.contribution);
+                    } 
                     contributions.push(user);
                 }
 
             });
 
-            this.setState({commitUsers: contributions});
+            this.setState({totalContribution: total, commitUsers: contributions});
         });
         
     }
@@ -65,7 +68,7 @@ class HomePage extends Component {
             return (
                 <div className="col-sm" id="pool">
                 <h2>Fund Pool</h2>
-                <div id="total">TOTAL: $555555.99/wk</div>
+                <div id="total">{"TOTAL: $"+this.state.totalContribution}</div>
                     <table className="table table-striped table-hover">
                         <thead>
                             <tr>

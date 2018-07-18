@@ -41,7 +41,7 @@ export default class PersonalChatPage extends Component {
         console.log('current user', this.props.currentUser);
 
         // If no receiver just show this!
-        let content = <div> Select a person to talk to!</div>;
+        let content = <h2 id="defaultChatText">Select a person to talk to!</h2>;
 
         if (this.state.receiver) {
             content = <div className="col-sm-8"><PersonalChatList currentUser={this.props.currentUser} receiver={this.state.receiver}/>

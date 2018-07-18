@@ -38,17 +38,9 @@ class HomePage extends Component {
                 return user; //the transformed object to store in the array
             });
 
-            usersArray.forEach( (user) => {
-                if (user.contribution) {
-                    if (!isNaN(user.contribution)) {
-                        total += Number(user.contribution);
-                    } 
-                    contributions.push(user);
-                }
+            
 
-            });
-
-            this.setState({totalContribution: total, commitUsers: contributions});
+            this.setState({commitUsers: contributions});
         });
         
     }
@@ -62,13 +54,25 @@ class HomePage extends Component {
         if (this.state.commitUsers) {
 
             let contributions = this.state.commitUsers.map((user)=> {
-                return <CommitmentRow name={user.name} contribution={user.contribution} key={user.key} />
+                return <CommitmentRow 
+                    name={user.name}   
+                    contribution={user.contribution} 
+                    id={user.key}
+                    key={user.key} />
             });
+
+            let total = this.state.commitUsers.reduce((total, user) => {
+                if (!isNaN(user.contribution)) {
+                    return parseFloat(total) + parseFloat(user.contribution);
+                } else {
+                    return total;
+                }
+            }, 0);
 
             return (
                 <div className="col-sm" id="pool">
                 <h2>Fund Pool</h2>
-                <div id="total">{"TOTAL: $"+this.state.totalContribution}</div>
+                <div id="total">{"TOTAL: $" + total + "/wk"}</div>
                     <table className="table table-striped table-hover">
                         <thead>
                             <tr>
@@ -79,7 +83,6 @@ class HomePage extends Component {
                         </thead>
                         <tbody>
                             {contributions}
-
                         </tbody>
                     </table>
                 </div>
@@ -94,13 +97,18 @@ class HomePage extends Component {
 class CommitmentRow extends Component {
     
     render() {
-
-        return (<tr>
-            {/* <th scope="row" className="align-middle">1</th> */}
-            <td className="align-middle">{this.props.name}</td>
-            <td className="align-middle">{this.props.contribution}</td>
-            <td className="align-middle"><Link to="/personal-chat" className="btn btn-secondary">Message</Link></td>
-        </tr>);
+        console.log(this.props)
+        return (
+        
+            <tr>
+                <Link to={"/profile/" + this.props.id}>
+                <td className="align-middle">{this.props.name}</td>
+                <td className="align-middle">{this.props.contribution}</td>
+                <td className="align-middle"><Link to="/personal-chat" className="btn btn-secondary">Message</Link></td>
+                </Link>
+            </tr>
+        
+        );
     }
 }
 

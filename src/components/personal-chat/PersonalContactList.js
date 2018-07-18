@@ -42,7 +42,7 @@ export default class PersonalContactList extends Component {
         contactsKey = contactsKey.map((contact) => {
             return <PersonalContactItem key={contact.id} contact={contact} handleContactClick={this.props.handleContactClick}/>
         });
-        return <div className="inbox_chat">
+        return <div className="inbox_chat col-sm">
             <div className="recent_heading">
                 <h4>Contact list</h4>
             </div>

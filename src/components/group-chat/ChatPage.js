@@ -9,6 +9,7 @@ class ChatPage extends Component {
 
         return (
             <div className="mesgs">
+                <h2>Group Chat</h2>
                 <ChatList currentUser={this.props.currentUser}/>
                 <ChatBox currentUser={this.props.currentUser}/>
             </div>

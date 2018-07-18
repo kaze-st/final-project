@@ -60,7 +60,7 @@ export default class ActiveConversationList extends Component {
         });
 
 
-        return <div className="inbox_chat">
+        return <div className="inbox_chat col-sm">
             <div className="recent_heading">
                 <h4>Recent conversations</h4>
             </div>

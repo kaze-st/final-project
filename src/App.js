@@ -105,11 +105,11 @@ class App extends Component {
             </div>;
         } else { // else
             content =
-                <div className="wrapper">
-                    <NavBar uid={this.state.user.uid} logout={() => this.handleSignOut()} />
-                    <main>
+                <div className="wrapper row">
+                    <NavBar uid={this.state.user.uid} logout={() => this.handleSignOut()} className="col-sm"/>
+                    <main className="col-sm">
                         <div id="content">
-                            <div id="logo" className="d-flex justify-content-between">
+                            <div id="logo" className="mx-auto">
                                 <img src={logo} alt="logo" />
                             </div>
                             {this.state.newUser ?
@@ -151,7 +151,6 @@ class App extends Component {
                                 <small>&copy; 2018 Alissa Adornato &amp; Emily Ding &amp; Hao Chen &amp; William Fu</small>
                             </footer> */}
                         </div>
-
                     </main>
                 </div>
         }

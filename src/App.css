@@ -19,7 +19,8 @@ p {
 }
 
 #logo {
-  size: 50px;
+  width: 600px;
+  max-width: 100%;
 }
 
 img {
@@ -27,6 +28,12 @@ img {
   height: 70%;
   image-rendering: crisp-edges;
 }
+
+#logo img {
+  width: 100%;
+  height: 100%;
+}
+
 a,
 a:hover,
 a:focus {
@@ -84,17 +91,8 @@ span {
   text-align: center;
 }
 
-#sidebar.active .sidebar-header h3,
-#sidebar.active {
-  display: none;
-}
-
 #sidebar.active .sidebar-header strong {
   display: block;
-}
-
-#sidebar ul li a {
-  text-align: left;
 }
 
 #sidebar.active ul li a {
@@ -193,6 +191,9 @@ ul.list-unstyled a {
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
+main{
+  width: 100%;
+}
 
 #content {
   width: 100%;
@@ -297,7 +298,7 @@ img{ max-width:100%;}
 .mesgs {
   float: left;
   padding: 30px 15px 0 25px;
-  width: 60%;
+  width: 100%;
 }
 
 .sent_msg p {
@@ -348,10 +349,10 @@ img{ max-width:100%;}
 
 @media (max-width: 768px) {
   #sidebar {
-    min-width: 80px;
-    max-width: 80px;
+    display: block;
+    min-width: 100%;
+    height: 700px;
     text-align: center;
-    margin-left: -80px !important;
   }
   .dropdown-toggle::after {
     top: auto;

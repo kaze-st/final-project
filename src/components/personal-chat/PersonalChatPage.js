@@ -4,6 +4,7 @@ import PersonalContactList from "./PersonalContactList";
 import PersonalChatBox from "./PersonalChatBox";
 import PersonalChatList from "./PersonalChatList";
 import firebase from 'firebase';
+import ActiveConversationList from "./ActiveConversationList";
 
 export default class PersonalChatPage extends Component {
     constructor(props) {
@@ -21,8 +22,10 @@ export default class PersonalChatPage extends Component {
             this.setState({receiver:firstUser})
         })
     }
+
+    // Receives an user object that represents the receiver
     handleContactClick(receiver) {
-        console.log(receiver);
+        console.log("receiver in handleClick", receiver);
         this.setState({receiver});
     }
 
@@ -32,6 +35,7 @@ export default class PersonalChatPage extends Component {
         if (!this.state.receiver) return null;
         return <div className="messaging">
             <PersonalContactList currentUser={this.props.currentUser} handleContactClick={(contactID) => this.handleContactClick(contactID)}/>
+            <ActiveConversationList currentUser={this.props.currentUser} handleContactClick={(contactID) => this.handleContactClick(contactID)}/>
             <PersonalChatList currentUser={this.props.currentUser} receiver={this.state.receiver}/>
             <PersonalChatBox currentUser={this.props.currentUser} receiver={this.state.receiver}/>
         </div>

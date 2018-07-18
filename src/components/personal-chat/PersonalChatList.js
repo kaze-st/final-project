@@ -21,34 +21,27 @@ export default class PersonalChatList extends Component {
     }
 
     componentWillUnmount() {
-        console.log("Unmount");
         this.conversationRef.off();
     }
 
     componentDidUpdate(prevProps) {
-        console.log("updated", this.conversationRef);
 
         let converHash = this.props.currentUser.uid < this.props.receiver.id ?
             (this.props.currentUser.uid + "-" + this.props.receiver.id) :
             (this.props.receiver.id + "-" + this.props.currentUser.uid);
-        console.log("Hash in update: ", converHash);
 
         let oldHash = this.props.currentUser.uid < prevProps.receiver.id ?
             (this.props.currentUser.uid + "-" + prevProps.receiver.id) :
             (prevProps.receiver.id + "-" + this.props.currentUser.uid);
-        console.log("Hash in update: ", oldHash);
 
         if (converHash !== oldHash) {
             this.conversationRef.off();
             this.conversationRef = firebase.database().ref('conversation').child(converHash);
-            console.log("New reference: ", this.conversationRef);
 
             this.conversationRef.on('value', (snapshot) => {
-                console.log("Snapshot value after update :", snapshot.val());
                 this.setState({messages: snapshot.val()});
             });
-            console.log("");
-            console.log("");
+
         }
     }
 

@@ -7,21 +7,7 @@ export default class PersonalChatBox extends Component {
         this.state = {post: ''}
     }
 
-    componentDidMount() {
 
-        // this.chatRef = firebase.database().ref(this.props.currentUser.uid).child('messages').child(this.props.receiverUser.id);
-        // this.chatRef.once('value', (snap)=>{
-        //     console.log(snap.val());
-        //     if (snap.val() === null){
-        //         let newChat = {};
-        //         newChat[this.props.receiverUser.id] = {};
-        //         this.chatRef.push(newChat);
-        //         firebase.database().ref(this.props.currentUser.uid).child('messages').child(this.props.receiverUser.id)
-        //     }
-        // });
-
-
-    }
 
     updatePost(event) {
         this.setState({post: event.target.value});
@@ -44,8 +30,11 @@ export default class PersonalChatBox extends Component {
             (this.props.receiver.id + "-" + this.props.currentUser.uid);
 
         let conversationRef = firebase.database().ref('conversation').child(converHash);
-        console.log(converHash);
         conversationRef.push(newMessage);
+
+        //
+        firebase.database().ref('users').child(this.props.currentUser.uid).child('active conversations').child(converHash).update({read:"y", time:firebase.database.ServerValue.TIMESTAMP });
+        firebase.database().ref('users').child(this.props.receiver.id).child('active conversations').child(converHash).update({read:"n", time:firebase.database.ServerValue.TIMESTAMP });
 
         this.setState({post: ''}); //empty out post for next time
     }

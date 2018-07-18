@@ -37,13 +37,13 @@ export default class PersonalChatPage extends Component {
         let content = <div> Select a person to talk to!</div>;
 
         if (this.state.receiver) {
-            content = <div><PersonalChatList currentUser={this.props.currentUser} receiver={this.state.receiver}/>
+            content = <div className="col-sm-8"><PersonalChatList currentUser={this.props.currentUser} receiver={this.state.receiver}/>
                 <PersonalChatBox currentUser={this.props.currentUser} receiver={this.state.receiver}/></div>
         }
-        return <div className="messaging">
+        return <div className="messaging row">
 
             <PersonalContactList currentUser={this.props.currentUser} handleContactClick={(contactID) => this.handleContactClick(contactID)}/>
-            <ActiveConversationList currentUser={this.props.currentUser} handleContactClick={(contactID) => this.handleContactClick(contactID)}/>
+            <ActiveConversationList  currentUser={this.props.currentUser} handleContactClick={(contactID) => this.handleContactClick(contactID)}/>
             {content}
         </div>
     }

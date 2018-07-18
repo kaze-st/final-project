@@ -17,6 +17,8 @@ class TradePage extends Component {
         this.userProfilesRef.on('value', (snapshot) => {
             console.log(snapshot.val());
 
+
+
             let myOffers = [];
             let otherOffers = [];
 

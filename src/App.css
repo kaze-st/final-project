@@ -19,7 +19,7 @@ p {
 }
 
 #logo {
-  width: 600px;
+  width: 400px;
   max-width: 100%;
 }
 
@@ -77,12 +77,46 @@ span {
   align-items: stretch;
 }
 
-#sidebar {
+/*#sidebar {
   min-width: 250px;
   max-width: 250px;
+  
+}*/
+
+#sidebar {
+  width: 100px;
   background: #2F2933;
   color: #fff;
   transition: all 0.3s;
+}
+
+#sidebar ul{
+  font-size: 0px;
+}
+
+#sidebar:hover{
+  font-size: 0.9em;
+  width: 250px;
+}
+
+#sidebar:hover ul{
+  font-size: 0.9em;
+}
+
+#sidebar i{
+  font-size: 30px;
+}
+
+#sidebar:hover i{
+  font-size: 1.3em;
+}
+
+#sidebar .sidebar-header h3{
+  display: none;
+}
+
+#sidebar:hover .sidebar-header h3{
+  display: inline;
 }
 
 #sidebar.active {
@@ -127,8 +161,12 @@ span {
 }
 
 #sidebar .sidebar-header strong {
-  display: none;
   font-size: 1.8em;
+  display: inline;
+}
+
+#sidebar:hover .sidebar-header strong {
+  display: none;
 }
 
 #sidebar ul.components {
@@ -149,12 +187,6 @@ span {
 
 #sidebar ul li a i {
   margin-right: 10px;
-}
-
-#sidebar ul li.active>a,
-a[aria-expanded="true"] {
-  color: #fff;
-  background: #01A2A6;
 }
 
 a[data-toggle="collapse"] {
@@ -200,6 +232,27 @@ main{
   padding: 20px;
   min-height: 100vh;
   transition: all 0.3s;
+}
+#profilePicture h3{
+  text-align: center;
+}
+
+
+#profilePicture img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 40%;
+  height: 40%;
+}
+
+#profileInfo p{
+  color: black;
+}
+
+#pool{
+  max-height: 70vh;
+  overflow-y: scroll;
 }
 
 /* ---------------------------------------------------
@@ -388,10 +441,31 @@ img{ max-width:100%;}
   #sidebar ul li a i {
     font-size: 1.3em;
   }
+
+  #sidebar ul{
+    font-size: 0.9em;
+  }
+
+  #sidebar .sidebar-header h3{
+    display: inline;
+  }
+
+  #sidebar .sidebar-header strong {
+    display: none;
+  }
+  
+  #sidebar:hover .sidebar-header strong {
+    display: none;
+  }
+
   #sidebar {
+    font-size: 0.9em;
+    width: 250px;
     margin-left: 0;
   }
   #sidebarCollapse span {
     display: none;
   }
+
+  
 }

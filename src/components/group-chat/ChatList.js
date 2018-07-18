@@ -1,6 +1,8 @@
 import {Component} from 'react';
 import React from "react";
 import firebase from 'firebase/app';
+// import {Link, Element , Events, animateScroll as scroll, scrollSpy, scroller} from 'react-scroll'
+
 export default class ChatList extends Component {
     constructor(props) {
         super(props);
@@ -17,6 +19,7 @@ export default class ChatList extends Component {
     componentWillUnmount() {
         this.messagesRef.off();
     }
+
 
     render() {
         if (!this.state.messages) return null;
@@ -35,9 +38,13 @@ export default class ChatList extends Component {
             }
         );
 
-        return <div className="msg_history">
-            {messageKeys}
-        </div>;
+
+        return (
+            <div className="msg_history" id={"msg_history"}>
+                {messageKeys}
+            </div>);
+
+
     }
 }
 

@@ -104,11 +104,12 @@ class HomePage extends Component {
             }, 0);
 
             return (
-                <div className="col-sm" id="pool">
+                <div className="col-sm overflow-y: auto;" id="pool">
                     <h2>Fund Pool</h2>
                     <button onClick={() => this.cycle(rate)}>cycle me!</button>
                     <div id="rate">{"RATE: $" + rate + "/wk"}</div>
                     <div id="total">{"TOTAL: $" + this.state.total}</div>
+                    <div className="table-responsive">
                     <table className="table table-striped table-hover">
                         <thead>
                             <tr>
@@ -123,6 +124,7 @@ class HomePage extends Component {
                             {contributions}
                         </tbody>
                     </table>
+                    </div>
                 </div>
             );
         }
@@ -146,7 +148,7 @@ class CommitmentRow extends Component {
                 <td className="align-middle">{this.props.contribution}</td>
                 <td className="align-middle">{this.props.item}</td>
                 <td className="align-middle">{this.props.itemCost}</td>
-                <td className="align-middle"><Link to="/personal-chat" className="btn btn-secondary">Message</Link></td>
+                <td className="align-middle"><Link to={"/personal-chat/" + this.props.id} className="btn btn-secondary">Message</Link></td>
             </tr>
         );
     }

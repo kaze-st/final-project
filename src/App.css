@@ -238,7 +238,6 @@ main{
   text-align: center;
 }
 
-
 #profilePicture img{
   display: block;
   margin-left: auto;
@@ -258,6 +257,11 @@ main{
 
 #defaultChatText{
   margin: auto;
+}
+
+h5.card-title.d-inline.align-middle, h2 {
+  margin-bottom: 1.5rem;
+  margin-top: 1.5rem;
 }
 
 /* ---------------------------------------------------

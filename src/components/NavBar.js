@@ -50,7 +50,7 @@ class NavBar extends Component {
 
             <ul className="list-unstyled">
                 <li>
-                    <a onClick={this.props.logout} className="logOut">Log Out</a>
+                    <a onClick={this.props.logout} className="logOut">Log Out</ a>
                 </li>
             </ul>
         </nav>

@@ -65,7 +65,7 @@ class TradePage extends Component {
         }
 
         let myItemRows = this.state.myOffers.map((offer) => {
-            
+
             return <div className="card my-1" key={offer.id}>
                 <div className="card-body">
                     <h5 className="card-title d-inline align-middle">{offer.name}</h5>
@@ -85,9 +85,12 @@ class TradePage extends Component {
         });
 
         return (
+                   
             <div className="row mx-auto">
-
                 <div className="col mx-auto">
+                <h5 className="card-title d-inline align-middle"><strong>Note: </ strong>
+                    Keep yourself online to store your <strong className="bg-white p-1 border rounded">Items</strong> available.
+                     Click the <strong className="bg-white p-1 border rounded">Details</strong> to ask for trading!</h5>
                     <div id="myItems">
                         <h2>My Items</h2>
                         <div id="myItemViewer" className="bg-white p-1 border border-dark rounded">

@@ -58,9 +58,9 @@ class ProfilePage extends Component {
 
         return (
             <div className="profile">
-                <h2>My Profile Page</h2>
-                {button}
-                <div id="profile" className="container-fluid">
+                <div id="profile" className="container-fluid">                
+                    <h2>My Profile Page</h2>
+                    {button}
                     <div className="row" id="profileBio">
                         <div className="col">
                             {this.state.userProfileData.bio && <div> <h2>Bio:</h2>

@@ -70,6 +70,7 @@ class ProfilePage extends Component {
                     </div>
                     <div className="card">
                         {this.state.userProfileData.itemName && <h3>{"WishList item: " + this.state.userProfileData.itemName}</h3>}
+                        {this.state.userProfileData.itemCost && <h3>{"Asking for $" + this.state.userProfileData.itemCost}</h3>}
                         {this.state.userProfileData.itemDesc && <p>{this.state.userProfileData.itemDesc}</p>}
                     </div>
                     <div className="row">

@@ -61,15 +61,22 @@ class App extends Component {
         ).then(
             () => {
                 let currUID = firebase.auth().currentUser.uid;
-                let usersRef = firebase.database().ref('users').child(currUID);
+                // where ill put it
+                let allUsersRef = firebase.database().ref('users');
+                let usersRef = allUsersRef.child(currUID);
+
+                // preparing data for entry
                 let newUserObj = {};
                 newUserObj.email = email;
+                newUserObj.rank = Object.keys(allUsersRef).length;
 
                 newUserObj.handle = handle;
                 newUserObj.avatar = avatar;
                 newUserObj.id = currUID;
                 newUserObj.tradeOffers = [];
                 console.log(usersRef);
+
+                // entering data in that spot we found before
                 return usersRef.set(newUserObj);
             }
         ).then(() => this.setState({newUser: true})).catch((err) => {

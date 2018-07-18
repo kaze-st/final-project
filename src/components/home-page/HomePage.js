@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import firebase from 'firebase/app';
 
-const WEEKS = 3;
 
 class HomePage extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        this.state = {weeks: 0, total: 0};
     }
 
     componentDidMount() {
@@ -21,11 +20,57 @@ class HomePage extends Component {
 
                 let user = usersObject[key]; //access element at that key
                 user.key = key;
+                
                 return user; //the transformed object to store in the array
             });
 
             this.setState({ commitUsers: usersArray });
         });
+    }
+
+    // a week has passed...
+    cycle(rate) {
+        // update weeks, total
+        let newTotal = this.state.total + rate;
+        this.setState({weeks: this.state.weeks + 1, total: newTotal});
+        let i = 0;
+
+        while (i < this.state.commitUsers.length && newTotal >= this.state.commitUsers[0].itemCost) {
+            let topUser = this.state.commitUsers[0];
+            this.commitItem(topUser);
+            i++;
+        }
+    }
+
+    // what to do if we can afford the top item
+    commitItem(topUser) {
+        // subtract money
+        this.setState({total: this.state.total - topUser.itemCost});
+
+        // remove item data from profile
+        topUser.itemCost = 0;
+        topUser.itemName = "";
+        topUser.itemDesc = "";
+
+        // fix ranks
+        let newUsers = this.state.commitUsers;
+        newUsers.forEach(user => {
+            user.rank -= 1;
+        });
+        topUser.rank = newUsers.length;
+
+        // push user changes
+        newUsers.splice(0, 1);
+        newUsers.push(topUser);
+        this.setState({commitUsers: newUsers});
+        console.log(this.state.commitUsers);
+
+        this.state.commitUsers.forEach((user) => {
+            console.log(user)
+            let currentUserRef = firebase.database().ref('users').child(user.id);
+            currentUserRef.update(user);
+        });
+        
     }
 
     componentWillUnmount() {
@@ -36,12 +81,17 @@ class HomePage extends Component {
 
         if (this.state.commitUsers) {
 
+            this.state.commitUsers.sort(function(a, b) {
+                return a.rank - b.rank;
+            });
+
             let contributions = this.state.commitUsers.map((user) => {
                 return <CommitmentRow
                     displayName={user.handle}
                     contribution={user.contribution}
                     id={user.key}
                     item={user.itemName}
+                    itemCost={user.itemCost}
                     key={user.key} />
             });
 
@@ -56,14 +106,16 @@ class HomePage extends Component {
             return (
                 <div className="col-sm" id="pool">
                     <h2>Fund Pool</h2>
+                    <button onClick={() => this.cycle(rate)}>cycle me!</button>
                     <div id="rate">{"RATE: $" + rate + "/wk"}</div>
-                    <div id="total">{"TOTAL: $" + rate * WEEKS}</div>
+                    <div id="total">{"TOTAL: $" + this.state.total}</div>
                     <table className="table table-striped table-hover">
                         <thead>
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Commitment</th>
                                 <th scope="col">WishList Item</th>
+                                <th scope="col">WishList Cost</th>
                                 <th scope="col">Message</th>
                             </tr>
                         </thead>
@@ -93,6 +145,7 @@ class CommitmentRow extends Component {
                 </td>
                 <td className="align-middle">{this.props.contribution}</td>
                 <td className="align-middle">{this.props.item}</td>
+                <td className="align-middle">{this.props.itemCost}</td>
                 <td className="align-middle"><Link to="/personal-chat" className="btn btn-secondary">Message</Link></td>
             </tr>
         );

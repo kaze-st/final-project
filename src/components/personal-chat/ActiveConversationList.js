@@ -1,17 +1,17 @@
-import React, {Component} from 'react'; //import React Component
+import React, { Component } from 'react'; //import React Component
 import firebase from 'firebase/app'
 
 export default class ActiveConversationList extends Component {
     constructor(props) {
         super(props);
-        this.state = {conversations: []}
+        this.state = { conversations: [] }
     }
 
     componentDidMount() {
         this.userRef = firebase.database().ref('users').child(this.props.currentUser.uid).child('active conversations');
         this.userRef.on('value', (snapshot) => {
 
-            this.setState({conversations: snapshot.val()});
+            this.setState({ conversations: snapshot.val() });
         })
     }
 
@@ -22,9 +22,7 @@ export default class ActiveConversationList extends Component {
     render() {
         if (!this.state.conversations) {
             return <div className="inbox_chat">
-                <div className="recent_heading">
-                    <h4>Recent conversations</h4>
-                </div>
+                <h4>Recent conversations</h4>
             </div>
         }
 
@@ -53,17 +51,15 @@ export default class ActiveConversationList extends Component {
         console.log(sort);
         conversationKey = sort.map((conversation) => {
             return <ConversationItem key={conversation[0]}
-                                     currentUser={this.props.currentUser}
-                                     conversation={conversation[0]}
-                                     read={conversation[1].read}
-                                     handleContactClick={this.props.handleContactClick}/>
+                currentUser={this.props.currentUser}
+                conversation={conversation[0]}
+                read={conversation[1].read}
+                handleContactClick={this.props.handleContactClick} />
         });
 
 
         return <div className="inbox_chat col-sm">
-            <div className="recent_heading">
-                <h4>Recent conversations</h4>
-            </div>
+            <h4>Recent conversations</h4>
             {conversationKey}
         </div>;
     }
@@ -82,7 +78,7 @@ class ConversationItem extends Component {
         firebase.database().ref('users').child(receptorUserID).on('value', (snapshot) => {
             let receptor = snapshot.val();
             receptor.id = receptorUserID;
-            this.setState({receptor: receptor});
+            this.setState({ receptor: receptor });
         });
 
         firebase.database().ref('conversation').child(this.props.conversation).limitToLast(1).on("value",
@@ -91,7 +87,7 @@ class ConversationItem extends Component {
                 let text = snapshot.val();
                 let key = Object.keys(text)[0];
 
-                this.setState({lastMessage: text[key]});
+                this.setState({ lastMessage: text[key] });
             }
         )
     };
@@ -105,7 +101,7 @@ class ConversationItem extends Component {
                 console.log(prevState.lastMessage);
                 if (prevState.lastMessage !== undefined && (prevState.lastMessage.text !== text[key].text || prevState.lastMessage.time !== text[key].time)) {
                     console.log("prevState.last message: ", prevState.lastMessage, " this last message: ", text[key]);
-                    this.setState({lastMessage: text[key]});
+                    this.setState({ lastMessage: text[key] });
                 }
 
             }
@@ -119,19 +115,19 @@ class ConversationItem extends Component {
         let lastPersonTalk = this.state.lastMessage.userId === this.props.currentUser.uid ? "You" : this.state.receptor.handle;
         return <div className="chat_list active_chat" onClick={() => {
             firebase.database().ref('users').child(this.props.currentUser.uid).child('active conversations')
-                .child(this.props.conversation).update({read: "y"})
+                .child(this.props.conversation).update({ read: "y" })
                 // .once('value').then((snap) =>{ console.log("ashjfbaskhvbaskfd", snap.val())});
-            //
-                 .then(() => {
-                     this.props.handleContactClick(this.state.receptor);
-                 })
+                //
+                .then(() => {
+                    this.props.handleContactClick(this.state.receptor);
+                })
 
         }}>
             <div className="chat_people">
-                <div className="chat_img"><img src={this.state.receptor.avatar} alt="sunil"/></div>
+                <div className="chat_img"><img src={this.state.receptor.avatar} alt="sunil" /></div>
                 <div className="chat_ib">
                     <h5>{this.state.receptor.handle}</h5>
-                    <h4>{this.props.read === "y" ? "(read)": "(unread)"}</h4>
+                    <h4>{this.props.read === "y" ? "(read)" : "(unread)"}</h4>
                     <p>{lastPersonTalk + ": " + this.state.lastMessage.text}</p>
                 </div>
             </div>

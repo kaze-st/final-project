@@ -290,6 +290,8 @@ img{ max-width:100%;}
 .headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
 
 .recent_heading h4 {
+  background-color: white;
+  width: auto;
   color: #01A2A6;
   font-size: 21px;
   margin: auto;
@@ -482,6 +484,20 @@ img{ max-width:100%;}
   #sidebarCollapse span {
     display: none;
   }
+}
 
-  
+/* ---------------------------------------------------
+    ANIMATIONS
+----------------------------------------------------- */
+
+@keyframes shake {
+  0%   {transform: rotate(0deg)}
+  25%   {transform: rotate(-5deg)}
+  75%   {transform: rotate(5deg)}
+  100%   {transform: rotate(0deg)}
+}
+
+#logo:hover {
+  animation-name: shake;
+  animation-duration: 0.3s;
 }

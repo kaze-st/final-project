@@ -50,17 +50,17 @@ class ProfileForm extends Component {
         return (
             <div id="content">
                 <div id="profile" className="container-fluid">
+
                     <div className="row">
+                    <h1>Personal Info</h1>
                         <div className="col-6">
 
                             {/* <!-- start avatar and bio --> */}
+                            
                             <form>
-                                {/* <div className="im-g">
-                                    <img src={this.state.photo} 
-                                        alt="profile picture" />
-                                </div> */}
+                                
                                 <div className="col-md-6 form-group">
-                                    <label for="firstname">Profile Picture URL</label>
+                                    <label htmlFor="firstname">Profile Picture URL</label>
                                     <input onChange={(e) => this.handleInputChange(e)}
                                         type="text"
                                         name="photo"
@@ -69,7 +69,7 @@ class ProfileForm extends Component {
                                         aria-label="fill in profile picture URL" />
                                 </div>
                                 <div className="form-group">
-                                    <label for="personal information">Personal Bio</label>
+                                    <label htmlFor="personal information">Personal Bio</label>
                                     <textarea className="form-control"
                                         name="bio"
                                         rows="3"
@@ -83,7 +83,7 @@ class ProfileForm extends Component {
                             <div className="first-line agileits">
                                 {/* <!-- name --> */}
                                 <div className="col-md-6 form-group">
-                                    <label for="name">Full Name</label>
+                                    <label htmlFor="name">Full Name</label>
                                     <input onChange={(e) => this.handleInputChange(e)}
                                         type="text"
                                         name="name"
@@ -92,7 +92,7 @@ class ProfileForm extends Component {
                                         aria-label="fill in name" />
                                 </div>
                                 {/* <!-- monel pool contribution --> */}
-                                <label for="Remaining">Set weekly money pool contribution</label>
+                                <label htmlFor="money">Set weekly money pool contribution</label>
                                 <div className="input-group">
                                     <div className="input-group-append">
                                         <span className="input-group-text">$10.00 &le; </span>
@@ -106,9 +106,15 @@ class ProfileForm extends Component {
                             </div>
                         </div>
                         <div className="line"></div>
+                        {/* item requested */}
+                        <h1>My Item</h1>
+
+                        <div className="line"></div>
 
                         {/* <!-- trading --> */}
-                        <div class="row">
+                        <h1>Trading</h1>
+                        <div className="row">
+                            
                             <div className="col-6">
                                 {<TradeItemList items={this.state.tradeOffers}/>}
                             </div>

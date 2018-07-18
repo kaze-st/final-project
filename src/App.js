@@ -141,7 +141,7 @@ class App extends Component {
                                 </Switch>
                             }
                             {/* footer */}
-                            <footer class="container text-center">
+                            <footer className="container text-center">
                                 <small>API from
                     <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html"> amazon api</a>
                                 </small>

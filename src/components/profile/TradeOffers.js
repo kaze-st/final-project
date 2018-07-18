@@ -11,6 +11,7 @@ export class TradeItemList extends Component {
         let tradeComponents = this.props.items.map((tradable) => {
             return (
                 <TradeItem name={tradable.name} 
+                            key={tradable.name}
                             desc={tradable.desc}
                             quantity={tradable.quantity} />
             );

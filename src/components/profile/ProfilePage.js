@@ -61,7 +61,7 @@ class ProfilePage extends Component {
                 <div id="profile" className="container-fluid">
                     <div className="row">
                         <div className="col-6 im-g">
-                            <img src={this.state.userProfileData.avatar} alt="profile picture" />
+                            <img src={this.state.userProfileData.avatar} alt="profile avatar" />
                         </div>
                         <div className="col-6">
                             <h2>Bio:</h2>
@@ -70,7 +70,9 @@ class ProfilePage extends Component {
                     </div>
                     <div className="row">
                         <div className="col-6">
-                            <p>all the other stuff here</p>
+                            <p>{"Full name: " + this.state.userProfileData.name}</p>
+                            <p>{"Email: " + this.state.userProfileData.email}</p>
+                            <p>{"Handle: " + this.state.userProfileData.handle}</p>
                         </div>
                         {this.state.userProfileData.tradeOffers && <div className="col-6">
                             <h2>Trade Offers:</h2>

@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-
 import firebase from 'firebase/app';
 
 
@@ -29,6 +28,7 @@ class HomePage extends Component {
             console.log(snapshot.val());
             
             let contributions = [];
+            let total = 0;
             let usersObject = snapshot.val(); //convert snapshot to value
             let usersKeys = Object.keys(usersObject);
             let usersArray = usersKeys.map((key) => { //map array of keys into array of tasks
@@ -38,12 +38,7 @@ class HomePage extends Component {
                 return user; //the transformed object to store in the array
             });
 
-            usersArray.forEach( (user) => {
-                if (user.contribution) {
-                    contributions.push(user);
-                }
-
-            });
+            
 
             this.setState({commitUsers: contributions});
         });

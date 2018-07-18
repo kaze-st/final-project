@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { NavLink, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import TradeModal from "./TradeModal";
 
 import firebase from 'firebase/app';
 
@@ -25,7 +26,6 @@ class TradePage extends Component {
             let usersObject = snapshot.val(); //convert snapshot to value
             let usersKeys = Object.keys(usersObject);
             let usersArray = usersKeys.map((key) => { //map array of keys into array of tasks
-
                 let user = usersObject[key]; //access element at that key
                 user.key = key;
                 return user; //the transformed object to store in the array
@@ -40,7 +40,6 @@ class TradePage extends Component {
                         });
                     }
                     else {
-                        console.log(user)
                         user.tradeOffers.forEach((offer) => {
                             offer.key = user.id;
                             offer.id = user.id;
@@ -78,12 +77,11 @@ class TradePage extends Component {
         });
 
         let theirItemRows = this.state.otherOffers.map((offer) => {
-            console.log(offer.id);
             return <div className="card my-1" key={offer.id}>
                 <div className="card-body">
                     <h5 className="card-title d-inline align-middle">{offer.name}</h5>
                     <p className="card-text d-inline align-middle">{" x " + offer.quantity}</p>
-                    <NavLink to={"/personal-chat/" + offer.id} className="btn btn-danger d-inline float-right">Message the offerer</NavLink>
+                    <TradeModal name={offer.name} desc={offer.desc} offererId={offer.id} />
                 </div>
             </div>
         });

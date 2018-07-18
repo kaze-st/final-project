@@ -14,13 +14,14 @@ export default class PersonalChatPage extends Component {
 
     componentDidMount() {
 
-        console.log(this.props);
-        firebase.database().ref('users').child(this.props.match.params.receiverID).once('value').then(
-            (snapshot) =>{
-                console.log("param", snapshot.val());
-                this.setState({receiver:snapshot.val()});
-            }
-        )
+        console.log("wtf", this.props);
+        if (this.props.match.params.receiverID) {
+            firebase.database().ref('users').child(this.props.match.params.receiverID).once('value').then((snapshot) => {
+                    console.log("param", snapshot.val());
+                    this.setState({receiver: snapshot.val()});
+                }
+            )
+        }
     }
 
     // Receives an user object that represents the receiver

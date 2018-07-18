@@ -91,7 +91,7 @@ class CommitmentRow extends Component {
                 </td>
                 <td className="align-middle">{this.props.contribution}</td>
                 <td className="align-middle">{this.props.item}</td>
-                <td className="align-middle"><Link to="/personal-chat" className="btn btn-secondary">Message</Link></td>
+                <td className="align-middle"><Link to={"/personal-chat/" + this.props.id} className="btn btn-secondary">Message</Link></td>
             </tr>
         );
     }

@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
 //routing
-import { Route, Switch, Redirect } from 'react-router-dom';
+import {Route, Switch, Redirect} from 'react-router-dom';
 //home made components
 import SignInPage from "./components/sign-in-page/SignInPage";
 import HomePage from "./components/home-page/HomePage";
@@ -16,11 +16,10 @@ import logo from './img/logo.png'
 import ProfileForm from './components/profile/ProfileForm';
 
 
-
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = { loading: true }
+        this.state = {loading: true}
     }
 
     // Life cycle events
@@ -28,9 +27,9 @@ class App extends Component {
         this.onAuthStateChanged = firebase.auth().onAuthStateChanged(
             (firebaseUser) => {
                 if (firebaseUser) {
-                    this.setState({ user: firebaseUser, loading: false });
+                    this.setState({user: firebaseUser, loading: false});
                 } else {
-                    this.setState({ user: null, loading: false });
+                    this.setState({user: null, loading: false});
                 }
             }
         );
@@ -42,21 +41,21 @@ class App extends Component {
 
     // Handle methods
     handleSignIn(email, password) {
-        this.setState({ errorMessage: null });
+        this.setState({errorMessage: null});
 
         firebase.auth().signInWithEmailAndPassword(email, password).catch(
             (err) => {
-                this.setState({ errorMessage: err.message});
+                this.setState({errorMessage: err.message});
             }
         );
     }
 
     handleSignUp(email, password, handle, avatar) {
         console.log("email: ", email, " password: ", password, " handle: ", handle, " avatar: ", avatar);
-        this.setState({ errorMessage: null });
+        this.setState({errorMessage: null});
         firebase.auth().createUserWithEmailAndPassword(email, password).then(
             () => {
-                return firebase.auth().currentUser.updateProfile({ displayName: handle, photoURL: avatar })
+                return firebase.auth().currentUser.updateProfile({displayName: handle, photoURL: avatar})
             }
         ).then(
             () => {
@@ -74,7 +73,7 @@ class App extends Component {
                 return usersRef.set(newUserObj);
             }
         ).then(() => this.setState({newUser: true})).catch((err) => {
-            this.setState({ errorMessage: err.message });
+            this.setState({errorMessage: err.message});
         });
 
     }
@@ -84,10 +83,10 @@ class App extends Component {
     }
 
     handleSignOut() {
-        this.setState({ errorMessage: null });
+        this.setState({errorMessage: null});
         firebase.auth().signOut().catch(
             (err) => {
-                this.setState({ errorMessage: err.message });
+                this.setState({errorMessage: err.message});
             }
         )
     }
@@ -106,41 +105,46 @@ class App extends Component {
         } else { // else
             content =
                 <div className="wrapper">
-                    <NavBar uid={this.state.user.uid} logout={() => this.handleSignOut()} />
+                    <NavBar uid={this.state.user.uid} logout={() => this.handleSignOut()}/>
                     <main>
                         <div id="content">
                             <div id="logo" className="d-flex justify-content-between">
-                                <img src={logo} alt="logo" />
+                                <img src={logo} alt="logo"/>
                             </div>
                             {this.state.newUser ?
                                 // new user logs info into profile
                                 <ProfileForm
                                     uid={this.state.user.uid}
-                                    toggleNewUser={() => this.toggleNewUser()} />
+                                    toggleNewUser={() => this.toggleNewUser()}/>
                                 :
                                 // returning user lands on home page
                                 <Switch>
-                                    <Route exact path="/" component={HomePage} />
-                                    <Route path="/home" component={HomePage} />
-                                    <Route path="/trade" component={TradePage} />
+                                    <Route exact path="/" component={HomePage}/>
+                                    <Route path="/home" component={HomePage}/>
+                                    <Route path="/trade" component={TradePage}/>
                                     <Route exact path={"/profile/:uid"} render={(routerProps) => {
                                         return <ProfilePage {...routerProps}
                                                             currentUser={this.state.user}
-                                                            toggleNewUser={() => this.toggleNewUser()}/> }} />
+                                                            toggleNewUser={() => this.toggleNewUser()}/>
+                                    }}/>
                                     <Route path="/chat" render={(routerProps) => {
                                         return <ChatPage {...routerProps}
-                                                         currentUser={this.state.user} /> }} />
+                                                         currentUser={this.state.user}/>
+                                    }}/>
                                     <Route path="/profile/:uid/edit" render={(routerProps) => {
                                         return <ProfileForm {...routerProps}
                                                             uid={this.state.user.uid}
-                                                            toggleNewUser={() => this.toggleNewUser()} /> }} />
+                                                            toggleNewUser={() => this.toggleNewUser()}/>
+                                    }}/>
                                     <Route exact path="/personal-chat" render={(routerProps) => {
                                         return <PersonalChatPage {...routerProps}
-                                                                 currentUser={this.state.user}/> }}/>
+                                                                 currentUser={this.state.user}/>
+                                    }}/>
                                     <Route path="/personal-chat/:receiverID" render={(routerProps) => {
                                         return <PersonalChatPage {...routerProps}
-                                                                 currentUser={this.state.user}/> }}/>
-                                    <Redirect to="/" />
+                                                                 currentUser={this.state.user}/>
+                                    }}/>
+                                    <Redirect to="/"/>
                                 </Switch>
                             }
                             {/* footer */}

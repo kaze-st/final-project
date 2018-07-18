@@ -10,25 +10,10 @@ class HomePage extends Component {
     }
 
     componentDidMount() {
-        
-
         this.userProfilesRef = firebase.database().ref('users');
         this.userProfilesRef.on('value', (snapshot) => {
-
-            
-            // this is all our user data. look in the console for structure/names/types/etc. 
-            // the important parts for the pool are the name, item, and price.
-            // ill push changes when im done with the item, shouldnt take more than 20 mins but i want you 
-            // to start this asap. youre going to want to use a mapping function 
-            // (to the effect of: this.state.userProfilesData.map((userData) => <RowInOurTable />)
-            // to turn the relevant information from each user into a row in our queue table.
-            // look at chen's code (chat files) for examples if you want.
-            // dont worry about "commit purchase" yet.
-            // text if you have questions <3
             console.log(snapshot.val());
             
-            let contributions = [];
-            let total = 0;
             let usersObject = snapshot.val(); //convert snapshot to value
             let usersKeys = Object.keys(usersObject);
             let usersArray = usersKeys.map((key) => { //map array of keys into array of tasks
@@ -38,11 +23,8 @@ class HomePage extends Component {
                 return user; //the transformed object to store in the array
             });
 
-            
-
-            this.setState({commitUsers: contributions});
+            this.setState({commitUsers: usersArray});
         });
-        
     }
 
     componentWillUnmount() {
@@ -52,12 +34,14 @@ class HomePage extends Component {
     render() {
 
         if (this.state.commitUsers) {
+            console.log(this.state.commitUsers);
 
             let contributions = this.state.commitUsers.map((user)=> {
                 return <CommitmentRow 
                     name={user.name}   
                     contribution={user.contribution} 
                     id={user.key}
+                    item={user.itemName}
                     key={user.key} />
             });
 
@@ -78,7 +62,8 @@ class HomePage extends Component {
                             <tr>
                                 <th scope="col">Name</th>
                                 <th scope="col">Commitment</th>
-                                <th scope="col"></th>
+                                <th scope="col">WishList Item</th>
+                                <th scope="col">Message</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -97,17 +82,14 @@ class HomePage extends Component {
 class CommitmentRow extends Component {
     
     render() {
-        console.log(this.props)
+        console.log(this.props);
         return (
-        
             <tr>
-                <Link to={"/profile/" + this.props.id}>
-                <td className="align-middle">{this.props.name}</td>
+                <td className="align-middle"><Link to={"/profile/" + this.props.id}>{this.props.name}</Link></td>
                 <td className="align-middle">{this.props.contribution}</td>
+                <td className="align-middle">{this.props.item}</td>
                 <td className="align-middle"><Link to="/personal-chat" className="btn btn-secondary">Message</Link></td>
-                </Link>
             </tr>
-        
         );
     }
 }

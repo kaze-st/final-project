@@ -43,7 +43,9 @@ export default class PersonalContactList extends Component {
         });
         return <div className="inbox_chat col-sm">
             <h4>Contact list</h4>
-            {contactsKey}
+            <div id="personalContactContainer">
+                {contactsKey}
+            </div>
         </div>;
     }
 }

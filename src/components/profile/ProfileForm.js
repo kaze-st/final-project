@@ -62,7 +62,7 @@ class ProfileForm extends Component {
                                     <label htmlFor="firstname">Profile Picture URL</label>
                                     <input onChange={(e) => this.handleInputChange(e)}
                                         type="text"
-                                        name="photo"
+                                        name="avatar"
                                         className="form-control"
                                         placeholder="Url here"
                                         aria-label="fill in profile picture URL" />

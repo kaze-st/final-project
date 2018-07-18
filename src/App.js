@@ -1,7 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import './App.css';
 //routing
-import {Route, Switch, Redirect, NavLink} from 'react-router-dom';
+import { Route, Switch, Redirect, NavLink } from 'react-router-dom';
 
 //home made components
 import SignInPage from "./components/sign-in-page/SignInPage";
@@ -22,7 +22,7 @@ import ProfileForm from './components/profile/ProfileForm';
 class App extends Component {
     constructor(props) {
         super(props);
-        this.state = {loading: true}
+        this.state = { loading: true }
     }
 
     // Life cycle events
@@ -30,9 +30,9 @@ class App extends Component {
         this.onAuthStateChanged = firebase.auth().onAuthStateChanged(
             (firebaseUser) => {
                 if (firebaseUser) {
-                    this.setState({user: firebaseUser, loading: false});
+                    this.setState({ user: firebaseUser, loading: false });
                 } else {
-                    this.setState({user: null, loading: false});
+                    this.setState({ user: null, loading: false });
                 }
             }
         );
@@ -44,21 +44,21 @@ class App extends Component {
 
     // Handle methods
     handleSignIn(email, password) {
-        this.setState({errorMessage: null});
+        this.setState({ errorMessage: null });
 
         firebase.auth().signInWithEmailAndPassword(email, password).catch(
             (err) => {
-                this.setState({errorMessage: err.message});
+                this.setState({ errorMessage: err.message });
             }
         );
     }
 
     handleSignUp(email, password, handle, avatar) {
         console.log("email: ", email, " password: ", password, " handle: ", handle, " avatar: ", avatar);
-        this.setState({errorMessage: null});
+        this.setState({ errorMessage: null });
         firebase.auth().createUserWithEmailAndPassword(email, password).then(
             () => {
-                return firebase.auth().currentUser.updateProfile({displayName: handle, photoURL: avatar})
+                return firebase.auth().currentUser.updateProfile({ displayName: handle, photoURL: avatar })
             }
         ).then(
             () => {
@@ -81,21 +81,21 @@ class App extends Component {
                 // entering data in that spot we found before
                 return usersRef.set(newUserObj);
             }
-        ).then(() => this.setState({newUser: true})).catch((err) => {
-            this.setState({errorMessage: err.message});
+        ).then(() => this.setState({ newUser: true })).catch((err) => {
+            this.setState({ errorMessage: err.message });
         });
 
     }
 
     toggleNewUser() {
-        this.setState({newUser: false});
+        this.setState({ newUser: false });
     }
 
     handleSignOut() {
-        this.setState({errorMessage: null});
+        this.setState({ errorMessage: null });
         firebase.auth().signOut().catch(
             (err) => {
-                this.setState({errorMessage: err.message});
+                this.setState({ errorMessage: err.message });
             }
         )
     }
@@ -114,41 +114,41 @@ class App extends Component {
         } else { // else
             content =
                 <div className="wrapper row">
-                    <NavBar uid={this.state.user.uid} logout={() => this.handleSignOut()} className="col-sm"/>
+                    <NavBar uid={this.state.user.uid} logout={() => this.handleSignOut()} className="col-sm" />
                     <main className="col-sm">
                         <div id="content">
                             <div id="logo" className="mx-auto">
-                                <NavLink to="/home"> <img src={logo} alt="logo"/> </NavLink>
+                                <NavLink to="/home"> <img src={logo} alt="logo" /> </NavLink>
                             </div>
                             {this.state.newUser ?
                                 // new user logs info into profile
                                 <ProfileForm
                                     uid={this.state.user.uid}
-                                    toggleNewUser={() => this.toggleNewUser()}/>
+                                    toggleNewUser={() => this.toggleNewUser()} />
                                 :
                                 // returning user lands on home page
                                 <Switch>
-                                    <Route exact path="/" component={HomePage}/>
-                                    <Route path="/home" component={HomePage}/>
-                                    <Route exact path={"/trade/:uid"} component={TradePage}/>
+                                    <Route exact path="/" component={HomePage} />
+                                    <Route path="/home" component={HomePage} />
+                                    <Route exact path={"/trade/:uid"} component={TradePage} />
                                     <Route exact path={"/profile/:uid"} render={(routerProps) => {
                                         return <ProfilePage {...routerProps}
-                                                            currentUser={this.state.user}
-                                                            toggleNewUser={() => this.toggleNewUser()}/>
-                                    }}/>
+                                            currentUser={this.state.user}
+                                            toggleNewUser={() => this.toggleNewUser()} />
+                                    }} />
                                     <Route path="/chat" render={(routerProps) => {
                                         return <ChatPage {...routerProps}
-                                                         currentUser={this.state.user}/>
-                                    }}/>
+                                            currentUser={this.state.user} />
+                                    }} />
                                     <Route path="/profile/:uid/edit" render={(routerProps) => {
                                         return <ProfileForm {...routerProps}
-                                                            uid={this.state.user.uid}
-                                                            toggleNewUser={() => this.toggleNewUser()}/>
-                                    }}/>
+                                            uid={this.state.user.uid}
+                                            toggleNewUser={() => this.toggleNewUser()} />
+                                    }} />
                                     <Route exact path="/personal-chat" render={(routerProps) => {
                                         return <PersonalChatPage {...routerProps}
-                                                                 currentUser={this.state.user}/>
-                                    }}/>
+                                            currentUser={this.state.user} />
+                                    }} />
                                     <Route exact path="/personal-chat/:receiverID" render={(routerProps) => {
                                         return <PersonalChatPage {...routerProps}
                                                                  currentUser={this.state.user}/>
@@ -157,13 +157,6 @@ class App extends Component {
                                     <Redirect to="/"/>
                                 </Switch>
                             }
-                            {/* footer */}
-                            {/* <footer className="container text-center">
-                                <small>API from
-                    <a href="https://docs.aws.amazon.com/apigateway/latest/developerguide/welcome.html"> amazon api</a>
-                                </small>
-                                <small>&copy; 2018 Alissa Adornato &amp; Emily Ding &amp; Hao Chen &amp; William Fu</small>
-                            </footer> */}
                         </div>
                     </main>
                 </div>
@@ -178,7 +171,7 @@ class App extends Component {
         return (
             <div>
                 {this.state.errorMessage &&
-                <p className="alert alert-danger">{this.state.errorMessage}</p>
+                    <p className="alert alert-danger">{this.state.errorMessage}</p>
                 }
                 {content}
             </div>

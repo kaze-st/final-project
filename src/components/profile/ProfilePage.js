@@ -71,7 +71,7 @@ class ProfilePage extends Component {
                                 {this.state.userProfileData.itemDesc && <p>{this.state.userProfileData.itemDesc}</p>}
                             </div>
 
-                            {this.state.userProfileData.tradeOffers && <div className="col-6 card">
+                            {this.state.userProfileData.tradeOffers && <div>
                                 <h2>Trade Offers:</h2>
                                 {<TradeItemList items={this.state.userProfileData.tradeOffers} />}
                             </div>}
@@ -80,9 +80,9 @@ class ProfilePage extends Component {
                             <h3>Profile Picture</h3>
                             {this.state.userProfileData.avatar && <img src={this.state.userProfileData.avatar} alt="profile avatar" />}
                             <div id="profileInfo">
-                                {this.state.userProfileData.name && <p><strong>Full name: </strong>{this.state.userProfileData.name}</p>}
-                                {this.state.userProfileData.email && <p>{"Email: " + this.state.userProfileData.email}</p>}
-                                {this.state.userProfileData.handle && <p>{"Handle: " + this.state.userProfileData.handle}</p>}
+                                {this.state.userProfileData.name && <p className="text-center"><strong>Full name: </strong>{this.state.userProfileData.name}</p>}
+                                {this.state.userProfileData.email && <p className="text-center"><strong>E-Mail: </strong>{this.state.userProfileData.email}</p>}
+                                {this.state.userProfileData.handle && <p className="text-center"><strong>Handle: </strong>{this.state.userProfileData.handle}</p>}
                             </div>
                         </div>
                     </div>

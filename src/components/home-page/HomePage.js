@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import MoneyForm from './MoneyForm';
 import firebase from 'firebase/app';
 
 
 class HomePage extends Component {
     constructor(props) {
         super(props);
-        this.state = {weeks: 0, total: 0};
+        this.state = { };
     }
 
     componentDidMount() {
         this.userProfilesRef = firebase.database().ref('users');
+        
         this.userProfilesRef.on('value', (snapshot) => {
             console.log(snapshot.val());
 
@@ -20,7 +22,7 @@ class HomePage extends Component {
 
                 let user = usersObject[key]; //access element at that key
                 user.key = key;
-                
+
                 return user; //the transformed object to store in the array
             });
 
@@ -28,60 +30,14 @@ class HomePage extends Component {
         });
     }
 
-    // a week has passed...
-    cycle(rate) {
-        // update weeks, total
-        let newTotal = this.state.total + rate;
-        this.setState({weeks: this.state.weeks + 1, total: newTotal});
-        let i = 0;
-
-        while (i < this.state.commitUsers.length && newTotal >= this.state.commitUsers[0].itemCost) {
-            let topUser = this.state.commitUsers[0];
-            this.commitItem(topUser);
-            i++;
-        }
-    }
-
-    // what to do if we can afford the top item
-    commitItem(topUser) {
-        // subtract money
-        this.setState({total: this.state.total - topUser.itemCost});
-
-        // remove item data from profile
-        topUser.itemCost = 0;
-        topUser.itemName = "";
-        topUser.itemDesc = "";
-
-        // fix ranks
-        let newUsers = this.state.commitUsers;
-        newUsers.forEach(user => {
-            user.rank -= 1;
-        });
-        topUser.rank = newUsers.length;
-
-        // push user changes
-        newUsers.splice(0, 1);
-        newUsers.push(topUser);
-        this.setState({commitUsers: newUsers});
-        console.log(this.state.commitUsers);
-
-        this.state.commitUsers.forEach((user) => {
-            console.log(user)
-            let currentUserRef = firebase.database().ref('users').child(user.id);
-            currentUserRef.update(user);
-        });
-        
-    }
-
     componentWillUnmount() {
         this.userProfilesRef.off();
     }
 
     render() {
-
         if (this.state.commitUsers) {
 
-            this.state.commitUsers.sort(function(a, b) {
+            this.state.commitUsers.sort(function (a, b) {
                 return a.rank - b.rank;
             });
 
@@ -95,36 +51,29 @@ class HomePage extends Component {
                     key={user.key} />
             });
 
-            let rate = this.state.commitUsers.reduce((total, user) => {
-                if (!isNaN(user.contribution)) {
-                    return parseFloat(total) + parseFloat(user.contribution);
-                } else {
-                    return total;
-                }
-            }, 0);
-
             return (
+                <div>
+                    {<MoneyForm/>}
                 <div className="col-sm overflow-y: auto;" id="pool">
                     <h2>Fund Pool</h2>
-                    <button className="btn btn-secondary d-inline" onClick={() => this.cycle(rate)}>Cycle me! <i class="far fa-smile-wink d-inline"></i></button>
-                    <div id="rate">{"RATE: $" + rate + "/wk"}</div>
                     <div id="total">{"TOTAL: $" + this.state.total}</div>
                     <div className="table-responsive">
-                    <table className="table table-striped table-hover">
-                        <thead>
-                            <tr>
-                                <th scope="col">Name</th>
-                                <th scope="col">Commitment</th>
-                                <th scope="col">WishList Item</th>
-                                <th scope="col">WishList Cost</th>
-                                <th scope="col">Message</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {contributions}
-                        </tbody>
-                    </table>
+                        <table className="table table-striped table-hover">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Name</th>
+                                    <th scope="col">Commitment</th>
+                                    <th scope="col">WishList Item</th>
+                                    <th scope="col">WishList Cost</th>
+                                    <th scope="col">Message</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {contributions}
+                            </tbody>
+                        </table>
                     </div>
+                </div>
                 </div>
             );
         }
@@ -142,7 +91,7 @@ class CommitmentRow extends Component {
                 <td className="align-middle">
                     <Link style={Object.assign(
                         {},
-                        { color: "blue" }
+                        { color: "Green" }
                     )} to={"/profile/" + this.props.id}>{this.props.displayName}</Link>
                 </td>
                 <td className="align-middle">{this.props.contribution}</td>

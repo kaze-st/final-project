@@ -8,7 +8,6 @@ export default class PersonalChatBox extends Component {
     }
 
 
-
     updatePost(event) {
         this.setState({post: event.target.value});
     }
@@ -33,8 +32,14 @@ export default class PersonalChatBox extends Component {
         conversationRef.push(newMessage);
 
         //
-        firebase.database().ref('users').child(this.props.currentUser.uid).child('active conversations').child(converHash).update({read:"y", time:firebase.database.ServerValue.TIMESTAMP });
-        firebase.database().ref('users').child(this.props.receiver.id).child('active conversations').child(converHash).update({read:"n", time:firebase.database.ServerValue.TIMESTAMP });
+        firebase.database().ref('users').child(this.props.currentUser.uid).child('active conversations').child(converHash).update({
+            read: "y",
+            time: firebase.database.ServerValue.TIMESTAMP
+        });
+        firebase.database().ref('users').child(this.props.receiver.id).child('active conversations').child(converHash).update({
+            read: "n",
+            time: firebase.database.ServerValue.TIMESTAMP
+        });
 
         this.setState({post: ''}); //empty out post for next time
     }
@@ -43,13 +48,19 @@ export default class PersonalChatBox extends Component {
         if (!this.props.receiver) return null;
         return (<div className="type_msg">
             <div className="input_msg_write">
-                <input onChange={(event) => this.updatePost(event)} value={this.state.post} type="text" className="write_msg"
-                       placeholder={"Type a message to " + this.props.receiver.handle}/>
-                <button className="msg_send_btn"
-                        type="button"
-                        disabled={this.state.post.length === 0}
-                        onClick={(event) => (this.postMessage(event))}
-                ><i className="fas fa-share-square" aria-hidden="true"></i></button>
+                <form onSubmit={(event) => (this.postMessage(event))}>
+
+                    <input onChange={(event) => this.updatePost(event)} value={this.state.post} type="text" className="write_msg"
+                           placeholder={"Type a message to " + this.props.receiver.handle}
+
+                    />
+                    <button className="msg_send_btn"
+                            type="button"
+                            disabled={this.state.post.length === 0}
+                            onClick={(event) => (this.postMessage(event))}
+                    ><i className="fas fa-share-square" aria-hidden="true"></i></button>
+                </form>
+
             </div>
         </div>);
     }

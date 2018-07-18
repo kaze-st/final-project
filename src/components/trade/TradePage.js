@@ -15,8 +15,6 @@ class TradePage extends Component {
         this.userProfilesRef.on('value', (snapshot) => {
             console.log(snapshot.val());
             
-            
-
             let myOffers = [];
             let otherOffers = [];
 
@@ -47,11 +45,12 @@ class TradePage extends Component {
                 }
 
             });
+            this.setState({myOffers: myOffers, otherOffers: otherOffers});
         });
     }
 
     componentWillUnmount() {
-      
+        this.userProfilesRef.off();
     }
 
     render() {
@@ -62,20 +61,7 @@ class TradePage extends Component {
             <div id="myItems">
                     <h2>My Items</h2>
                     <div id="myItemViewer" className="bg-white p-1 border border-dark rounded">
-                        <div className="card my-1">
-                            <div className="card-body">
-                                <h5 className="card-title d-inline align-middle">ITEM NAME </h5>
-                                <p className="card-text d-inline align-middle">x9999</p>
-                                <a href="#" className="btn btn-danger d-inline float-right">X</a>
-                            </div>
-                        </div>
-                        <div className="card my-1">
-                            <div className="card-body">
-                                <h5 className="card-title d-inline align-middle">ITEM NAME </h5>
-                                <p className="card-text d-inline align-middle">x9999</p>
-                                <a href="#" className="btn btn-danger d-inline float-right">X</a>
-                            </div>
-                        </div>
+                        {}
                     </div>
                 </div>
                 
@@ -109,3 +95,33 @@ class TradePage extends Component {
 }
 
 export default TradePage;
+
+/**
+ * props:
+ * list- all trade cards
+ */
+class TradeCardList extends Component {
+    render() {
+        let cardList = this.props.list.map((item) => {
+            return <TradeCard item={item}/>;
+        });
+    }
+}
+
+/**
+ * props:
+ * item- trade item 
+ */
+class TradeCard extends Component {
+    render() {
+        return (
+            <div className="card my-1">
+                <div className="card-body">
+                    <h5 className="card-title d-inline align-middle">{this.props.item.itemName}</h5>
+                    <p className="card-text d-inline align-middle">{this.props.item.itemDesc}</p>
+                    <a href="#" className="btn btn-danger d-inline float-right">X</a>
+                </div>
+            </div>
+        );
+    }
+}

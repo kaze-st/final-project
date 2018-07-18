@@ -90,18 +90,6 @@ class ProfileForm extends Component {
                                         placeholder="Full name"
                                         aria-label="fill in name" />
                                 </div>
-                                {/* <!-- monel pool contribution --> */}
-                                <label htmlFor="money">Set weekly money pool contribution</label>
-                                <div className="input-group">
-                                    <div className="input-group-append">
-                                        <span className="input-group-text">$10.00 &le; </span>
-                                    </div>
-                                    <input onChange={(e) => this.handleInputChange(e)}
-                                        type="number"
-                                        name="contribution"
-                                        className="form-control"
-                                        aria-label="Dollar amount (with dot and two decimal places)" />
-                                </div>
                             </div>
                         </div>
                         <div className="line"></div>

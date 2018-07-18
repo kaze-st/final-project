@@ -329,7 +329,12 @@ img{ max-width:100%;}
   margin: 0;
   padding: 18px 16px 10px;
 }
-.inbox_chat { height: 550px; overflow-y: scroll;}
+.inbox_chat { height: 550px;}
+
+#personalContactContainer, #recentChatsContainer{
+  overflow-y: scroll;
+  height: 550px;
+}
 
 .active_chat{ background:#ebebeb;}
 
@@ -487,6 +492,14 @@ img{ max-width:100%;}
   }
   #sidebarCollapse span {
     display: none;
+  }
+
+  .inbox_chat{
+    height: 250px;
+  }
+  
+  #personalContactContainer, #recentChatsContainer{
+    height: 200px;
   }
 }
 

@@ -5,7 +5,7 @@ import PersonalChatBox from "./PersonalChatBox";
 import PersonalChatList from "./PersonalChatList";
 import firebase from 'firebase';
 import ActiveConversationList from "./ActiveConversationList";
-import {Redirect} from 'react-router-dom';
+
 export default class PersonalChatPage extends Component {
     constructor(props) {
         super(props);
@@ -44,7 +44,7 @@ export default class PersonalChatPage extends Component {
         let content = <h2 id="defaultChatText">Select a person to talk to!</h2>;
 
         if (this.state.receiver) {
-            content = <div className="col-sm-8"><PersonalChatList currentUser={this.props.currentUser} receiver={this.state.receiver}/>
+            content = <div className="col-sm-8"><h4>Conversation</h4><PersonalChatList currentUser={this.props.currentUser} receiver={this.state.receiver}/>
                 <PersonalChatBox currentUser={this.props.currentUser} receiver={this.state.receiver}/></div>
         }
 

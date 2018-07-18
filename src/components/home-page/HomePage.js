@@ -25,8 +25,6 @@ class HomePage extends Component {
                 return user; //the transformed object to store in the array
             });
 
-            
-
             this.setState({commitUsers: usersArray});
         });
         
@@ -87,12 +85,10 @@ class HomePage extends Component {
 class CommitmentRow extends Component {
     
     render() {
-        console.log(this.props)
+        console.log(this.props);
         return (
             <tr>
-                <Link to={"/profile/" + this.props.id}>
-                <td className="align-middle">{this.props.name}</td>
-                </Link>
+                <td className="align-middle"><Link to={"/profile/" + this.props.id}>{this.props.name}</Link></td>
                 <td className="align-middle">{this.props.contribution}</td>
                 <td className="align-middle">{this.props.item}</td>
                 <td className="align-middle"><Link to="/personal-chat" className="btn btn-secondary">Message</Link></td>

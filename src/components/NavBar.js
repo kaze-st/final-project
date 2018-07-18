@@ -29,7 +29,7 @@ class NavBar extends Component {
                     </NavLink>
                 </li>
                 <li>
-                    <NavLink to="/trade" activeClassName="sidebar.active">
+                    <NavLink to={"/trade/" + this.props.uid} activeClassName="sidebar.active">
                         <i className="fas fa-exchange-alt"></i>
                         Trade
                     </NavLink>

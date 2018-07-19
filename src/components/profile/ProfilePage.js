@@ -24,15 +24,17 @@ class ProfilePage extends Component {
     }
 
     componentDidMount() {
+        this.userProfileRef = firebase.database().ref('users').child(this.props.match.params.uid);
+        this.userProfileRef.on('value', (snapshot) => {
+            this.setState({userProfileData: snapshot.val()});
+        });
+
         this.wishListRef = firebase.database().ref('wishlist').child(this.props.match.params.uid);
         this.wishListRef.on('value', (snapshot) => {
             this.setState({userWishlistData: snapshot.val()});
         });
 
-        this.userProfileRef = firebase.database().ref('users').child(this.props.match.params.uid);
-        this.userProfileRef.on('value', (snapshot) => {
-            this.setState({userProfileData: snapshot.val()});
-        });
+
     }
 
     componentWillUnmount() {

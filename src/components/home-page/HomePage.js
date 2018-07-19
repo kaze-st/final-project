@@ -34,10 +34,11 @@ class HomePage extends Component {
 
         return (
             <div>
+                <HelpModal name="Home Page" desc={PAGE_DESC} />
                 {<MoneyForm currentUser={this.props.currentUser} priorityItem={this.state.priorityItem} handleBuyCallBack={() =>{this.handleBuy()}}/>}
                 <div className="col-sm overflow-y: auto;" id="pool">
                     <h2>Fund Pool</h2>
-                    <HelpModal name="Home Page" desc={PAGE_DESC} />
+                    
                     <Table getPriorityItemCallBack={(priorityItem) => {
                         this.getPriorityItem(priorityItem)
                     }} currentUser={this.props.currentUser}/>

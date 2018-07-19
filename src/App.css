@@ -1,3 +1,7 @@
+/* ---------------------------------------------------
+    BODY
+----------------------------------------------------- */
+
 body {
   background: #fafafa;
 }
@@ -80,7 +84,6 @@ span {
 /*#sidebar {
   min-width: 250px;
   max-width: 250px;
-  
 }*/
 
 #sidebar {
@@ -223,8 +226,6 @@ ul.list-unstyled a {
   margin-bottom: 5px;
 }
 
-
-
 /* ---------------------------------------------------
     CONTENT STYLE
 ----------------------------------------------------- */
@@ -319,29 +320,10 @@ footer{
 ----------------------------------------------------- */
 
 .container{max-width:1170px; margin:auto;}
-img{ max-width:100%;}
-.inbox_people {
-  background: #f8f8f8 none repeat scroll 0 0;
-  float: left;
-  overflow: hidden;
-  width: 40%; border-right:1px solid #c4c4c4;
-}
-.inbox_msg {
-  border: 1px solid #c4c4c4;
-  clear: both;
-  overflow: hidden;
-}
+
 .top_spac{ margin: 20px 0 0;}
 
-
 .recent_heading {float: left; width:40%;}
-.srch_bar {
-  display: inline-block;
-  text-align: right;
-  width: 60%;
-}
-
-.headind_srch{ padding:10px 29px 10px 20px; overflow:hidden; border-bottom:1px solid #c4c4c4;}
 
 .recent_heading h4 {
   background-color: white;
@@ -350,14 +332,7 @@ img{ max-width:100%;}
   font-size: 21px;
   margin: auto;
 }
-.srch_bar input{ border:1px solid #cdcdcd; border-width:0 0 1px 0; width:80%; padding:2px 0 4px 6px; background:none;}
-.srch_bar .input-group-addon button {
-  background: rgba(0, 0, 0, 0) none repeat scroll 0 0;
-  border: medium none;
-  padding: 0;
-  color: #707070;
-  font-size: 18px;
-}
+
 .srch_bar .input-group-addon { margin: 0 0 0 -27px;}
 
 .chat_ib h5, .chat_ib h4{ font-size:15px; color:#464646; margin:0 0 8px 0;}
@@ -432,12 +407,7 @@ img{ max-width:100%;}
   padding: 5px 10px 5px 12px;
   width: 100%;
 }
-.time_date {
-  color: #747474;
-  display: block;
-  font-size: 12px;
-  margin: 8px 0 0;
-}
+
 .received_withd_msg { width: 57%;}
 .mesgs {
   float: left;
@@ -478,7 +448,7 @@ img{ max-width:100%;}
   width: 100%;
 }
 
-.type_msg {border-top: 1px solid #c4c4c4;position: relative;}
+.type_msg {border-top: 1px solid #c4c4c4; position: relative;}
 .msg_send_btn {
   background: #05728f none repeat scroll 0 0;
   border: medium none;
@@ -492,7 +462,7 @@ img{ max-width:100%;}
   top: 3px;
   width: 33px;
 }
-.messaging { padding: 0 0 50px 0;}
+
 .msg_history {
   height: 516px;
   overflow-y: auto;

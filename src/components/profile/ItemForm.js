@@ -80,7 +80,17 @@ export default class ItemForm extends Component {
                 </form>
                 <Button color="primary" onClick={(e) => {
                         this.state.id = Math.random().toString(36).substring(7);
-                        this.updateWishList(e)}}>
+                        if (this.state.price > 0) {
+                            if (this.state.name !== "") {
+                                this.updateWishList(e);
+                            } else {
+                                alert("Your item needs a name!");
+                            }
+                            
+                        } else {
+                            alert("Your price should be larger than 0");
+                        }
+                        }}>
                         
                     submit item
                 </Button>

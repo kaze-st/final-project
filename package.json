@@ -2,7 +2,7 @@
   "name": "final-project",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://info343-su18.github.io/kaze-st-final-project/",
+  "homepage": "https://kaze-st.github.io/final-project/",
   "dependencies": {
     "bootstrap": "^4.1.2",
     "firebase": "^5.2.0",

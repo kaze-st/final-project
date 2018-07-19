@@ -127,11 +127,8 @@ export class TradeItemForm extends Component {
 
         let usersRef = firebase.database().ref('users').child(this.props.currId).child('tradeOffers');
 
-        var clone = Object.assign({}, this.state);
-        delete clone.index;
-
         let toAdd = {};
-        toAdd[this.state.index] = clone;
+        toAdd[this.state.index] = this.state;
 
         usersRef.update(toAdd);
 

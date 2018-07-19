@@ -36,14 +36,17 @@ class TradePage extends Component {
                 if (user.tradeOffers) {
 
                     if (user.key === this.props.match.params.uid) {
-                        user.tradeOffers.forEach((offer) => {
+                        Object.keys(user.tradeOffers).forEach((index) => {
+                            let offer = user.tradeOffers[index];
+                            offer.key = user.id + offer.index;
                             myOffers.push(offer);
                         });
                     }
                     else {
-                        user.tradeOffers.forEach((offer) => {
-                            offer.key = user.id;
-                            offer.id = user.id;
+                        Object.keys(user.tradeOffers).forEach((index) => {
+                            let offer = user.tradeOffers[index];
+                            offer.key = user.id + offer.index;
+                            offer.id = user.id + offer.index;
                             offer.ownerName = user.name;
                             otherOffers.push(offer);
                         });
@@ -69,7 +72,7 @@ class TradePage extends Component {
 
         let myItemRows = this.state.myOffers.map((offer) => {
 
-            return <div className="card my-1" key={offer.id}>
+            return <div className="card my-1">
                 <div className="card-body">
                     <h5 className="card-title d-inline align-middle">{offer.name}</h5>
                     <p className="card-text d-inline align-middle">{" x " + offer.quantity}</p>
@@ -82,19 +85,19 @@ class TradePage extends Component {
                 <div className="card-body">
                     <h5 className="card-title d-inline align-middle">{offer.name}</h5>
                     <p className="card-text d-inline align-middle">{" x " + offer.quantity}</p>
-                    <TradeModal name={offer.name} desc={offer.desc} offererId={offer.id} />
+                    <TradeModal key={offer.id} name={offer.name} desc={offer.desc} offererId={offer.id} />
                 </div>
             </div>
         });
 
         return (
-                   
+
             <div className="row mx-auto">
                 <div className="col mx-auto">
-                <h5 className="card-title d-inline align-middle"><strong>Note: </ strong>
-                    Keep yourself online to store your <strong className="bg-white p-1 border rounded">Items</strong> available.
+                    <h5 className="card-title d-inline align-middle"><strong>Note: </ strong>
+                        Keep yourself online to store your <strong className="bg-white p-1 border rounded">Items</strong> available.
                      Click the <strong className="bg-white p-1 border rounded">Details</strong> to ask for trading!</h5>
-                     <HelpModal name="Trading Page" desc={PAGE_DESC}/>
+                    <HelpModal name="Trading Page" desc={PAGE_DESC} />
                     <div id="myItems">
                         <h2>My Items</h2>
                         <div id="myItemViewer" className="bg-white p-1 border border-dark rounded">

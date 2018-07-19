@@ -22,7 +22,6 @@ export default class MoneyForm extends Component {
     }
 
 
-
     // log the donation into the database
     // enters a new transaction into the database
 
@@ -88,7 +87,6 @@ export default class MoneyForm extends Component {
         });
 
 
-
     }
 
     /* TODO */
@@ -103,7 +101,6 @@ export default class MoneyForm extends Component {
                 this.cycle();
                 this.props.handleBuyCallBack();
             });
-
 
 
     }
@@ -129,9 +126,18 @@ export default class MoneyForm extends Component {
     }
 
     render() {
-        console.log(this.state.donation);
+        //TODO
+        if (this.props.priorityItem) {
+            console.log("unable: ", this.props.priorityItem.uid !== this.props.currentUser.uid);
+            console.log("id item:" ,this.props.priorityItem)
+        }
+
+        let disablePurchase = !this.props.priorityItem
+            || parseFloat(this.props.priorityItem.price) > this.state.availableFunds
+            || this.state.blockPurchase / this.state.totalUsers > 0.5
+         || this.props.priorityItem.uid !== this.props.currentUser.uid;
+
         let blockLength;
-        console.log("block length: = ", this.state.blockPurchase);
         if (this.state.blockPurchase === null || !this.state.blockPurchase) {
             blockLength = 0;
         } else {
@@ -148,11 +154,9 @@ export default class MoneyForm extends Component {
                         <div className="input-group">
 
                             {/*Button to buy item*/}
-                            <button className="input-group-append btn btn-secondary"
-                                    disabled={!this.props.priorityItem
-                                    || parseFloat(this.props.priorityItem.price) > this.state.availableFunds
-                                    || this.state.blockPurchase / this.state.totalUsers > 0.5
-                                    || this.props.priorityItem.uid !== this.props.currentUser.uid}
+                            <button className={disablePurchase ? "input-group-append btn btn-secondary": "input-group-append btn btn-secondary" +
+                                " buy-enable"}
+                                    disabled={disablePurchase}
                                     onClick={() => {
                                         this.handleBuy()
                                     }}>

@@ -131,7 +131,7 @@ class App extends Component {
                                     }}/>
 
                                     <Route path="/home" render={() => {
-                                        return <HomePage currentUser={this.state.user}/>
+                                        return <HomePage currentUser={this.state.user} currId={this.state.user.uid}/>
                                     }}/>
 
                                     <Route exact path={"/trade/:uid"} component={TradePage}/>

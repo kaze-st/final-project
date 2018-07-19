@@ -52,8 +52,9 @@ class HomePage extends Component {
                     currId={this.props.currId}/>
             });
 
+            /*TODO Alissa pass in the price of the most expensive item*/
             return (
-                <div>/*TODO Alissa pass in the price of the most expensive item*/
+                <div>
                     {<MoneyForm currentUser={this.props.currentUser} priceTopItem={undefined}/>}
                 <div className="col-sm overflow-y: auto;" id="pool">
                     <h2>Fund Pool</h2>
@@ -101,7 +102,7 @@ class CommitmentRow extends Component {
     handleUrgency(e) {
         e.preventDefault();
 
-        let urgencyVotes = firebase.ref('wishlist').child(this.props.user.uid);
+        let urgencyVotes = firebase.database().ref('wishlist').child(this.props.user.uid);
 
         let oldVotes = this.state.urgencyVotes;
         oldVotes === undefined ? oldVotes = {} : oldVotes;
@@ -113,13 +114,12 @@ class CommitmentRow extends Component {
         /**
          * user info: urgency, handle, uid, item stats
          */
-        console.log(this.state);
         return (
             <tr>
                 <td className="align-middle">
                     <Link to={"/profile/" + this.props.user.uid}>{this.props.user.handle}</Link>
                 </td>
-                <td className="align-middle"><span><button onClick={(e) => { this.props.handleUrgency(e)}} className="btn btn-primary">urgent</button></span>{this.props.user.urgency}</td>
+                <td className="align-middle"><span><button onClick={(e) => { this.handleUrgency(e)}} className="btn btn-primary">urgent</button></span>{this.props.user.urgency}</td>
                 <td className="align-middle">{this.props.user.name}</td>
                 <td className="align-middle">{this.props.user.price}</td>
                 <td className="align-middle">{this.props.user.desc}</td>

@@ -85,9 +85,9 @@ class ProfilePage extends Component {
                     </div>
 
                     {this.state.userProfileData.bio && <div><h2>Bio:</h2> <p>{this.state.userProfileData.bio}</p></div>}
-                    {this.state.userWishlistData.name && <h3>{"WishList item: " + this.state.userWishlistData.name}</h3>}
-                    {this.state.userWishlistData.price && <h3>{"Asking for $" + this.state.userWishlistData.price}</h3>}
-                    {this.state.userWishlistData.desc && <p>{this.state.userWishlistData.desc}</p>}
+                    {this.state.userWishlistData && this.state.userWishlistData.name && <h3>{"WishList item: " + this.state.userWishlistData.name}</h3>}
+                    {this.state.userWishlistData && this.state.userWishlistData.price && <h3>{"Asking for $" + this.state.userWishlistData.price}</h3>}
+                    {this.state.userWishlistData && this.state.userWishlistData.desc && <p>{this.state.userWishlistData.desc}</p>}
 
 
                     {this.state.userProfileData.tradeOffers && <div>

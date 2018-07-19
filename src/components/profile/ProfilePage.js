@@ -55,7 +55,7 @@ class ProfilePage extends Component {
             button = (
                 <div className="row">
 
-                    <NavLink to={"/personal-chat"}>
+                    <NavLink to={"/personal-chat"} className="otherUserButton">
                         <Button color="primary">
                             {"Chat with " + this.state.userProfileData.handle}
                         </Button>

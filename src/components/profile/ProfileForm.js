@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {NavLink} from 'react-router-dom';
-import {TradeItemList, TradeItemForm} from "./TradeOffers";
+import React, { Component } from 'react';
+import { NavLink } from 'react-router-dom';
+import { TradeItemList, TradeItemForm } from "./TradeOffers";
 import ItemForm from './ItemForm';
 
 import firebase from 'firebase/app';
@@ -82,11 +82,11 @@ class ProfileForm extends Component {
                                 <div className="form-group">
                                     <label htmlFor="name">Full Name</label>
                                     <input onChange={(e) => this.handleInputChange(e)}
-                                           type="text"
-                                           name="name"
-                                           className="form-control"
-                                           placeholder="Full name"
-                                           aria-label="fill in name"/>
+                                        type="text"
+                                        name="name"
+                                        className="form-control"
+                                        placeholder="Full name"
+                                        aria-label="fill in name" />
                                 </div>
                             </div>
                         </div>
@@ -94,7 +94,7 @@ class ProfileForm extends Component {
                     </div>
                     <div className="row">
                         {/* item requested */}
-                        {<ItemForm uid={this.props.uid} handle={this.props.handle}/>}
+                        {<ItemForm uid={this.props.uid} handle={this.props.handle} />}
 
                         <div className="line"></div>
 
@@ -124,7 +124,7 @@ class ProfileForm extends Component {
 
                     </div>
                 </div>
-            </div>
+            </div >
         );
     }
 }

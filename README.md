@@ -1,6 +1,6 @@
 # INFO343 final-project
 
-For the final project, we need to creat an app based on the **Firebase** and **React**.
+For the final project, we need to create an app based on the **Firebase** and **React**.
 
 This app is meant to facilitate community-building by giving users the infrastructure to
 both combine resources and _barter_ for goods and services. Someone with only a few dollars of

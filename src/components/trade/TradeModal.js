@@ -26,7 +26,7 @@ class TradeModal extends Component {
 
   render() {
     return (
-      <div>
+      <div id="tradeItemModal">
         <Button color="danger" onClick={this.toggle}>Details</Button>
         <Modal isOpen={this.state.modal} toggle={this.toggle}>
           <ModalHeader toggle={this.toggle}>{this.props.name}</ModalHeader>

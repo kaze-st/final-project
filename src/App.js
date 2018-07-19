@@ -120,7 +120,7 @@ class App extends Component {
                             </div>
                             {this.state.newUser ?
                                 // new user logs info into profile
-                                <Route path="/profile/:uid/edit" render={(routerProps) => {
+                                <Route to={"/profile/:uid/edit"} render={(routerProps) => {
                                     return <ProfileForm {...routerProps}
 
                                         uid={this.state.user.uid}

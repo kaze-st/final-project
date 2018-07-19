@@ -33,7 +33,7 @@ class ProfileForm extends Component {
 
         // reference to my current profile
         let currentUserRef = firebase.database().ref('users').child(this.props.uid);
-        currentUserRef.update(this.state);
+        currentUserRef.update(this.state).catch((err) =>{alert(err.message)});
 
         // log profile as completed
         this.props.toggleNewUser();

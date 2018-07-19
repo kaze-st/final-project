@@ -386,6 +386,7 @@ footer{
   margin: 2px;
   border-radius: 5px;
   padding-top: 5px;
+  max-width: 298px;
 }
 
 #personalChatBox{
@@ -447,8 +448,10 @@ footer{
   overflow-wrap: break-word;
 }
 
-.inbox_chat{
-  max-width: 298px;
+
+
+.active_chat:hover , .chat_list:hover{
+  background-color: #d8d8d8;
 }
 
 .sent_msg h4, .received_withd_msg h4, .outgoing_msg h4, .incoming_msg h4{

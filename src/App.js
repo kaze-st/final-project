@@ -144,6 +144,7 @@ class App extends Component {
                                     <Route path="/profile/:uid/edit" render={(routerProps) => {
                                         return <ProfileForm {...routerProps}
                                             uid={this.state.user.uid}
+                                            handle={this.state.user.displayName}
                                             toggleNewUser={() => this.toggleNewUser()} />
                                     }} />
                                     <Route exact path="/personal-chat" render={(routerProps) => {

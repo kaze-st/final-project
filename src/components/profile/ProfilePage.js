@@ -14,10 +14,15 @@ import firebase from 'firebase/app';
 class ProfilePage extends Component {
     constructor(props) {
         super(props);
-        this.state = {userProfileData: undefined};
+        this.state = {userWishlistData: undefined, userProfileData: undefined};
     }
 
     componentDidMount() {
+        this.wishListRef = firebase.database().ref('wishlist').child(this.props.match.params.uid);
+        this.wishListRef.on('value', (snapshot) => {
+            this.setState({userWishlistData: snapshot.val()});
+        });
+
         this.userProfileRef = firebase.database().ref('users').child(this.props.match.params.uid);
         this.userProfileRef.on('value', (snapshot) => {
             this.setState({userProfileData: snapshot.val()});
@@ -25,6 +30,7 @@ class ProfilePage extends Component {
     }
 
     componentWillUnmount() {
+        this.wishListRef.off();
         this.userProfileRef.off();
     }
 
@@ -79,9 +85,9 @@ class ProfilePage extends Component {
                     </div>
 
                     {this.state.userProfileData.bio && <div><h2>Bio:</h2> <p>{this.state.userProfileData.bio}</p></div>}
-                    {this.state.userProfileData.itemName && <h3>{"WishList item: " + this.state.userProfileData.itemName}</h3>}
-                    {this.state.userProfileData.itemCost && <h3>{"Asking for $" + this.state.userProfileData.itemCost}</h3>}
-                    {this.state.userProfileData.itemDesc && <p>{this.state.userProfileData.itemDesc}</p>}
+                    {this.state.userWishlistData.name && <h3>{"WishList item: " + this.state.userWishlistData.name}</h3>}
+                    {this.state.userWishlistData.price && <h3>{"Asking for $" + this.state.userWishlistData.price}</h3>}
+                    {this.state.userWishlistData.desc && <p>{this.state.userWishlistData.desc}</p>}
 
 
                     {this.state.userProfileData.tradeOffers && <div>

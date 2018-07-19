@@ -62,6 +62,7 @@ export default class MoneyForm extends Component {
         this.refUsers = firebase.database().ref('users');
 
         this.refUsers.on("value", (snapshot) => {
+
             let totalUsers = Object.keys(snapshot.val()).length;
             this.setState({totalUsers});
         });

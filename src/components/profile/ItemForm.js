@@ -22,7 +22,10 @@ export default class ItemForm extends Component {
     componentDidMount() {
         let wishlistRef = firebase.database().ref('wishlist');
         wishlistRef.once('value').then((snapshot) => {
-            this.setState({urgency: Object.keys(snapshot.val()).length});
+            if (snapshot.val()) {
+                this.setState({urgency: Object.keys(snapshot.val()).length});
+            }
+            
           });
     }
 

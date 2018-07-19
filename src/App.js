@@ -120,9 +120,13 @@ class App extends Component {
                             </div>
                             {this.state.newUser ?
                                 // new user logs info into profile
-                                <ProfileForm
-                                    uid={this.state.user.uid}
-                                    toggleNewUser={() => this.toggleNewUser()}/>
+                                <Route path="/profile/:uid/edit" render={(routerProps) => {
+                                    return <ProfileForm {...routerProps}
+
+                                        uid={this.state.user.uid}
+                                        handle={this.state.user.displayName}
+                                        toggleNewUser={() => this.toggleNewUser()} />
+                                }} />
                                 :
                                 // returning user lands on home page
                                 <Switch>

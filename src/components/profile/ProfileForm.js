@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
-import { NavLink } from 'react-router-dom';
-import { TradeItemList, TradeItemForm } from "./TradeOffers";
+import React, {Component} from 'react';
+import {NavLink} from 'react-router-dom';
+import {TradeItemList, TradeItemForm} from "./TradeOffers";
 import ItemForm from './ItemForm';
 
 import firebase from 'firebase/app';
@@ -12,6 +12,12 @@ import firebase from 'firebase/app';
  * toggleNewUser- callback to declare user profile filled out
  */
 class ProfileForm extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {};
+    }
 
     handleInputChange(e) {
         let field = e.target.name; //which input
@@ -76,11 +82,11 @@ class ProfileForm extends Component {
                                 <div className="form-group">
                                     <label htmlFor="name">Full Name</label>
                                     <input onChange={(e) => this.handleInputChange(e)}
-                                        type="text"
-                                        name="name"
-                                        className="form-control"
-                                        placeholder="Full name"
-                                        aria-label="fill in name" />
+                                           type="text"
+                                           name="name"
+                                           className="form-control"
+                                           placeholder="Full name"
+                                           aria-label="fill in name"/>
                                 </div>
                             </div>
                         </div>
@@ -88,7 +94,7 @@ class ProfileForm extends Component {
                     </div>
                     <div className="row">
                         {/* item requested */}
-                        {<ItemForm uid={this.props.uid} handle={this.props.handle} />}
+                        {<ItemForm uid={this.props.uid} handle={this.props.handle}/>}
 
                         <div className="line"></div>
 
@@ -99,7 +105,7 @@ class ProfileForm extends Component {
                                 <h2>Trading</h2>
                             </div>
                             <div className="col-sm">
-                                {<TradeItemList currId={this.props.uid} />}
+                                {<TradeItemList loggedId={this.props.match.params.uid} currId={this.props.uid} />}
                             </div>
                             <div className="col-sm">
                                 {<TradeItemForm currId={this.props.uid} />}
@@ -118,7 +124,7 @@ class ProfileForm extends Component {
 
                     </div>
                 </div>
-            </div >
+            </div>
         );
     }
 }

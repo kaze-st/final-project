@@ -160,11 +160,36 @@ export default class MoneyForm extends Component {
 
     /* TODO */
     handleBuy() {
-        this.refFund.set(this.props.handle);
+        let subtract = this.state.availableFunds - parseFloat(this.props.priorityItem.price);
+        this.refFund.set(subtract).catch((err) => {
+            console.log(err)
+        });
+
+        firebase.database().ref('wishlist').child(this.props.priorityItem.uid).remove()
+            .then(() => {
+                this.cycle();
+                this.props.handleBuyCallBack();
+            });
+
+
+
+    }
+
+    cycle() {
+        let listRef = firebase.database().ref('wishlist');
+
+        listRef.once('value').then((snapshot) => {
+            let wishes = snapshot.val();
+            Object.keys(wishes).forEach((index) => {
+                let wish = wishes[index];
+                wish.urgency -= 1;
+            });
+
+            listRef.update(wishes);
+        });
     }
 
     componentWillUnmount() {
-        console.log("Will unmount ?");
         this.refFund.off();
         this.refUsers.off();
         this.refBlock.off()
@@ -192,7 +217,7 @@ export default class MoneyForm extends Component {
 
                             {/*Button to buy item*/}
                             <button className="input-group-append btn btn-secondary"
-                                    disabled={!this.props.priceTopItem || this.props.priceTopItem > this.state.availableFunds || this.state.blockPurchase / this.state.totalUsers > 0.5}
+                                    disabled={!this.props.priorityItem || parseFloat(this.props.priorityItem.price) > this.state.availableFunds || this.state.blockPurchase / this.state.totalUsers > 0.5}
                                     onClick={() => {
                                         this.handleBuy()
                                     }}>

@@ -4,7 +4,10 @@ import {NavLink} from 'react-router-dom';
 import {TradeItemList} from './TradeOffers';
 
 import firebase from 'firebase/app';
+import HelpModal from '../HelpModal';
 
+
+const PAGE_DESC = "This is your profile. You can set information about yourself, decide what item you want to save up for, and add or remove good and services for trading.";
 
 /**
  * props:
@@ -12,6 +15,9 @@ import firebase from 'firebase/app';
  * toggleNewUser- callback to log user profile as completed
  */
 class ProfilePage extends Component {
+
+    
+
     constructor(props) {
         super(props);
         this.state = {userWishlistData: undefined, userProfileData: undefined};
@@ -55,13 +61,6 @@ class ProfilePage extends Component {
                         </Button>
                     </NavLink>
 
-
-                    <NavLink to={"/trade"}>
-                        <Button color="primary">
-                            {"Trade with " + this.state.userProfileData.handle}
-                        </Button>
-                    </NavLink>
-
                 </div>);
         }
 
@@ -72,6 +71,7 @@ class ProfilePage extends Component {
                 <div id="profile" className="container-fluid">
                     <div id="profileHeader">
                         <h2>My Profile Page</h2>
+                        <HelpModal name="Profile Page" desc={PAGE_DESC}/>
                     </div>
                     {this.state.userProfileData.avatar &&
                     <img src={this.state.userProfileData.avatar} alt="profile avatar" id="profileImage" class="img-fluid"/>}
@@ -92,7 +92,7 @@ class ProfilePage extends Component {
 
                     {this.state.userProfileData.tradeOffers && <div>
                         <h2>Trade Offers:</h2>
-                        {<TradeItemList currId={this.props.match.params.uid}/>}
+                        {<TradeItemList currId={this.props.match.params.uid} loggedId={this.props.currentUser.uid}/>}
                     </div>}
 
                     {button}

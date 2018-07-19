@@ -101,7 +101,7 @@ class ConversationItem extends Component {
     };
 
     componentWillUnmount() {
-this.ref.off();
+        this.ref.off();
         this.ref2.off();
     }
 

@@ -16,44 +16,47 @@ export default class Table extends Component {
 
 
             let usersObject = snapshot.val(); //convert snapshot to value
-            let usersKeys = Object.keys(usersObject);
-            let usersArray = usersKeys.map((key) => { //map array of keys into array of tasks
+            if (snapshot.val() === null) {
+                this.setState({commitUsers: []});
+            } else {
+                let usersKeys = Object.keys(usersObject);
+                let usersArray = usersKeys.map((key) => { //map array of keys into array of tasks
 
-                return usersObject[key]; //access element at that key
+                    return usersObject[key]; //access element at that key
 
-            });
-            usersArray.sort((a, b) => {
-                return this.getWeighedUrgency(a) - this.getWeighedUrgency(b);
-            });
-            this.setState({commitUsers: usersArray}, () => this.props.getPriorityItemCallBack(usersArray[0]));
+                });
+                usersArray.sort((a, b) => {
+                    return this.getWeighedUrgency(a) - this.getWeighedUrgency(b);
+                });
+                this.setState({commitUsers: usersArray}, () => this.props.getPriorityItemCallBack(usersArray[0]));
+            }
         });
     }
 
-     getWeighedUrgency(item) {
+    getWeighedUrgency(item) {
         let votes = 0;
-        if (item.urgencyVotes !== null && item.urgencyVotes !== undefined){
+        if (item.urgencyVotes !== null && item.urgencyVotes !== undefined) {
             votes = Object.keys(item.urgencyVotes).length;
         }
-        return (item.urgency - votes );
+        return (item.urgency - votes);
     }
 
     componentWillUnmount() {
         this.userProfilesRef.off();
     }
 
-    componentDidUpdate(prevProps, prevState, snapshot){
+    componentDidUpdate(prevProps, prevState, snapshot) {
         this.state.commitUsers.sort((a, b) => {
             return this.getWeighedUrgency(a) - this.getWeighedUrgency(b);
         });
 
-        if (prevState.commitUsers[0] !== this.state.commitUsers[0]){
+        if (prevState.commitUsers[0] !== this.state.commitUsers[0]) {
             console.log("previous priority: ", prevState.commitUsers[0], " this priority: ", this.state.commitUsers[0]);
             this.props.getPriorityItemCallBack(this.state.commitUsers[0]);
         }
     }
 
     render() {
-
 
 
         let contributions = this.state.commitUsers.map((item) => {
@@ -64,7 +67,6 @@ export default class Table extends Component {
                 key={item.id}
                 item={item}/>
         });
-
 
 
         return (
@@ -110,10 +112,12 @@ class CommitmentRow extends Component {
         // let urgencyVotes = firebase.database().ref('wishlist').child(this.props.item.id);
 
         let oldVotes = this.props.item.urgencyVotes;
-        let currentVotes = oldVotes === undefined ?  {} : oldVotes;
-        let currentUserVote =  currentVotes[this.props.currentUser.uid];
-        currentVotes[this.props.currentUser.uid] = currentUserVote === undefined ? true: null;
-        firebase.database().ref('wishlist').child(this.props.item.uid).child("urgencyVotes").set(currentVotes).catch((err) =>{alert(err.message)});
+        let currentVotes = oldVotes === undefined ? {} : oldVotes;
+        let currentUserVote = currentVotes[this.props.currentUser.uid];
+        currentVotes[this.props.currentUser.uid] = currentUserVote === undefined ? true : null;
+        firebase.database().ref('wishlist').child(this.props.item.uid).child("urgencyVotes").set(currentVotes).catch((err) => {
+            alert(err.message)
+        });
     }
 
     render() {
@@ -122,7 +126,7 @@ class CommitmentRow extends Component {
          */
         console.log(this.props.item.urgencyVotes);
         let votes = 0;
-        if (this.props.item !== null && this.props.item.urgencyVotes !== undefined){
+        if (this.props.item !== null && this.props.item.urgencyVotes !== undefined) {
             votes = Object.keys(this.props.item.urgencyVotes).length;
         }
 

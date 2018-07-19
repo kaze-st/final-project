@@ -70,8 +70,9 @@ class ProfilePage extends Component {
             <div className="profile">
                 <div id="profile" className="container-fluid">
                     <div id="profileHeader">
-                        <h2>My Profile Page</h2>
-                        <HelpModal name="Profile Page" desc={PAGE_DESC}/>
+                    <HelpModal name="Profile Page" desc={PAGE_DESC}/>
+                        <h2>{this.state.userProfileData.handle + "'s Profile Page"}</h2>
+                        
                     </div>
                     {this.state.userProfileData.avatar &&
                     <img src={this.state.userProfileData.avatar} alt="profile avatar" id="profileImage" class="img-fluid"/>}

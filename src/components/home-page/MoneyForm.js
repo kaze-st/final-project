@@ -102,7 +102,7 @@ export default class MoneyForm extends Component {
                 this.props.handleBuyCallBack();
             });
 
-
+        alert("Your wishlist item is empty! Go to your profile to add another one!");
     }
 
     cycle() {
@@ -126,10 +126,10 @@ export default class MoneyForm extends Component {
     }
 
     render() {
-        //TODO
-        if (this.props.priorityItem) {
-            console.log("unable: ", this.props.priorityItem.uid !== this.props.currentUser.uid);
-            console.log("id item:" ,this.props.priorityItem)
+        if (!this.state.availableFunds ){
+            return <div className="text-center">
+                <i className="fa fa-spinner fa-spin fa-3x" aria-label="Connecting..."></i>
+            </div>
         }
 
         let disablePurchase = !this.props.priorityItem

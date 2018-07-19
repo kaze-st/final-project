@@ -13,6 +13,12 @@ import firebase from 'firebase/app';
  */
 class ProfileForm extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {};
+    }
+
     handleInputChange(e) {
         let field = e.target.name; //which input
         let value = e.target.value; //what value
@@ -99,7 +105,7 @@ class ProfileForm extends Component {
                                 <h2>Trading</h2>
                             </div>
                             <div className="col-sm">
-                                {<TradeItemList currId={this.props.uid} />}
+                                {<TradeItemList loggedId={this.props.match.params.uid} currId={this.props.uid} />}
                             </div>
                             <div className="col-sm">
                                 {<TradeItemForm currId={this.props.uid} />}

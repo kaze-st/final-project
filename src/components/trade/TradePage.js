@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import TradeModal from "./TradeModal";
+import HelpModal from "../HelpModal";
 
 import firebase from 'firebase/app';
+
+const PAGE_DESC = "This is the trading page. Everyone can put up things they don't want anymore, or services like babysitting. Start a chat with someone if you're interested in their offer!";
 
 class TradePage extends Component {
     constructor(props) {
@@ -91,6 +94,7 @@ class TradePage extends Component {
                 <h5 className="card-title d-inline align-middle"><strong>Note: </ strong>
                     Keep yourself online to store your <strong className="bg-white p-1 border rounded">Items</strong> available.
                      Click the <strong className="bg-white p-1 border rounded">Details</strong> to ask for trading!</h5>
+                     <HelpModal name="Trading Page" desc={PAGE_DESC}/>
                     <div id="myItems">
                         <h2>My Items</h2>
                         <div id="myItemViewer" className="bg-white p-1 border border-dark rounded">

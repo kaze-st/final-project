@@ -2,9 +2,11 @@
   "name": "final-project",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://info343-su18.github.io/kaze-st-final-project/",
   "dependencies": {
     "bootstrap": "^4.1.2",
     "firebase": "^5.2.0",
+    "gh-pages": "^1.2.0",
     "lodash": "^4.17.10",
     "react": "^16.4.1",
     "react-dom": "^16.4.1",
@@ -14,6 +16,8 @@
     "reactstrap": "^6.3.0"
   },
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",

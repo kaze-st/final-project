@@ -13,7 +13,7 @@ export default class Table extends Component {
 
 
         this.userProfilesRef.on('value', (snapshot) => {
-            console.log("component Did mount", snapshot.val());
+
 
             let usersObject = snapshot.val(); //convert snapshot to value
             let usersKeys = Object.keys(usersObject);
@@ -22,12 +22,14 @@ export default class Table extends Component {
                 return usersObject[key]; //access element at that key
 
             });
-
-            this.setState({commitUsers: usersArray});
+            usersArray.sort((a, b) => {
+                return this.getWeighedUrgency(a) - this.getWeighedUrgency(b);
+            });
+            this.setState({commitUsers: usersArray}, () => this.props.getPriorityItemCallBack(usersArray[0]));
         });
     }
 
-    getWeighedUrgency(item) {
+     getWeighedUrgency(item) {
         let votes = 0;
         if (item.urgencyVotes !== null && item.urgencyVotes !== undefined){
             votes = Object.keys(item.urgencyVotes).length;
@@ -39,22 +41,29 @@ export default class Table extends Component {
         this.userProfilesRef.off();
     }
 
-    render() {
-
+    componentDidUpdate(prevProps, prevState, snapshot){
         this.state.commitUsers.sort((a, b) => {
             return this.getWeighedUrgency(a) - this.getWeighedUrgency(b);
         });
 
+        if (prevState.commitUsers[0] !== this.state.commitUsers[0]){
+            console.log("previous priority: ", prevState.commitUsers[0], " this priority: ", this.state.commitUsers[0]);
+            this.props.getPriorityItemCallBack(this.state.commitUsers[0]);
+        }
+    }
+
+    render() {
+
+
+
         let contributions = this.state.commitUsers.map((item) => {
+            console.log(typeof item.price);
             return <CommitmentRow
                 currentUser={this.props.currentUser}
+
                 key={item.id}
                 item={item}/>
         });
-
-
-
-
 
 
 

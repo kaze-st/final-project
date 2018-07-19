@@ -3,7 +3,10 @@ import { Link } from 'react-router-dom';
 import MoneyForm from './MoneyForm';
 import firebase from 'firebase/app';
 
-
+/**
+ * props:
+ * currId- id of current user
+ */
 class HomePage extends Component {
     constructor(props) {
         super(props);
@@ -38,14 +41,15 @@ class HomePage extends Component {
         if (this.state.commitUsers) {
 
             this.state.commitUsers.sort(function (a, b) {
-                return a.rank - b.rank;
+                return ((a.urgency ) - ( b.urgency));
             });
 
             let contributions = this.state.commitUsers.map((user) => {
                 console.log(user);
                 return <CommitmentRow
                     user={user}
-                    key={user.key} />
+                    key={user.key} 
+                    currId={this.props.currId}/>
             });
 
             return (
@@ -84,19 +88,38 @@ class HomePage extends Component {
 /**
  * props:
  * user- user object
+ * currId- current user id
  */
 class CommitmentRow extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {};
+    }
+
+    handleUrgency(e) {
+        e.preventDefault();
+
+        let urgencyVotes = firebase.ref('wishlist').child(this.props.user.uid);
+
+        let oldVotes = this.state.urgencyVotes;
+        oldVotes === undefined ? oldVotes = {} : oldVotes;
+        oldVotes[this.props.currId] = true;
+        urgencyVotes.update({urgencyVotes: oldVotes});
+    }
 
     render() {
         /**
          * user info: urgency, handle, uid, item stats
          */
+        console.log(this.state);
         return (
             <tr>
                 <td className="align-middle">
                     <Link to={"/profile/" + this.props.user.uid}>{this.props.user.handle}</Link>
                 </td>
-                <td className="align-middle">{this.props.user.urgency}</td>
+                <td className="align-middle"><span><button onClick={(e) => { this.props.handleUrgency(e)}} className="btn btn-primary">urgent</button></span>{this.props.user.urgency}</td>
                 <td className="align-middle">{this.props.user.name}</td>
                 <td className="align-middle">{this.props.user.price}</td>
                 <td className="align-middle">{this.props.user.desc}</td>

@@ -1,7 +1,7 @@
 import {Component} from 'react';
 import React from "react";
 import firebase from 'firebase/app';
-import {Link, Element, Events, animateScroll as scroll, scrollSpy, scroller} from 'react-scroll'
+import { animateScroll as scroll } from 'react-scroll'
 
 export default class PersonalChatList extends Component {
     constructor(props) {
@@ -60,7 +60,6 @@ export default class PersonalChatList extends Component {
         }
         if (!this.state.messages) return <div className="msg_history"><p>No messages</p></div>;
 
-        let messagesItems = [];
         let messageKeys = Object.keys(this.state.messages);
 
         messageKeys = messageKeys.map((key) => {

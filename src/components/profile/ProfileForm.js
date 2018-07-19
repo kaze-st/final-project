@@ -55,14 +55,14 @@ class ProfileForm extends Component {
                     <div className="row">
 
                         <div className="col-sm-4">
-                            <h1>Personal Info</h1>
+                            <h2>Personal Info</h2>
 
                         </div>
-                        <div className="col-sm">
+                        <div className="col">
                             {/* <!-- start avatar and bio --> */}
 
                             <form>
-
+                                <div className="col-sm">
                                 <div className="form-group">
                                     <label htmlFor="firstname">Profile Picture URL</label>
                                     <input onChange={(e) => this.handleInputChange(e)}
@@ -72,6 +72,8 @@ class ProfileForm extends Component {
                                         placeholder="Url here"
                                         aria-label="fill in profile picture URL" />
                                 </div>
+                                </div>
+                                <div className="col-sm">
                                 <div className="form-group">
                                     <label htmlFor="personal information">Personal Bio</label>
                                     <textarea className="form-control"
@@ -79,13 +81,14 @@ class ProfileForm extends Component {
                                         rows="3"
                                         onChange={(e) => this.handleInputChange(e)}></textarea>
                                 </div>
+                                </div>
                             </form>
                             {/* <!-- end avatar and bio --> */}
                         </div>
-                        <div className="col-sm">
+                        <div className="row">
                             <div className="first-line agileits">
                                 {/* <!-- name --> */}
-                                <div className="col-md-6 form-group">
+                                <div className="form-group">
                                     <label htmlFor="name">Full Name</label>
                                     <input onChange={(e) => this.handleInputChange(e)}
                                         type="text"
@@ -108,7 +111,7 @@ class ProfileForm extends Component {
 
                         <div className="row">
                             <div className="col-sm-4">
-                                <h1>Trading</h1>
+                                <h2>Trading</h2>
                             </div>
                             <div className="col-sm">
                                 {<TradeItemList items={this.state.tradeOffers} />}

@@ -22,7 +22,7 @@ export default class AboutPage extends Component{
                  at the moment. Personal shopper apps exist, but they tend to target high-end users, 
                  and none integrate bartering or fund sharing which are features uniquely beneficial to 
                  the group we intend to service.</p>
-            <p>This app is created by Alissa Adornato &amp; Emily Ding &amp; William Fu &amp; Hao Chen for
+            <p>This app is created by <strong>Alissa Adornato &amp; Emily Ding &amp; William Fu &amp; Hao Chen</strong> for
                 INFO343 <em>Client-Side Web Development</em> Final Project
             </p>
         </div>);

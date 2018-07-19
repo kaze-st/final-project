@@ -75,7 +75,7 @@ class ProfilePage extends Component {
                         
                     </div>
                     {this.state.userProfileData.avatar &&
-                    <img src={this.state.userProfileData.avatar} alt="profile avatar" id="profileImage" class="img-fluid"/>}
+                    <img src={this.state.userProfileData.avatar} alt="profile avatar" id="profileImage" className="img-fluid"/>}
                     <div id="profileInfo">
                         {this.state.userProfileData.name &&
                         <p className="text-center"><strong>Full name: </strong>{this.state.userProfileData.name}</p>}

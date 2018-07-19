@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import firebase from 'firebase/app';
 
 
@@ -14,9 +14,11 @@ export default class MoneyForm extends Component {
         /**
          * state:
          * availableFunds- money on hand
-         * transactions- list of transactions performed
-         */
-        this.state = {availableFunds: 0};
+         * donation - keeping track of the donation input
+         * block purchase - votes to forbid people to buy
+         * totalUsers - all the users in the group
+         *///, blockPurchase: 0
+        this.state = {availableFunds: undefined};
     }
 
     // // old cycling code (cycle and commit Item). must be converted to work in MoneyForm
@@ -66,17 +68,17 @@ export default class MoneyForm extends Component {
 
     // log the donation into the database
     // enters a new transaction into the database
-    handleTransaction() {
-        // TODO TIME
-        let transactionRef = firebase.database().ref('fundHistory').child();
-
-        let newTransaction = {};
-        newTransaction.amount = this.state.donation;
-        newTransaction.user = this.props.currentUser;
-        newTransaction.time = 0;// TODO
-
-        transactionRef.set(newTransaction);
-    }
+    // handleTransaction() {
+    //     // TODO TIME
+    //     let transactionRef = firebase.database().ref('fundHistory').child();
+    //
+    //     let newTransaction = {};
+    //     newTransaction.amount = this.state.donation;
+    //     newTransaction.user = this.props.currentUser;
+    //     newTransaction.time = 0;// TODO
+    //
+    //     transactionRef.set(newTransaction);
+    // }
 
     // save donation in the state
     handleInputChange(e) {
@@ -88,28 +90,107 @@ export default class MoneyForm extends Component {
         this.setState(changes); //update state
     }
 
+    // Handle the donations
+    handleTransaction(amount) {
+        amount = parseFloat(amount);
+        let newFund = {};
+        newFund.amount = amount;
+        newFund.userId = this.props.currentUser.uid;
+        newFund.time = firebase.database.ServerValue.TIMESTAMP;
+
+        firebase.database().ref('fundHistory').push(newFund);
+        this.refFund.set(amount + this.state.availableFunds);
+    }
+
     componentDidMount() {
-        this.fundHistoryRef = firebase.database().ref('fundHistory');
-        this.fundHistoryRef.on('value', (snapshot) => {
-            console.log(snapshot.val());
+        // this.fundHistoryRef = firebase.database().ref('fundHistory');
+        // this.fundHistoryRef.on('value', (snapshot) => {
+        //     console.log(snapshot.val());
+        //
+        //     this.setState({ transactions: snapshot.val() });
+        // });
+        //
+        // this.fundRef = firebase.database().ref('fundHistory').child('availableFunds');
+        // this.fundRef.on('value', (snapshot) => {
+        //     console.log(snapshot.val());
+        //
+        //     this.setState({ availableFunds: snapshot.val() });
+        // });
 
-            this.setState({ transactions: snapshot.val() });
+        // Reference available funds
+        this.refFund = firebase.database().ref('availableFunds');
+
+        this.refFund.on("value", (snapshot) => {
+            console.log(snapshot.val());
+            this.setState({availableFunds: snapshot.val()})
         });
 
-        this.fundRef = firebase.database().ref('fundHistory').child('availableFunds');
-        this.fundRef.on('value', (snapshot) => {
-            console.log(snapshot.val());
+        // Reference to users
+        this.refUsers = firebase.database().ref('users');
 
-            this.setState({ availableFunds: snapshot.val() });
+        this.refUsers.on("value", (snapshot) => {
+            let totalUsers = Object.keys(snapshot.val()).length;
+            this.setState({totalUsers});
         });
+
+        // Reference to block users TODO
+        this.refBlock = firebase.database().ref('blockPurchase');
+        this.refBlock.on("value", (snapshot) => {
+            this.setState({blockPurchase: snapshot.val()});
+        });
+    }
+
+    handleBlock() {
+        console.log("BLOCK: userID: ", this.props.currentUser.uid);
+        // console.log("BLOCK: status: ", status);
+        console.log("BLOCK ref: ", this.state.blockPurchase);
+
+        let newBlock = this.state.blockPurchase;
+        if (newBlock === null) newBlock = {};
+        let userVote = newBlock[this.props.currentUser.uid];
+        newBlock[this.props.currentUser.uid] = userVote === undefined ? true : null;
+        this.refBlock.set(newBlock).catch((err) => {
+            console.log(err)
+        });
+        // this.refBlock.child(this.props.currentUser.uid).on("value", (snapshot) =>{
+        //     let status = snapshot.val();
+        //
+        //     if (status === null){
+        //         let newInstance = {};
+        //         newInstance[this.props.currentUser.uid] = true;
+        //         this.refBlock.set(newInstance)
+        //     } else{
+        //         let newInstance = {};
+        //         newInstance[this.props.currentUser.uid] = null;
+        //         this.refBlock.set(newInstance)
+        //     }
+        // });
+
+
+    }
+
+    /* TODO */
+    handleBuy() {
+        this.refFund.set(this.props.handle);
     }
 
     componentWillUnmount() {
-        this.fundRef.off();
-        this.fundHistoryRef.off();
+        console.log("Will unmount ?");
+        this.refFund.off();
+        this.refUsers.off();
+        this.refBlock.off()
     }
 
     render() {
+        console.log(this.state.donation);
+        //let blockLength = this.state.blockPurchase === undefined || null ? 0 : Object.keys(this.state.blockPurchase).length;
+        let blockLength;
+        console.log("block length: = ", this.state.blockPurchase);
+        if (this.state.blockPurchase === null || !this.state.blockPurchase) {
+            blockLength = 0;
+        } else {
+            blockLength = Object.keys(this.state.blockPurchase).length;
+        }
         return (
             <div>
                 <h2>Donate your money to your friendly group!</h2>
@@ -119,23 +200,42 @@ export default class MoneyForm extends Component {
                         {/* <!-- monel pool contribution --> */}
                         <label htmlFor="money">Donate to money pool</label>
                         <div className="input-group">
-                            <button className="input-group-append btn btn-secondary">
+
+                            {/*Button to buy item*/}
+                            <button className="input-group-append btn btn-secondary"
+                                    disabled={!this.props.priceTopItem || this.props.priceTopItem > this.state.availableFunds || this.state.blockPurchase / this.state.totalUsers > 0.5}
+                                    onClick={() => {
+                                        this.handleBuy()
+                                    }}>
                                 Buy item
                             </button>
-                            <button onClick={(e) => this.handleTransaction(e)} className="input-group-append btn btn-primary">
+
+                            {/*Button to block purchase*/}
+                            <button className="input-group-append btn btn-secondary" onClick={() => this.handleBlock()}>
+                                Block purchase
+                            </button>
+
+                            {/*Button to donate*/}
+                            <button onClick={() => {
+                                if (this.state.donation > 0) {
+                                    this.handleTransaction(this.state.donation)
+                                } else {
+                                    alert("Your input should be larger than 0")
+                                }
+                            }} className="input-group-append btn btn-primary">
                                 Donate
                             </button>
                             <input onChange={(e) => this.handleInputChange(e)}
-                                type="number"
-                                name="donation"
-                                className="form-control"
-                                aria-label="Dollar amount (with dot and two decimal places)" />
+                                   type="number"
+                                   name="donation"
+                                   className="form-control"
+                                   aria-label="Dollar amount (with dot and two decimal places)"/>
                         </div>
                     </div>
                     <div className="col-6">
                         <div id="total">{"TOTAL: $" + this.state.availableFunds}</div>
-                        {/*this.state.transactions*/}
-                        <History transactions={[]}/>
+                        <div id="blocks">{"BLOCKS: " + blockLength}</div>
+
                     </div>
 
                 </div>
@@ -148,35 +248,20 @@ export default class MoneyForm extends Component {
  * props:
  * transactions- a list of transactions to be displayed
  */
-class History extends Component {
+// class History extends Component {
+//
+//     render() {
+//         if (!this.props.transactions) return null;
+//
+//         let allTransactions = Object.keys(this.props.transactions).map((key) => {
+//             return <Transaction key={key} transaction={this.props.transactions[key]}/>;
+//         });
+//
+//         return (
+//             <div className="trans_history">
+//                 {allTransactions}
+//             </div>
+//         );
+//     }
+// }
 
-    render() {
-        if (!this.props.transactions) return null;
-
-        let allTransactions = Object.keys(this.props.transactions).map((key) => {
-            return <Transaction key={key} transaction={this.props.transactions[key]} />;
-        });
-
-        return (
-            <div className="trans_history">
-                {allTransactions}
-            </div>
-        );
-    }
-}
-
-/**
- * props:
- * transaction- transaction object with time, amount, and user
- */
-class Transaction extends Component {
-    render() {
-        console.log(this.props.user);
-        return (
-            <div className="trans_report">
-                <div className="trans_report_img"><img src={this.props.transaction.user} alt="avatar"/></div>
-                <p>{this.props.transaction.user.handle + ": $" + this.props.transaction.amount + " at " + this.props.transaction.time}</p>
-            </div>
-        );
-    }
-}

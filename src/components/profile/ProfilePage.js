@@ -70,7 +70,7 @@ class ProfilePage extends Component {
             <div className="profile">
                 <div id="profile" className="container-fluid">
                     <div id="profileHeader">
-                    <HelpModal name="Profile Page" desc={PAGE_DESC}/>
+                    {this.props.currentUser.uid === this.props.match.params.uid && <HelpModal name="Profile Page" desc={PAGE_DESC}/>}
                         <h2>{this.state.userProfileData.handle + "'s Profile Page"}</h2>
                         
                     </div>

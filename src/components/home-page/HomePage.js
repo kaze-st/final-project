@@ -15,23 +15,16 @@ class HomePage extends Component {
         this.state = {priorityItem: undefined};
     }
 
-
-
     getPriorityItem(priorityItem) {
         console.log("priorityItem: ", priorityItem);
         this.setState({priorityItem})
     }
 
     handleBuy(){
-
         this.setState({priority:undefined});
     }
 
     render() {
-
-        console.log("HOME PAGE priorityItem: ", this.state.priorityItem);
-
-
         return (
             <div>
                 <HelpModal name="Home Page" desc={PAGE_DESC} />

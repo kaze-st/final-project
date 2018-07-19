@@ -21,50 +21,7 @@ export default class MoneyForm extends Component {
         this.state = {availableFunds: undefined};
     }
 
-    // // old cycling code (cycle and commit Item). must be converted to work in MoneyForm
-    // // a week has passed...
-    // cycle(rate) {
-    //     // update weeks, total
-    //     let newTotal = this.state.total + rate;
-    //     this.setState({ total: newTotal });
-    //     let i = 0;
 
-    //     while (i < this.state.commitUsers.length && newTotal >= this.state.commitUsers[0].itemCost) {
-    //         let topUser = this.state.commitUsers[0];
-    //         this.commitItem(topUser);
-    //         i++;
-    //     }
-    // }
-
-    // // what to do if we can afford the top item
-    // commitItem(topUser) {
-    //     // subtract money
-    //     this.setState({ total: this.state.total - topUser.itemCost });
-
-    //     // remove item data from profile
-    //     topUser.itemCost = 0;
-    //     topUser.itemName = "";
-    //     topUser.itemDesc = "";
-
-    //     // fix ranks
-    //     let newUsers = this.state.commitUsers;
-    //     newUsers.forEach(user => {
-    //         user.rank -= 1;
-    //     });
-    //     topUser.rank = newUsers.length;
-
-    //     // push user changes
-    //     newUsers.splice(0, 1);
-    //     newUsers.push(topUser);
-    //     this.setState({ commitUsers: newUsers });
-    //     console.log(this.state.commitUsers);
-
-    //     this.state.commitUsers.forEach((user) => {
-    //         console.log(user)
-    //         let currentUserRef = firebase.database().ref('users').child(user.id);
-    //         currentUserRef.update(user);
-    //     });
-    // }
 
     // log the donation into the database
     // enters a new transaction into the database
@@ -92,19 +49,7 @@ export default class MoneyForm extends Component {
     }
 
     componentDidMount() {
-        // this.fundHistoryRef = firebase.database().ref('fundHistory');
-        // this.fundHistoryRef.on('value', (snapshot) => {
-        //     console.log(snapshot.val());
-        //
-        //     this.setState({ transactions: snapshot.val() });
-        // });
-        //
-        // this.fundRef = firebase.database().ref('fundHistory').child('availableFunds');
-        // this.fundRef.on('value', (snapshot) => {
-        //     console.log(snapshot.val());
-        //
-        //     this.setState({ availableFunds: snapshot.val() });
-        // });
+
 
         // Reference available funds
         this.refFund = firebase.database().ref('availableFunds');
@@ -141,19 +86,7 @@ export default class MoneyForm extends Component {
         this.refBlock.set(newBlock).catch((err) => {
             console.log(err)
         });
-        // this.refBlock.child(this.props.currentUser.uid).on("value", (snapshot) =>{
-        //     let status = snapshot.val();
-        //
-        //     if (status === null){
-        //         let newInstance = {};
-        //         newInstance[this.props.currentUser.uid] = true;
-        //         this.refBlock.set(newInstance)
-        //     } else{
-        //         let newInstance = {};
-        //         newInstance[this.props.currentUser.uid] = null;
-        //         this.refBlock.set(newInstance)
-        //     }
-        // });
+
 
 
     }
@@ -197,7 +130,6 @@ export default class MoneyForm extends Component {
 
     render() {
         console.log(this.state.donation);
-        //let blockLength = this.state.blockPurchase === undefined || null ? 0 : Object.keys(this.state.blockPurchase).length;
         let blockLength;
         console.log("block length: = ", this.state.blockPurchase);
         if (this.state.blockPurchase === null || !this.state.blockPurchase) {
@@ -217,7 +149,10 @@ export default class MoneyForm extends Component {
 
                             {/*Button to buy item*/}
                             <button className="input-group-append btn btn-secondary"
-                                    disabled={!this.props.priorityItem || parseFloat(this.props.priorityItem.price) > this.state.availableFunds || this.state.blockPurchase / this.state.totalUsers > 0.5}
+                                    disabled={!this.props.priorityItem
+                                    || parseFloat(this.props.priorityItem.price) > this.state.availableFunds
+                                    || this.state.blockPurchase / this.state.totalUsers > 0.5
+                                    || this.props.priorityItem.uid !== this.props.currentUser.uid}
                                     onClick={() => {
                                         this.handleBuy()
                                     }}>
@@ -258,24 +193,4 @@ export default class MoneyForm extends Component {
     }
 }
 
-/**
- * props:
- * transactions- a list of transactions to be displayed
- */
-// class History extends Component {
-//
-//     render() {
-//         if (!this.props.transactions) return null;
-//
-//         let allTransactions = Object.keys(this.props.transactions).map((key) => {
-//             return <Transaction key={key} transaction={this.props.transactions[key]}/>;
-//         });
-//
-//         return (
-//             <div className="trans_history">
-//                 {allTransactions}
-//             </div>
-//         );
-//     }
-// }
 

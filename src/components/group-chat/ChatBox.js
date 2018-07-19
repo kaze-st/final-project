@@ -1,6 +1,6 @@
 import React, {Component} from 'react'; //import React Component
 import firebase from 'firebase/app'
-import {Link, Element, Events, animateScroll as scroll, scrollSpy, scroller} from 'react-scroll'
+import { animateScroll as scroll } from 'react-scroll'
 
 export default class ChatBox extends Component {
     constructor(props) {

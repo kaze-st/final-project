@@ -79,13 +79,17 @@ class ConversationItem extends Component {
         let split = this.props.conversation.split("-");
         let receptorUserID = split[0] === this.props.currentUser.uid ? split[1] : split[0];
         console.log("currentUser: ", this.props.currentUser.uid, " receptor: ", receptorUserID);
-        firebase.database().ref('users').child(receptorUserID).on('value', (snapshot) => {
+        this.ref = firebase.database().ref('users').child(receptorUserID);
+
+        this.ref.on('value', (snapshot) => {
             let receptor = snapshot.val();
             receptor.id = receptorUserID;
             this.setState({receptor: receptor});
         });
 
-        firebase.database().ref('conversation').child(this.props.conversation).limitToLast(1).on("value",
+        this.ref2 = firebase.database().ref('conversation').child(this.props.conversation).limitToLast(1);
+
+        this.ref2.on("value",
             (snapshot) => {
                 console.log(snapshot.val());
                 let text = snapshot.val();
@@ -96,6 +100,10 @@ class ConversationItem extends Component {
         )
     };
 
+    componentWillUnmount() {
+this.ref.off();
+        this.ref2.off();
+    }
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         firebase.database().ref('conversation').child(this.props.conversation).limitToLast(1).on("value",
@@ -125,7 +133,9 @@ class ConversationItem extends Component {
             //
                 .then(() => {
                     this.props.handleContactClick(this.state.receptor);
-                }).catch((err) =>{alert(err.message)})
+                }).catch((err) => {
+                alert(err.message)
+            })
 
         }}>
             <div className="chat_people">

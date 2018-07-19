@@ -150,7 +150,7 @@ export class TradeItemForm extends Component {
             
                 <label className="input-group">Quantity (if applicable):</label>
                 <input 
-                    type="text" 
+                    type="number" 
                     name="quantity"
                     className="form-control input-group"
                     placeholder="How many?"  
@@ -164,7 +164,18 @@ export class TradeItemForm extends Component {
                     placeholder="What's its condition? Any special terms?"
                     onChange={(e) => this.handleInputChange(e)}></textarea>
             </div>
-            <Button color="primary" onClick={(e) => this.handleTradeClick(e) }>
+            <Button color="primary" onClick={(e) => {
+                    if (this.state.desc !== "") {
+                        if (this.state.name !== "") {
+                            this.handleTradeClick(e);
+                        } else {
+                            alert("Your item needs a name!");
+                        }
+                        
+                    } else {
+                        alert("Your thing needs a description!");
+                    }
+                }}>
                 submit item
             </Button>
         </form>

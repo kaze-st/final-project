@@ -23,7 +23,7 @@ export class TradeItemList extends Component {
     handleClick(e, i) {
         e.preventDefault();
 
-        this.usersRef.child('tradeOffers').child(i).remove();
+        this.usersRef.child('tradeOffers').child(i).remove().catch((err) =>{alert(err.message)});
     }
 
     componentDidMount() {
@@ -38,7 +38,7 @@ export class TradeItemList extends Component {
                     let tradeItem = offers[index];
                     return (
                         <div>
-                        {this.props.loggedId === this.props.currId ? <Button color="danger" onClick={ (e) =>  this.handleClick(e, index) } >X</Button> : ""}
+                        {this.props.loggedId === this.props.currId ? <Button className="tradeItemButtonClose" color="danger" onClick={ (e) =>  this.handleClick(e, index) } >X</Button> : ""}
                         <TradeItem name={tradeItem.name} 
                                     key={index}
                                     desc={tradeItem.desc}
@@ -130,7 +130,7 @@ export class TradeItemForm extends Component {
         let toAdd = {};
         toAdd[this.state.index] = this.state;
 
-        usersRef.update(toAdd);
+        usersRef.update(toAdd).catch((err) =>{alert(err.message)});
 
         this.setState({index: this.state.index + 1});
     }

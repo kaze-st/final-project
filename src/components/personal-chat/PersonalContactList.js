@@ -52,7 +52,7 @@ export default class PersonalContactList extends Component {
 
 class PersonalContactItem extends Component {
     render() {
-        console.log("contact props:" + this.props.contact);
+
         return <div className="chat_list active_chat" onClick={() => this.props.handleContactClick(this.props.contact)}>
             <div className="chat_people">
                 <div className="chat_img"><img src={this.props.contact.avatar} alt="sunil" /></div>

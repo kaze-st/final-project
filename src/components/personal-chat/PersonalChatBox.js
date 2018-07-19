@@ -33,17 +33,17 @@ export default class PersonalChatBox extends Component {
             (this.props.receiver.id + "-" + this.props.currentUser.uid);
 
         let conversationRef = firebase.database().ref('conversation').child(converHash);
-        conversationRef.push(newMessage);
+        conversationRef.push(newMessage).catch((err) =>{alert(err.message)});
 
         //
         firebase.database().ref('users').child(this.props.currentUser.uid).child('active conversations').child(converHash).update({
             read: "y",
             time: firebase.database.ServerValue.TIMESTAMP
-        });
+        }).catch((err) =>{alert(err.message)});
         firebase.database().ref('users').child(this.props.receiver.id).child('active conversations').child(converHash).update({
             read: "n",
             time: firebase.database.ServerValue.TIMESTAMP
-        });
+        }).catch((err) =>{alert(err.message)});
 
         this.setState({post: ''}); //empty out post for next time
     }

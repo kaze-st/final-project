@@ -28,7 +28,9 @@ export default class ChatBox extends Component {
         };
 
         let messageRef = firebase.database().ref('message');
-        messageRef.push(newMessage);
+        messageRef.push(newMessage).catch((err) =>{
+            alert(err.message);
+        });
 
         this.setState({post: ''}); //empty out post for next time
     }

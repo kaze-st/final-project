@@ -25,6 +25,7 @@ class HomePage extends Component {
     }
 
     render() {
+
         return (
             <div>
                 <HelpModal name="Home Page" desc={PAGE_DESC} />
@@ -39,7 +40,6 @@ class HomePage extends Component {
             </div>
         );
 
-        return (<div>Loading... </div>);
 
     }
 }

@@ -61,7 +61,7 @@ class NavBar extends Component {
                     </li>
                 </ul>
 
-                <footer class="container text-center">
+                <footer className="container text-center">
                     <small>&copy; 2018 Alissa Adornato &amp; Emily Ding &amp; William Fu &amp; Hao Chen</small>
                 </footer>
             </nav>

@@ -92,7 +92,7 @@ class ProfilePage extends Component {
 
                     {this.state.userProfileData.tradeOffers && <div>
                         <h2>Trade Offers:</h2>
-                        {<TradeItemList items={this.state.userProfileData.tradeOffers}/>}
+                        {<TradeItemList currId={this.props.match.params.uid}/>}
                     </div>}
 
                     {button}

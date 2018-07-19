@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
-import { TradeItemList, AddItemForm } from "./TradeOffers";
-import { Button } from 'reactstrap';
+import { TradeItemList, TradeItemForm } from "./TradeOffers";
+import ItemForm from './ItemForm';
 
 import firebase from 'firebase/app';
 
@@ -12,12 +12,6 @@ import firebase from 'firebase/app';
  * toggleNewUser- callback to declare user profile filled out
  */
 class ProfileForm extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = { tradeOffers: [] };
-    }
 
     handleInputChange(e) {
         let field = e.target.name; //which input
@@ -39,14 +33,6 @@ class ProfileForm extends Component {
         this.props.toggleNewUser();
     }
 
-    handleTradeClick(event, offer) {
-        event.preventDefault();
-
-        let currOffers = this.state.tradeOffers;
-        currOffers.push(offer);
-        this.setState({ tradeOffers: currOffers });
-    }
-
     render() {
         return (
             <div id="content">
@@ -63,29 +49,28 @@ class ProfileForm extends Component {
 
                             <form>
                                 <div className="col-sm">
-                                <div className="form-group">
-                                    <label htmlFor="firstname">Profile Picture URL</label>
-                                    <input onChange={(e) => this.handleInputChange(e)}
-                                        type="text"
-                                        name="avatar"
-                                        className="form-control"
-                                        placeholder="Url here"
-                                        aria-label="fill in profile picture URL" />
-                                </div>
+                                    <div className="form-group">
+                                        <label htmlFor="firstname">Profile Picture URL</label>
+                                        <input onChange={(e) => this.handleInputChange(e)}
+                                            type="text"
+                                            name="avatar"
+                                            className="form-control"
+                                            placeholder="Url here"
+                                            aria-label="fill in profile picture URL" />
+                                    </div>
                                 </div>
                                 <div className="col-sm">
-                                <div className="form-group">
-                                    <label htmlFor="personal information">Personal Bio</label>
-                                    <textarea className="form-control"
-                                        name="bio"
-                                        rows="3"
-                                        onChange={(e) => this.handleInputChange(e)}></textarea>
-                                </div>
+                                    <div className="form-group">
+                                        <label htmlFor="personal information">Personal Bio</label>
+                                        <textarea className="form-control"
+                                            name="bio"
+                                            rows="3"
+                                            onChange={(e) => this.handleInputChange(e)}></textarea>
+                                    </div>
                                 </div>
                             </form>
                             {/* <!-- end avatar and bio --> */}
-                        </div>
-                        <div className="row">
+                            
                             <div className="first-line agileits">
                                 {/* <!-- name --> */}
                                 <div className="form-group">
@@ -114,23 +99,23 @@ class ProfileForm extends Component {
                                 <h2>Trading</h2>
                             </div>
                             <div className="col-sm">
-                                {<TradeItemList items={this.state.tradeOffers} />}
+                                {<TradeItemList currId={this.props.uid} />}
                             </div>
                             <div className="col-sm">
-                                {<AddItemForm howToAdd={(event, offer) => this.handleTradeClick(event, offer)} />}
+                                {<TradeItemForm currId={this.props.uid} />}
                             </div>
                         </div>
                         <div className="line"></div>
 
-                        
+
                         <button type="button"
                             className="btn btn-outline-info"
                             onClick={(e) => this.updateUserProfile(e)}>
-                                <NavLink strict to={"/profile/" + this.props.uid}>
-                                Submit Changes
-                                </NavLink>
+                            <NavLink strict to={"/profile/" + this.props.uid}>
+                                Submit All Changes
+                            </NavLink>
                         </button>
-                        
+
                     </div>
                 </div>
             </div >
@@ -139,90 +124,3 @@ class ProfileForm extends Component {
 }
 
 export default ProfileForm;
-
-/**
- * props:
- * uid- asking user id
- * handle- asking user handle
- */
-class ItemForm extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {uid: this.props.uid, 
-                    handle: this.props.handle,
-                    name: "",
-                    price: 0,
-                    desc: ""};
-    }
-
-    componentDidMount() {
-        let wishlistRef = firebase.database().ref('wishlist');
-        wishlistRef.once('value').then((snapshot) => {
-            this.setState({urgency: Object.keys(snapshot.val()).length});
-          });
-    }
-
-    handleInputChange(e) {
-        let field = e.target.name; //which input
-        let value = e.target.value; //what value
-
-        let changes = {}; //object to hold changes
-        changes[field] = value; //change this field
-        this.setState(changes); //update state
-    }
-
-    updateWishList(e) {
-        e.preventDefault();
-
-        // reference to my current profile
-        let newWishlistRef = firebase.database().ref('wishlist').child(this.props.uid);
-        
-        newWishlistRef.update(this.state);
-    }
-
-    render() {
-        return (
-            <div>
-            <div className="col-sm-4">
-                <h1>My Item</h1>
-            </div>
-            <div className="col-sm">
-                <form>
-                    <div className="input-group">
-                        <label className="input-group">Product Name:</label>
-                        <input
-                            type="text"
-                            name="name"
-                            className="form-control"
-                            aria-label="fill in group name"
-                            placeholder="What is it?"
-                            onChange={(e) => this.handleInputChange(e)} />
-
-                        <label className="input-group">Asking Price:</label>
-                        <input onChange={(e) => this.handleInputChange(e)}
-                            type="number"
-                            name="price"
-                            className="form-control"
-                            aria-label="Dollar amount (with dot and two decimal places)" />
-
-                        <label className="input-group">Description:</label>
-                        <textarea
-                            className="form-control"
-                            name="desc"
-                            rows="3"
-                            placeholder="What's its condition? Any special terms?"
-                            onChange={(e) => this.handleInputChange(e)}></textarea>
-                    </div>
-                </form>
-                <Button color="primary" onClick={(e) => {
-                        this.state.id = Math.random().toString(36).substring(7);
-                        this.updateWishList(e)}}>
-                        
-                    submit item
-                </Button>
-            </div>
-            </div>
-        );
-    }
-}

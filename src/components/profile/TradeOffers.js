@@ -1,26 +1,64 @@
 import React, { Component } from 'react'
 import { Button } from 'reactstrap';
 
+import firebase from 'firebase/app';
 
 /**
  * props:
- * items- tradable items 
+ * currId- uid of profile's user
  */
 export class TradeItemList extends Component {
+
+    constructor(props) {
+        super(props);
+
+        /**
+         * state:
+         * tradeOffers- trade items
+         */
+        this.state = {tradeOffers: undefined};
+    }
+
+    handleClick(e, i) {
+        e.preventDefault();
+
+        this.usersRef.child('tradeOffers').child(i).remove();
+    }
+
+    componentDidMount() {
+        this.usersRef = firebase.database().ref('users').child(this.props.currId);
+
+        this.usersRef.on('value', (snapshot) => {
+
+            if (snapshot.val().tradeOffers) {
+                let offers = snapshot.val().tradeOffers;
+
+                let tradeItemArray = Object.keys(offers).map((index) => {
+                    let tradeItem = offers[index];
+                    return (
+                        <div>
+                        <Button color="danger" onClick={ (e) =>  this.handleClick(e, index) } >X</Button>
+                        <TradeItem name={tradeItem.name} 
+                                    key={index}
+                                    desc={tradeItem.desc}
+                                    quantity={tradeItem.quantity} />
+                        </div>
+                    );
+                });
+
+                this.setState({tradeOffers: tradeItemArray});
+            }
+        });
+    }
+
+    componentWillUnmount() {
+        this.usersRef.off();
+    }
    
     render() {
-        let tradeComponents = this.props.items.map((tradable) => {
-            return (
-                <TradeItem name={tradable.name} 
-                            key={tradable.name}
-                            desc={tradable.desc}
-                            quantity={tradable.quantity} />
-            );
-        });
-
         return (
             <ol>
-                {tradeComponents}
+                {this.state.tradeOffers}
             </ol>
         );
     }
@@ -50,9 +88,14 @@ export class TradeItem extends Component {
 
 /**
  * props:
- * howToAdd- callback to add item to list
+ * currId- uid of profile's user
  */
-export class AddItemForm extends Component {
+export class TradeItemForm extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {index: 0};
+    }
 
     handleInputChange(e) {
         let field = e.target.name; //which input
@@ -61,6 +104,37 @@ export class AddItemForm extends Component {
         let changes = {}; //object to hold changes
         changes[field] = value; //change this field
         this.setState(changes); //update state
+    }
+
+    componentDidMount() {
+        this.usersRef = firebase.database().ref('users').child(this.props.currId).child('tradeOffers');
+
+        this.usersRef.once('value').then((snapshot) => {
+            if (snapshot.val()) {
+                this.setState({index: Object.keys(snapshot.val()).length})
+            } else {
+                this.setState({index: 0});
+            }});
+    }
+
+    componentWillUnmount() {
+        this.usersRef.off();
+    }
+
+    handleTradeClick(event) {
+        event.preventDefault();
+
+        let usersRef = firebase.database().ref('users').child(this.props.currId).child('tradeOffers');
+
+        var clone = Object.assign({}, this.state);
+        delete clone.index;
+
+        let toAdd = {};
+        toAdd[this.state.index] = clone;
+
+        usersRef.update(toAdd);
+
+        this.setState({index: this.state.index + 1});
     }
 
     render() {
@@ -92,9 +166,7 @@ export class AddItemForm extends Component {
                     placeholder="What's its condition? Any special terms?"
                     onChange={(e) => this.handleInputChange(e)}></textarea>
             </div>
-            <Button color="primary" onClick={(e) => {
-                    this.state.id = Math.random().toString(36).substring(7);
-                    this.props.howToAdd(e, this.state)}}>
+            <Button color="primary" onClick={(e) => this.handleTradeClick(e) }>
                 submit item
             </Button>
         </form>

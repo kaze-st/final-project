@@ -69,17 +69,6 @@ export default class MoneyForm extends Component {
     // log the donation into the database
     // enters a new transaction into the database
 
-    handleTransaction() {
-        let transactionRef = firebase.database().ref('fundHistory').child(firebase.database.ServerValue.TIMESTAMP);
-
-        let newTransaction = {};
-        newTransaction.amount = this.state.donation;
-        newTransaction.user = this.props.currentUser;
-        newTransaction.time = firebase.database.ServerValue.TIMESTAMP;
-
-        transactionRef.set(newTransaction);
-    }
-
     // save donation in the state
     handleInputChange(e) {
         let field = e.target.name; //which input

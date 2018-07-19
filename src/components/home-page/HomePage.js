@@ -10,12 +10,12 @@ import firebase from 'firebase/app';
 class HomePage extends Component {
     constructor(props) {
         super(props);
-        this.state = { };
+        this.state = {};
     }
 
     componentDidMount() {
         this.userProfilesRef = firebase.database().ref('wishlist');
-        
+
         this.userProfilesRef.on('value', (snapshot) => {
             console.log(snapshot.val());
 
@@ -37,45 +37,50 @@ class HomePage extends Component {
         this.userProfilesRef.off();
     }
 
+    getWeighedUrgency(user) {
+        return user.urgency - (Object.keys(this.userProfilesRef.child(user.uid).child('urgencyVotes')).length);
+    }
+
     render() {
         if (this.state.commitUsers) {
 
-            this.state.commitUsers.sort(function (a, b) {
-                return ((a.urgency ) - ( b.urgency));
+            this.state.commitUsers.sort((a, b) => {
+                return this.getWeighedUrgency(a) - this.getWeighedUrgency(b);
             });
 
             let contributions = this.state.commitUsers.map((user) => {
                 console.log(user);
                 return <CommitmentRow
                     user={user}
-                    key={user.key} 
-                    currId={this.props.currId}/>
+                    urgency={this.getWeighedUrgency(user)}
+                    key={user.key}
+                    currId={this.props.currId} />
             });
 
             /*TODO Alissa pass in the price of the most expensive item*/
             return (
                 <div>
-                    {<MoneyForm currentUser={this.props.currentUser} priceTopItem={undefined}/>}
-                <div className="col-sm overflow-y: auto;" id="pool">
-                    <h2>Fund Pool</h2>
-                    <div className="table-responsive">
-                        <table className="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Name</th>
-                                    <th scope="col">Urgency</th>
-                                    <th scope="col">WishList Item</th>
-                                    <th scope="col">WishList Cost</th>
-                                    <th scope="col">Description</th>
-                                    <th scope="col">Message</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {contributions}
-                            </tbody>
-                        </table>
+                    {<MoneyForm currentUser={this.props.currentUser} priceTopItem={undefined} />}
+                    <div className="col-sm overflow-y: auto;" id="pool">
+                        <h2>Fund Pool</h2>
+                        <div className="table-responsive">
+                            <table className="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Name</th>
+                                        <th scope="col">Urgency</th>
+                                        <th scope="col">WishList Item</th>
+                                        <th scope="col">WishList Cost</th>
+                                        <th scope="col">Description</th>
+                                        <th scope="col">Message</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {contributions}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
-                </div>
                 </div>
             );
         }
@@ -95,8 +100,6 @@ class CommitmentRow extends Component {
 
     constructor(props) {
         super(props);
-
-        this.state = {};
     }
 
     handleUrgency(e) {
@@ -104,10 +107,10 @@ class CommitmentRow extends Component {
 
         let urgencyVotes = firebase.database().ref('wishlist').child(this.props.user.uid);
 
-        let oldVotes = this.state.urgencyVotes;
-        oldVotes === undefined ? oldVotes = {} : oldVotes;
+        let oldVotes = oldVotes === undefined ? {} : oldVotes;
         oldVotes[this.props.currId] = true;
-        urgencyVotes.update({urgencyVotes: oldVotes});
+
+        urgencyVotes.update({ urgencyVotes: oldVotes });
     }
 
     render() {
@@ -119,7 +122,7 @@ class CommitmentRow extends Component {
                 <td className="align-middle">
                     <Link to={"/profile/" + this.props.user.uid}>{this.props.user.handle}</Link>
                 </td>
-                <td className="align-middle"><span><button onClick={(e) => { this.handleUrgency(e)}} className="btn btn-primary">urgent</button></span>{this.props.user.urgency}</td>
+                <td className="align-middle"><span><button onClick={(e) => { this.handleUrgency(e) }} className="btn btn-primary">urgent</button></span>{this.props.urgency}</td>
                 <td className="align-middle">{this.props.user.name}</td>
                 <td className="align-middle">{this.props.user.price}</td>
                 <td className="align-middle">{this.props.user.desc}</td>

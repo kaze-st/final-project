@@ -96,6 +96,7 @@ class ConversationItem extends Component {
         )
     };
 
+
     componentDidUpdate(prevProps, prevState, snapshot) {
         firebase.database().ref('conversation').child(this.props.conversation).limitToLast(1).on("value",
             (snapshot) => {
@@ -124,7 +125,7 @@ class ConversationItem extends Component {
             //
                 .then(() => {
                     this.props.handleContactClick(this.state.receptor);
-                })
+                }).catch((err) =>{alert(err.message)})
 
         }}>
             <div className="chat_people">

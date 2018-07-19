@@ -23,7 +23,7 @@ export class TradeItemList extends Component {
     handleClick(e, i) {
         e.preventDefault();
 
-        this.usersRef.child('tradeOffers').child(i).remove();
+        this.usersRef.child('tradeOffers').child(i).remove().catch((err) =>{alert(err.message)});
     }
 
     componentDidMount() {
@@ -133,7 +133,7 @@ export class TradeItemForm extends Component {
         let toAdd = {};
         toAdd[this.state.index] = clone;
 
-        usersRef.update(toAdd);
+        usersRef.update(toAdd).catch((err) =>{alert(err.message)});
 
         this.setState({index: this.state.index + 1});
     }

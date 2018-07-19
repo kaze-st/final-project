@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
-import {Link} from 'react-router-dom';
 import MoneyForm from './MoneyForm';
-import firebase from 'firebase/app';
 import Table from "./Table";
 
 /**
@@ -28,7 +26,6 @@ class HomePage extends Component {
 
     render() {
 
-        console.log("HOME PAGE priorityItem: ", this.state.priorityItem);
 
 
         return (
@@ -43,7 +40,6 @@ class HomePage extends Component {
             </div>
         );
 
-        return (<div>Loading... </div>);
 
     }
 }

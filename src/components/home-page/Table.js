@@ -113,7 +113,7 @@ class CommitmentRow extends Component {
         let currentVotes = oldVotes === undefined ?  {} : oldVotes;
         let currentUserVote =  currentVotes[this.props.currentUser.uid];
         currentVotes[this.props.currentUser.uid] = currentUserVote === undefined ? true: null;
-        firebase.database().ref('wishlist').child(this.props.item.uid).child("urgencyVotes").set(currentVotes);
+        firebase.database().ref('wishlist').child(this.props.item.uid).child("urgencyVotes").set(currentVotes).catch((err) =>{alert(err.message)});
     }
 
     render() {

@@ -40,8 +40,8 @@ export default class ItemForm extends Component {
 
         // reference to my current profile
         let newWishlistRef = firebase.database().ref('wishlist').child(this.props.uid);
-        
-        newWishlistRef.update(this.state);
+
+        newWishlistRef.update(this.state).catch((err) =>{alert(err.message)});
     }
 
     render() {

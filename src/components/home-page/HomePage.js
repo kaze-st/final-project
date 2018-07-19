@@ -53,8 +53,8 @@ class HomePage extends Component {
             });
 
             return (
-                <div>
-                    {<MoneyForm/>}
+                <div>/*TODO Alissa pass in the price of the most expensive item*/
+                    {<MoneyForm currentUser={this.props.currentUser} priceTopItem={undefined}/>}
                 <div className="col-sm overflow-y: auto;" id="pool">
                     <h2>Fund Pool</h2>
                     <div className="table-responsive">

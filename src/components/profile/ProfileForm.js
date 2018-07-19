@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { TradeItemList, TradeItemForm } from "./TradeOffers";
 import ItemForm from './ItemForm';
 
@@ -16,7 +16,7 @@ class ProfileForm extends Component {
     constructor(props) {
         super(props);
 
-        this.state = {done: false};
+        this.state = {};
     }
 
     handleInputChange(e) {
@@ -37,13 +37,11 @@ class ProfileForm extends Component {
 
         // log profile as completed
         this.props.toggleNewUser();
-        this.setState({done: true});
     }
 
     render() {
         return (
             <div id="content">
-                {this.state.done ? <Redirect exact to={"/profile/" + this.props.uid} ></Redirect> : ""}
                 <div id="profile" className="container-fluid">
 
                     <div className="row">
@@ -121,7 +119,8 @@ class ProfileForm extends Component {
                             onClick={(e) => {
                                     this.updateUserProfile(e)
                                 }}>
-                                Submit All Changes
+                                <Link exact to={"/profile/" + this.props.uid} >Submit All Changes</Link>
+                                
                         </button>
 
                     </div>

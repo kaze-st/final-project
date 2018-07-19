@@ -134,7 +134,7 @@ class CommitmentRow extends Component {
                 <td className="align-middle">{votes}</td>
                 <td className="align-middle"><span><button onClick={(e) => {
                     this.handleUrgency(e)
-                }} className="btn btn-primary">Urgent</button></span>{this.props.item.urgency}</td>
+                }} className="btn btn-primary">Urgent</button></span></td>
 
                 <td className="align-middle">{this.props.item.name}</td>
                 <td className="align-middle">{this.props.item.price}</td>

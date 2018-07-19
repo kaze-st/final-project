@@ -302,8 +302,9 @@ h5.card-title.d-inline.align-middle, h2 {
   border-radius: 10%;
 }
 
-#profile button{
+#profile button, .otherUserButton{
   margin-top: 3px;
+  margin-right: 3px; 
   width: 100%;
 }
 

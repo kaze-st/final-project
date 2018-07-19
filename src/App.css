@@ -328,6 +328,11 @@ footer{
   color: #2F2933;
 }
 
+.tradeItemButtonClose{
+  width: 38px !important;
+  float: right;
+}
+
 
 
 /* ---------------------------------------------------

@@ -38,7 +38,7 @@ export class TradeItemList extends Component {
                     let tradeItem = offers[index];
                     return (
                         <div>
-                        {this.props.loggedId === this.props.currId ? <Button color="danger" onClick={ (e) =>  this.handleClick(e, index) } >X</Button> : ""}
+                        {this.props.loggedId === this.props.currId ? <Button className="tradeItemButtonClose" color="danger" onClick={ (e) =>  this.handleClick(e, index) } >X</Button> : ""}
                         <TradeItem name={tradeItem.name} 
                                     key={index}
                                     desc={tradeItem.desc}

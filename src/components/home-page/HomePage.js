@@ -11,7 +11,7 @@ class HomePage extends Component {
     }
 
     componentDidMount() {
-        this.userProfilesRef = firebase.database().ref('users');
+        this.userProfilesRef = firebase.database().ref('wishlist');
         
         this.userProfilesRef.on('value', (snapshot) => {
             console.log(snapshot.val());
@@ -42,12 +42,9 @@ class HomePage extends Component {
             });
 
             let contributions = this.state.commitUsers.map((user) => {
+                console.log(user);
                 return <CommitmentRow
-                    displayName={user.handle}
-                    contribution={user.contribution}
-                    id={user.key}
-                    item={user.itemName}
-                    itemCost={user.itemCost}
+                    user={user}
                     key={user.key} />
             });
 
@@ -64,6 +61,7 @@ class HomePage extends Component {
                                     <th scope="col">Urgency</th>
                                     <th scope="col">WishList Item</th>
                                     <th scope="col">WishList Cost</th>
+                                    <th scope="col">Description</th>
                                     <th scope="col">Message</th>
                                 </tr>
                             </thead>
@@ -82,18 +80,27 @@ class HomePage extends Component {
     }
 }
 
+
+/**
+ * props:
+ * user- user object
+ */
 class CommitmentRow extends Component {
 
     render() {
+        /**
+         * user info: urgency, handle, uid, item stats
+         */
         return (
             <tr>
                 <td className="align-middle">
-                    <Link to={"/profile/" + this.props.id}>{this.props.displayName}</Link>
+                    <Link to={"/profile/" + this.props.user.uid}>{this.props.user.handle}</Link>
                 </td>
-                <td className="align-middle">{this.props.rank}</td>
-                <td className="align-middle">{this.props.item}</td>
-                <td className="align-middle">{this.props.itemCost}</td>
-                <td className="align-middle"><Link to={"/personal-chat/" + this.props.id} className="btn btn-primary">Message</Link></td>
+                <td className="align-middle">{this.props.user.urgency}</td>
+                <td className="align-middle">{this.props.user.name}</td>
+                <td className="align-middle">{this.props.user.price}</td>
+                <td className="align-middle">{this.props.user.desc}</td>
+                <td className="align-middle"><Link to={"/personal-chat/" + this.props.user.uid} className="btn btn-primary">Message</Link></td>
             </tr>
         );
     }

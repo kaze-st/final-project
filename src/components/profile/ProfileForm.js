@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { TradeItemList, AddItemForm } from "./TradeOffers";
+import { Button } from 'reactstrap';
 
 import firebase from 'firebase/app';
 
 /**
  * props:
  * uid- uid of editing user
+ * handle- handle of editing user
  * toggleNewUser- callback to declare user profile filled out
  */
 class ProfileForm extends Component {
@@ -53,14 +55,14 @@ class ProfileForm extends Component {
                     <div className="row">
 
                         <div className="col-sm-4">
-                            <h1>Personal Info</h1>
+                            <h2>Personal Info</h2>
 
                         </div>
-                        <div className="col-sm">
+                        <div className="col">
                             {/* <!-- start avatar and bio --> */}
 
                             <form>
-
+                                <div className="col-sm">
                                 <div className="form-group">
                                     <label htmlFor="firstname">Profile Picture URL</label>
                                     <input onChange={(e) => this.handleInputChange(e)}
@@ -70,6 +72,8 @@ class ProfileForm extends Component {
                                         placeholder="Url here"
                                         aria-label="fill in profile picture URL" />
                                 </div>
+                                </div>
+                                <div className="col-sm">
                                 <div className="form-group">
                                     <label htmlFor="personal information">Personal Bio</label>
                                     <textarea className="form-control"
@@ -77,13 +81,14 @@ class ProfileForm extends Component {
                                         rows="3"
                                         onChange={(e) => this.handleInputChange(e)}></textarea>
                                 </div>
+                                </div>
                             </form>
                             {/* <!-- end avatar and bio --> */}
                         </div>
-                        <div className="col-sm">
+                        <div className="row">
                             <div className="first-line agileits">
                                 {/* <!-- name --> */}
-                                <div className="col-md-6 form-group">
+                                <div className="form-group">
                                     <label htmlFor="name">Full Name</label>
                                     <input onChange={(e) => this.handleInputChange(e)}
                                         type="text"
@@ -98,45 +103,15 @@ class ProfileForm extends Component {
                     </div>
                     <div className="row">
                         {/* item requested */}
-                        <div className="col-sm-4">
-                            <h1>My Item</h1>
-                        </div>
-                        <div classnName="col-sm">
-                            <form>
-                                <div className="input-group">
-                                    <label className="input-group">Product Name:</label>
-                                    <input
-                                        type="text"
-                                        name="itemName"
-                                        className="form-control"
-                                        aria-label="fill in group name"
-                                        placeholder="What is it?"
-                                        onChange={(e) => this.handleInputChange(e)} />
+                        {<ItemForm uid={this.props.uid} handle={this.props.handle} />}
 
-                                    <label className="input-group">Asking Price:</label>
-                                    <input onChange={(e) => this.handleInputChange(e)}
-                                        type="number"
-                                        name="itemCost"
-                                        className="form-control"
-                                        aria-label="Dollar amount (with dot and two decimal places)" />
-
-                                    <label className="input-group">Description:</label>
-                                    <textarea
-                                        className="form-control"
-                                        name="itemDesc"
-                                        rows="3"
-                                        placeholder="What's its condition? Any special terms?"
-                                        onChange={(e) => this.handleInputChange(e)}></textarea>
-                                </div>
-                            </form>
-                        </div>
                         <div className="line"></div>
 
                         {/* <!-- trading --> */}
 
                         <div className="row">
                             <div className="col-sm-4">
-                                <h1>Trading</h1>
+                                <h2>Trading</h2>
                             </div>
                             <div className="col-sm">
                                 {<TradeItemList items={this.state.tradeOffers} />}
@@ -147,13 +122,15 @@ class ProfileForm extends Component {
                         </div>
                         <div className="line"></div>
 
+                        
                         <button type="button"
                             className="btn btn-outline-info"
                             onClick={(e) => this.updateUserProfile(e)}>
-                            <NavLink exact to={"/profile/" + this.props.uid}>
+                                <NavLink strict to={"/profile/" + this.props.uid}>
                                 Submit Changes
-                            </NavLink>
+                                </NavLink>
                         </button>
+                        
                     </div>
                 </div>
             </div >
@@ -162,3 +139,90 @@ class ProfileForm extends Component {
 }
 
 export default ProfileForm;
+
+/**
+ * props:
+ * uid- asking user id
+ * handle- asking user handle
+ */
+class ItemForm extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {uid: this.props.uid, 
+                    handle: this.props.handle,
+                    name: "",
+                    price: 0,
+                    desc: ""};
+    }
+
+    componentDidMount() {
+        let wishlistRef = firebase.database().ref('wishlist');
+        wishlistRef.once('value').then((snapshot) => {
+            this.setState({urgency: Object.keys(snapshot.val()).length});
+          });
+    }
+
+    handleInputChange(e) {
+        let field = e.target.name; //which input
+        let value = e.target.value; //what value
+
+        let changes = {}; //object to hold changes
+        changes[field] = value; //change this field
+        this.setState(changes); //update state
+    }
+
+    updateWishList(e) {
+        e.preventDefault();
+
+        // reference to my current profile
+        let newWishlistRef = firebase.database().ref('wishlist').child(this.props.uid);
+        
+        newWishlistRef.update(this.state);
+    }
+
+    render() {
+        return (
+            <div>
+            <div className="col-sm-4">
+                <h1>My Item</h1>
+            </div>
+            <div className="col-sm">
+                <form>
+                    <div className="input-group">
+                        <label className="input-group">Product Name:</label>
+                        <input
+                            type="text"
+                            name="name"
+                            className="form-control"
+                            aria-label="fill in group name"
+                            placeholder="What is it?"
+                            onChange={(e) => this.handleInputChange(e)} />
+
+                        <label className="input-group">Asking Price:</label>
+                        <input onChange={(e) => this.handleInputChange(e)}
+                            type="number"
+                            name="price"
+                            className="form-control"
+                            aria-label="Dollar amount (with dot and two decimal places)" />
+
+                        <label className="input-group">Description:</label>
+                        <textarea
+                            className="form-control"
+                            name="desc"
+                            rows="3"
+                            placeholder="What's its condition? Any special terms?"
+                            onChange={(e) => this.handleInputChange(e)}></textarea>
+                    </div>
+                </form>
+                <Button color="primary" onClick={(e) => {
+                        this.state.id = Math.random().toString(36).substring(7);
+                        this.updateWishList(e)}}>
+                        
+                    submit item
+                </Button>
+            </div>
+            </div>
+        );
+    }
+}

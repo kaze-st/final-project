@@ -71,7 +71,7 @@ class ProfilePage extends Component {
                 <div id="profile" className="container-fluid">
                     <div id="profileHeader">
                     <HelpModal name="Profile Page" desc={PAGE_DESC}/>
-                        <h2>{this.state.userProfileData.handle + "s' Profile Page"}</h2>
+                        <h2>{this.state.userProfileData.handle + "'s Profile Page"}</h2>
                         
                     </div>
                     {this.state.userProfileData.avatar &&

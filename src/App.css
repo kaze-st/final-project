@@ -7,8 +7,9 @@ body {
 }
 
 td, tr{
-  width: 100%;
+  width: auto;
 }
+
 
 p {
   font-size: 1.1em;
@@ -313,6 +314,19 @@ footer{
   left: 0;
 }
 
+.input-group button, tr button{
+  margin: 2px;
+}
+
+#tradeItemModal{
+  float: right;
+}
+
+#total{
+  font-size: 2rem;
+  color: #2F2933;
+}
+
 
 
 /* ---------------------------------------------------
@@ -416,7 +430,7 @@ footer{
 }
 
 .sent_msg p {
-  background: #29D9C2 none repeat scroll 0 0;
+  background: #47748b none repeat scroll 0 0;
   border-radius: 3px;
   font-size: 14px;
   margin: 0; color:#fff;

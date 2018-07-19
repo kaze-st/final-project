@@ -3,7 +3,7 @@ import MoneyForm from './MoneyForm';
 import Table from "./Table";
 import HelpModal from '../HelpModal';
 
-const PAGE_DESC = "This is the home page. Here, you can see everyone's requested items along with their priority. If you think one is really important (like a medical bill), you can vote it \"urgent\" to help them skip ahead a bit. Otherwise, each new item will be sent to the back of the line. You can pledge money to the pool to help whoever's next in line to afford their item, or vote to block that item if you disapprove of their purchase. Everyone gets a voice.";
+const PAGE_DESC = "This is the home page. Here, you can see everyone's requested items along with their priority. If you think one is really important (like a medical bill), you can vote it \"urgent\" to help them skip ahead a bit. Otherwise, each new item will be sent to the back of the line. You can pledge money to the pool to help whoever's next in line to afford their item, or vote to block that item if you disapprove of their purchase. If more than 50% of people in the pool disapprove, the purchase will be blocked. Everyone gets a voice.";
 
 /**
  * props:

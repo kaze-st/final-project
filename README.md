@@ -23,4 +23,5 @@ solved at the moment. Personal shopper apps exist, but they tend to target high-
 none integrate bartering or fund sharing which are features uniquely beneficial to the group we
 intend to service.
 
-Please click the link for the demo: <https://info343-su18.github.io/final-project/>
+This app is created by **Alissa Adornato & Emily Ding & William Fu & Hao Chen** for _INFO343 Client-Side Web Development_ Final Project
+Please click the link for the demo: <https://kaze-st.github.io/final-project/>

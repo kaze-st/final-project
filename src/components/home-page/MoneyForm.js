@@ -43,7 +43,6 @@ export default class MoneyForm extends Component {
         newFund.userId = this.props.currentUser.uid;
         newFund.time = firebase.database.ServerValue.TIMESTAMP;
 
-        firebase.database().ref('fundHistory').push(newFund).catch((err) =>{alert(err.message)});
         this.refFund.set(amount + this.state.availableFunds).catch((err) =>{alert(err.message)});
     }
 

@@ -110,12 +110,16 @@ export default class MoneyForm extends Component {
 
         listRef.once('value').then((snapshot) => {
             let wishes = snapshot.val();
-            Object.keys(wishes).forEach((index) => {
-                let wish = wishes[index];
-                wish.urgency -= 1;
-            });
+            if (snapshot.val()) {
+                Object.keys(wishes).forEach((index) => {
+                    let wish = wishes[index];
+                    wish.urgency -= 1;
+                });
 
-            listRef.update(wishes).catch((err) =>{alert(err.message)});
+                listRef.update(wishes).catch((err) => {
+                    alert(err.message)
+                });
+            }
         });
     }
 

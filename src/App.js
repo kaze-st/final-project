@@ -32,6 +32,7 @@ class App extends Component {
             (firebaseUser) => {
                 if (firebaseUser) {
                     this.setState({user: firebaseUser, loading: false});
+                    
                 } else {
                     this.setState({user: null, loading: false});
                 }
